@@ -1,0 +1,14 @@
+
+--- [2026-03-23T11:49:35.479Z] ---
+ValidationError: User validation failed: mobileNo: Path `mobileNo` is required.
+    at Document.invalidate (E:\prd\app\VMS\backend\node_modules\mongoose\lib\document.js:3221:32)
+    at E:\prd\app\VMS\backend\node_modules\mongoose\lib\document.js:3014:17
+    at E:\prd\app\VMS\backend\node_modules\mongoose\lib\schematype.js:1368:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+
+--- [2026-03-23T11:50:01.660Z] ---
+ValidationError: User validation failed: mobileNo: Path `mobileNo` is required.
+    at Document.invalidate (E:\prd\app\VMS\backend\node_modules\mongoose\lib\document.js:3221:32)
+    at E:\prd\app\VMS\backend\node_modules\mongoose\lib\document.js:3014:17
+    at E:\prd\app\VMS\backend\node_modules\mongoose\lib\schematype.js:1368:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)

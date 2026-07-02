@@ -1,0 +1,21 @@
+---
+title: N9000 face target configuration
+---
+
+flowchart TD
+    A(Device SDK initialization <br><strong>NET_SDK_Init</strong>)
+    B(User registers device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+    C{"Whether face matching is supported"}
+    CC(Call interface <br><strong>NET_SDK_FaceMatchOperate</strong>)
+    C2(Query face group list <br><strong>NET_SDK_GET_FACE_INFO_GROUP_LIST</strong><hr>add face group <br><strong>NET_SDK_ADD_FACE_INFO_GROUP</strong><hr>modify face group <br><strong>NET_SDK_SET_FACE_INFO_GROUP</strong><hr>delete face group <br><strong>NET_SDK_DEL_FACE_INFO_GROUP</strong>)
+    C11(Query face list <br><strong>NET_SDK_GET_FACE_INFO_LIST</strong><hr>Add face <br><strong>NET_SDK_ADD_FACE_INFO</strong><hr>Modify face <br><strong>NET_SDK_SET_FACE_INFO</strong><hr>Delete face <br><strong>NET_SDK_DEL_FACE_INFO</strong>)
+    C01(Query face image list <br><strong>NET_SDK_SEARCH_CH_SNAP_FACE_IMG_LIST</strong><hr>Query face image <br><strong>NET_SDK_SEARCH_CH_SNAP_FACE_IMG</strong><hr>Search image by image <br><strong>NET_SDK_SEARCH_IMAGE_BY_IMG</strong><br><strong>NET_SDK_SEARCH_IMAGE_BY_IMG_V2</strong>)
+
+    E(User business logic <br>...)
+    F(Log out device <br><strong>NET_SDK_Logout</strong>)
+    G(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+
+    A ---> B ----> C ---> |Yes| CC ---> C2 ---> E ---> F --> G
+    C -- No ---> F
+    CC ---> C01 ---> E
+    CC ---> C11 ---> E

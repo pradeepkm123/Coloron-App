@@ -1,0 +1,37 @@
+---
+title: 语音对讲和转发
+---
+
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryTextColor': 'var(--md-mermaid-label-fg-color)',
+    }
+  }
+}%%
+
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+    C("启动语音对讲<br><strong>NET_SDK_StartVoiceCom</strong>")
+    D("启动语音转发<br><strong>NET_SDK_StartVoiceCom_MR</strong>")
+
+    subgraph 音频数据编码
+        C1(初始化音频编码器<br><strong>NET_SDK_InitAudioEncoder</strong>)
+        C2(音频编码<br><strong>NET_SDK_EncodeAudioFrame</strong>)
+        C3(释放音频编码资源<br><strong>NET_SDK_ReleaseAudioEncoder</strong>)
+        C1 --> C2 --> C3
+    end
+
+    E("发送音频数据<br><strong>NET_SDK_VoiceComSendData</strong>")
+
+    style 音频数据编码 fill:#e7b13387,stroke:#f66,stroke-width:2px,stroke-dasharray: 5
+    
+    X("停止语音对讲或语音转发<br><strong>NET_SDK_StopVoiceCom</strong>")
+    Y(注销设备<br><strong>NET_SDK_Logout</strong>)
+    Z(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> C ----> X --> Y --> Z
+    B ---> D --> 音频数据编码 --> E ---> X
+    

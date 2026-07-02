@@ -1,0 +1,21 @@
+---
+title: N9000人脸目标配置
+---
+
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+    C{"是否支持人脸比对"}
+    CC(调用接口<br><strong>NET_SDK_FaceMatchOperate</strong>)
+    C2(查询人脸组列表<br><strong>NET_SDK_GET_FACE_INFO_GROUP_LIST</strong><hr>增加人脸组<br><strong>NET_SDK_ADD_FACE_INFO_GROUP</strong><hr>修改人脸组<br><strong>NET_SDK_SET_FACE_INFO_GROUP</strong><hr>删除人脸组<br><strong>NET_SDK_DEL_FACE_INFO_GROUP</strong>)
+    C11(查询人脸列表<br><strong>NET_SDK_GET_FACE_INFO_LIST</strong><hr>增加人脸<br><strong>NET_SDK_ADD_FACE_INFO</strong><hr>修改人脸<br><strong>NET_SDK_SET_FACE_INFO</strong><hr>删除人脸<br><strong>NET_SDK_DEL_FACE_INFO</strong>)
+    C01(查询人脸图片列表<br><strong>NET_SDK_SEARCH_CH_SNAP_FACE_IMG_LIST</strong><hr>查询人脸图片<br><strong>NET_SDK_SEARCH_CH_SNAP_FACE_IMG</strong><hr>以图搜图<br><strong>NET_SDK_SEARCH_IMAGE_BY_IMG</strong><br><strong>NET_SDK_SEARCH_IMAGE_BY_IMG_V2</strong>)
+
+    E(用户业务逻辑<br>...)
+    F(注销设备<br><strong>NET_SDK_Logout</strong>)
+    G(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+
+    A ---> B ----> C ---> |Yes| CC --->  C2  ---> E ---> F --> G
+    C -- No ---> F
+    CC ---> C01 ---> E
+    CC ---> C11 ---> E

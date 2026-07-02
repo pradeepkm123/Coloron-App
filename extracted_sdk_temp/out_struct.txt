@@ -1,0 +1,140 @@
+## Code:
+ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 
+
+
+## Tables:
+Table 1:
+1 
+  2 
+  3 
+  4 
+  5 
+  6 
+  7 
+  8 
+  9 
+ 10 
+ 11 
+ 12 
+ 13 
+ 14 
+ 15 
+ 16 
+ 17 
+ 18 
+ 19 
+ 20 
+ 21 | typedef     struct     _net_sdk_ipc_device_info_ 
+  {
+         unsigned     int    deviceID;          
+         unsigned     short    channel;         
+         unsigned     char    guid[ 48 ];         
+         unsigned     short    status;          
+         char    szEtherName[ 16 ];           
+         char    szServer[ 64 ];              
+         unsigned     short    nPort;           
+         unsigned     short    nHttpPort;       
+         unsigned     short    nCtrlPort;       
+         char    szID[ 64 ];                  
+         char    username[ 36 ];              
+         unsigned     int    manufacturerId;    
+         char    manufacturerName[ 36 ];      
+         char    productModel[ 36 ];          
+         unsigned     char    bUseDefaultCfg;   
+         unsigned     char    bPOEDevice;       
+         unsigned     char    resv[ 2 ];          
+         char    szChlname[ 36 ];             
+  }   NET_SDK_IPC_DEVICE_INFO;
+
+Table 2:
+1 
+  2 
+  3 
+  4 
+  5 
+  6 
+  7 
+  8 
+  9 
+ 10 
+ 11 
+ 12 
+ 13 
+ 14 
+ 15 
+ 16 
+ 17 
+ 18 
+ 19 
+ 20 
+ 21 
+ 22 
+ 23 
+ 24 
+ 25 
+ 26 
+ 27 
+ 28 
+ 29 
+ 30 
+ 31 
+ 32 
+ 33 
+ 34 
+ 35 | [StructLayout(LayoutKind.Sequential, Pack = 4)] 
+   public     struct     NET_SDK_IPC_DEVICE_INFO 
+  {
+         public    UInt32   deviceID;
+         public    UInt16   channel;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 48)] 
+         public     byte []   guid;
+         public    UInt16   status;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 16)] 
+         public     byte []   szEtherName;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 64)] 
+         public     byte []   szServer;
+         public    UInt16   nPort;
+         public    UInt16   nHttpPort;
+         public    UInt16   nCtrlPort;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 64)] 
+         public     byte []   szID;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 36)] 
+         public     byte []   username;
+         public    UInt32   manufacturerId;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 36)] 
+         public     byte []   manufacturerName;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 36)] 
+         public     byte []   productModel;
+         public     byte    bUseDefaultCfg;
+         public     byte    bPOEDevice;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 2)] 
+         public     byte []   resv;
+         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 36)] 
+         public     byte []   szChlname;
+         public     static     int     GetSize ()
+        {
+             return    Marshal.SizeOf( typeof (NET_SDK_IPC_DEVICE_INFO));
+        }
+  }
+
+Table 3:
+Member | Type | Remark
+deviceID | unsigned int | Device ID (not used yet).
+channel | unsigned short | The locally assigned channel for this network device (starting from 0).
+guid | unsigned char[48] | The GUID of the channel.
+status | unsigned short | Connection status (0 for offline, 1 for online).
+szEtherName | char[16] | If empty, defaults to eth0.
+szServer | char[64] | IP address of the network device.
+nPort | unsigned short | Network device port number.
+nHttpPort | unsigned short | HTTP port.
+nCtrlPort | unsigned short | Control port, generally the same as nPort.
+szID | char[64] | Network device identifier (or MAC address).
+username | char[36] | Username.
+manufacturerId | unsigned int | Device manufacturer ID (not used yet).
+manufacturerName | char[36] | Device manufacturer name (not used yet).
+productModel | char[36] | Product model (not used yet).
+bUseDefaultCfg | unsigned char | Not used yet.
+bPOEDevice | unsigned char | Not used yet.
+resv | unsigned char[2] | Not used yet.
+szChlname | char[36] | Channel name.
+

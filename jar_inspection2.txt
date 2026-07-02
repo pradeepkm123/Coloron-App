@@ -1,0 +1,39 @@
+=== dvrsdk.jar Inspection 2 ===
+
+Class: com.sdk.interfance.NET_SDK_EVENT
+Fields:
+  int chnn
+  int type
+  java.util.Date startTime
+  java.util.Date endTime
+Methods:
+  void setType(int)
+  void setStartTime(int, int, int, int, int, int)
+  void setChnn(int)
+  void setEndTime(int, int, int, int, int, int)
+
+Class: com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO
+Fields:
+  int iWidth
+  int iHeight
+  int iPicFormat
+  int iPicSize
+  [B img
+Methods:
+  void setImgData([B)
+
+Class: com.sdk.interfance.bean.N9000SmartCommonContainer
+Fields:
+  int userId
+  com.sdk.interfance.NET_SDK_EVENT event
+  com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO fullPicInfo
+  [Lcom.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO; snapPicInfo
+Methods:
+
+Class: com.sdk.interfance.bean.NET_SDK_RECT
+Fields:
+  int x1
+  int y1
+  int x2
+  int y2
+Methods:

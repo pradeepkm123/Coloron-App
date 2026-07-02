@@ -1,0 +1,20 @@
+---
+title: Video Capture
+---
+flowchart TD
+    A(Device SDK initialization <br><strong>NET_SDK_Init</strong>)
+    B(User registration device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+    C("Capture JPEG image data <br><strong>NET_SDK_CaptureJPEGData_V2</strong>")
+    D("Capture JPEG image file <br><strong>NET_SDK_CaptureJPEGFile_V2</strong>")
+    E("...")
+    F("Search for pictures <br><strong>NET_SDK_SearchPictures</strong>")
+    G("Download the searched pictures <br><strong>NET_SDK_DownloadPicture</strong>")
+    Y(Logout device <br><strong>NET_SDK_Logout</strong>)
+    Z(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+    A --> B
+    Y --> Z
+    B ---> C ---> Y
+    B ---> D ---> Y
+    B ---> E ---> Y
+    B ---> F ---> Y
+    B ---> G ---> Y

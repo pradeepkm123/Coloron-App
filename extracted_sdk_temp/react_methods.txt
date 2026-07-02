@@ -1,0 +1,164 @@
+Line 36: @ReactMethod
+    public void initSDK(Promise promise) {
+    try {
+    if (mNVRSDK == null) {
+    mNVRSDK = nvrsdk.getInstance(getReactApplicationContext());
+Line 192: @ReactMethod
+    public void loginDevice(String ip, int port, String username, String password, int loginType, String sn,
+    boolean isWifi, Promise promise) {
+    new Thread(() -> {
+    try {
+Line 221: @ReactMethod
+    public void getChannels(int userId, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 304: @ReactMethod
+    public void getDeviceInfo(int userId, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 343: @ReactMethod
+    public void startRealPlay(int userId, int channelId, int streamType, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 392: @ReactMethod
+    public void stopRealPlay(String handleStr, Promise promise) {
+    try {
+    long handle = Long.parseUnsignedLong(handleStr);
+    if (mNVRSDK != null) {
+Line 412: @ReactMethod
+    public void logout(int userId, Promise promise) {
+    try {
+    if (mNVRSDK != null) {
+    mNVRSDK.Logout(userId);
+Line 424: @ReactMethod
+    public void checkConnect(String ip, int port, int timeout, Promise promise) {
+    new Thread(() -> {
+    java.net.Socket socket = null;
+    try {
+Line 446: @ReactMethod
+    public void ptzControl(String handleStr, int action, int param, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 465: @ReactMethod
+    public void ptzControlOther(int userId, int channelId, int action, int param, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 482: @ReactMethod
+    public void ptzPreset(String handleStr, int action, int index, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 498: @ReactMethod
+    public void getVideoEffect(int userId, String handleStr, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 523: @ReactMethod
+    public void setVideoEffect(int userId, String handleStr, int b, int c, int s, int h, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 539: @ReactMethod
+    public void saveVideoEffect(int userId, String handleStr, int b, int c, int s, int h, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 555: @ReactMethod
+    public void startAudio(int userId, int channelId, Promise promise) {
+    String key = userId + "_" + channelId;
+    Long handle = mActiveHandles.get(key);
+    if (handle != null) {
+Line 567: @ReactMethod
+    public void stopAudio(int userId, int channelId, Promise promise) {
+    String key = userId + "_" + channelId;
+    Long handle = mActiveHandles.get(key);
+    if (handle != null) {
+Line 580: @ReactMethod
+    public void setAudioMute(String handleStr, boolean mute, Promise promise) {
+    try {
+    long handle = Long.parseUnsignedLong(handleStr);
+    boolean success;
+Line 596: @ReactMethod
+    public void listLocalFiles(String folderPath, Promise promise) {
+    try {
+    String absolutePath = resolvePath(folderPath);
+    java.io.File dir = new java.io.File(absolutePath);
+Line 631: @ReactMethod
+    public void deleteLocalFile(String path, Promise promise) {
+    try {
+    java.io.File file = new java.io.File(resolvePath(path));
+    if (file.exists()) {
+Line 651: @ReactMethod
+    public void getVideoThumbnail(String path, Promise promise) {
+    try {
+    String absolutePath = resolvePath(path);
+    // Check if manual thumb exists first
+Line 679: @ReactMethod
+    public void saveMediaToPublic(String path, String type, Promise promise) {
+    // Implementation for public gallery saving
+    // For now, return path as we already have scanFile
+    promise.resolve(path);
+Line 686: @ReactMethod
+    public void captureSnapshot(int userId, int channelId, String path, Promise promise) {
+    String key = userId + "_" + channelId;
+    Long handle = mActiveHandles.get(key);
+    
+Line 723: @ReactMethod
+    public void captureSnapshotWithHandle(int userId, int channelId, String path, String handleStr, Promise promise) {
+    try {
+    long handle = Long.parseUnsignedLong(handleStr);
+    String absolutePath = resolvePath(path);
+Line 748: @ReactMethod
+    public void startLocalRecord(String handleStr, String path, Promise promise) {
+    try {
+    long handle = Long.parseUnsignedLong(handleStr);
+    VideoPlayer player = NvrVideoViewManager.sActivePlayers.get(handle);
+Line 770: @ReactMethod
+    public void makeKeyFrame(int userId, int channelId, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) {
+Line 785: @ReactMethod
+    public void stopLocalRecord(String handleStr, Promise promise) {
+    try {
+    long handle = Long.parseUnsignedLong(handleStr);
+    VideoPlayer player = NvrVideoViewManager.sActivePlayers.get(handle);
+Line 801: @ReactMethod
+    public void scanFile(String path, Promise promise) {
+    try {
+    String absolutePath = resolvePath(path);
+    android.media.MediaScannerConnection.scanFile(getReactApplicationContext(),
+Line 814: @ReactMethod
+    public void findFiles(int userId, int channelId, String startTime, String endTime, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) mNVRSDK = nvrsdk.getInstance(getReactApplicationContext());
+Line 849: @ReactMethod
+    public void queryRecordingDays(int userId, int channelId, int year, int month, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) mNVRSDK = nvrsdk.getInstance(getReactApplicationContext());
+Line 879: @ReactMethod
+    public void searchRecordings(int userId, int channelId, String startTime, String endTime, Promise promise) {
+    findFiles(userId, channelId, startTime, endTime, promise);
+    }
+Line 884: @ReactMethod
+    public void startPlayback(int userId, int channelId, String startTime, String endTime, int streamType, Promise promise) {
+    new Thread(() -> {
+    try {
+    if (mNVRSDK == null) mNVRSDK = nvrsdk.getInstance(getReactApplicationContext());
+Line 938: @ReactMethod
+    public void stopPlayback(String handleStr, Promise promise) {
+    new Thread(() -> {
+    try {
+    long handle = Long.parseUnsignedLong(handleStr);
+Line 955: @ReactMethod
+    public void playbackControl(String handleStr, int controlType, int param, Promise promise) {
+    new Thread(() -> {
+    try {
+    long handle = Long.parseUnsignedLong(handleStr);

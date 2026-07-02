@@ -1,0 +1,28 @@
+13: private com.sdk.interfance.NVRSDKCallback mNVRSDKCallback;
+14: descriptor: Lcom/sdk/interfance/NVRSDKCallback;
+208: public boolean SetRegisterCallback(java.lang.String);
+229: public boolean SetLiveDataCallBack(long, java.lang.String);
+232: public boolean SetPlayDataCallBack(java.lang.String);
+256: public boolean SetDVRMessCallBack(java.lang.String);
+628: private static native boolean setRegisterCallback(java.lang.String);
+649: private static native boolean setLiveDataCallBack(long, java.lang.String);
+652: private static native boolean setPlayDataCallBack(java.lang.String);
+676: private static native boolean setDVRMessCallBack(java.lang.String);
+877: public void SetCallback(com.sdk.interfance.NVRSDKCallback);
+878: descriptor: (Lcom/sdk/interfance/NVRSDKCallback;)V
+880: public void exceptionCallback(int, int, int);
+883: public void acceptRegisterCallback(int, int, com.sdk.interfance.NET_SDK_DEVICEINFO[]);
+886: public void liveCallBack(java.lang.Object, int, byte[]);
+892: public void talkDataCallback(int, int, byte[]);
+895: private void alarmVFDCallback(com.sdk.interfance.bean.N900AlarmVFDContainer);
+898: private void alarmAVDCallback(com.sdk.interfance.bean.NET_SDK_IVE_AVD_T);
+901: private void alarmFaceMatchCallback(com.sdk.interfance.bean.NET_SDK_IVE_FACE_MATCH_T);
+904: private void alarmFaceMatchIPCCallback(com.sdk.interfance.bean.N900AlarmFaceIPCContainer);
+907: private void alarmASDCallback(com.sdk.interfance.bean.N9000SmartASDContainer);
+910: private void alarmPVDCallback(com.sdk.interfance.bean.N9000SmartCommonContainer);
+913: private void alarmLoiterCallback(com.sdk.interfance.bean.N9000SmartCommonContainer);
+916: private void alarmIpcAOIENTRYCallback(com.sdk.interfance.bean.N9000SmartCommonContainer);
+919: private void alarmIpcAOILEAVECallback(com.sdk.interfance.bean.N9000SmartCommonContainer);
+922: private void alarmNvrAOIENTRYCallback(com.sdk.interfance.bean.N9000SmartCommonContainer);
+925: private void alarmNvrAOILEAVECallback(com.sdk.interfance.bean.N9000SmartCommonContainer);
+928: private void alarmVSDCallback(com.sdk.interfance.bean.N9000SmartVSDContainer);

@@ -1,0 +1,13 @@
+---
+title: 接收设备注册连接
+---
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(添加上报设备的信息<br><strong>NET_SDK_AddRegisterDeviceInfo</strong>)
+    C(在设备Web页面配置好上报参数)
+    D(设置监听上报的端口<br><strong>NET_SDK_SetRegisterPort</strong>)
+    E(设置设备上报成功回调函数<br><strong>NET_SDK_SetRegisterCallback</strong>)
+    F(设置设备断开上报回调函数<br><strong>NET_SDK_SetUnRegisterCallback</strong>)
+    G(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+    style C fill:#e7b13387
+    A --> B --> C --> D --> E --> F --> G

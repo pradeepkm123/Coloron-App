@@ -1,0 +1,16 @@
+---
+title: IPC Face Target Configuration
+---
+
+flowchart TD
+    A(Device SDK initialization <br><strong>NET_SDK_Init</strong>)
+    B(User registration device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+    C{Support matching?}
+    D(Call interface <br><strong>NET_SDK_FaceMatchOperate</strong>)
+    C0(Query face list <br><strong>NET_SDK_GET_FACE_INFO_LIST</strong><hr>Add face <br><strong>NET_SDK_ADD_FACE_INFO</strong><hr>Modify face <br><strong>NET_SDK_SET_FACE_INFO</strong><hr>Delete face <br><strong>NET_SDK_DEL_FACE_INFO</strong>)
+    E(User business logic<br>...)
+    F(Log out of device<br><strong>NET_SDK_Logout</strong>)
+    G(Release SDK resources<br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> C ---> |Yes| D --> |Command| C0  --> E --> F --> G
+    C -- No --> F

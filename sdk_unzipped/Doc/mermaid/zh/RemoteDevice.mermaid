@@ -1,0 +1,28 @@
+---
+title: 远程设备维护
+---
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+
+    C("获取设备工作状态<br>...")
+    D("设备远程升级<br><strong>NET_SDK_Upgrade</strong>")
+    E("设备日志查找<br><strong>NET_SDK_FindDVRLog</strong>")
+    F("恢复设备默认配置<br><strong>NET_SDK_RestoreConfig</strong>")
+    G("导入配置文件<br><strong>NET_SDK_GetConfigFile</strong>")
+    H("导出配置文件<br><strong>NET_SDK_SetConfigFile</strong>")
+    style C fill:#e7b13387
+
+    Y(注销设备<br><strong>NET_SDK_Logout</strong>)
+    Z(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+
+    
+    A --> B
+    Y --> Z
+    B ---> C ---> Y
+    B ---> D ---> Y
+    B ---> E ---> Y
+    B ---> F ---> Y
+    B ---> G ---> Y
+    B ---> H ---> Y
+    

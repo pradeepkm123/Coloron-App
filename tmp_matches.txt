@@ -1,0 +1,7 @@
+
+  public boolean StopVoiceCom(long);
+  public long StartVoiceComMR(int, boolean);
+  public long StartVoiceCom(int, boolean);
+  public boolean VoiceComSendData(long, byte[], int);
+
+

@@ -1,0 +1,13 @@
+---
+title: Alarm Module Flow
+---
+flowchart TD
+line1(Device SDK initialization<br><strong>NET_SDK_Init</strong>)
+line2(User registration device<br><strong>NET_SDK_Login</strong> or<br><strong>NET_SDK_LoginEx</strong>)
+line3(Configure alarm conditions and processing methods)
+line4(Alarm or status callback<br><strong>NET_SDK_SetDVRMessageCallBack</strong>)
+line5(Set alarm<br><strong>NET_SDK_SetupAlarmChan</strong>)
+line6(Close alarm<br><strong>NET_SDK_CloseAlarmChan</strong>)
+line7("Deregister device<br><strong>NET_SDK_Logout</strong>")
+line8("Release SDK resources<br><strong>NET_SDK_Cleanup</strong>")
+line1 --> line2 --> line3 --> line4 -->line5 -->line6 -->line7 -->line8

@@ -1,0 +1,13 @@
+Compiled from "N9000SmartVSDContainer.java"
+public class com.sdk.interfance.bean.N9000SmartVSDContainer {
+  public int userId;
+    descriptor: I
+  public com.sdk.interfance.bean.NET_SDK_IVE_VSD_HEAD_INFO head;
+    descriptor: Lcom/sdk/interfance/bean/NET_SDK_IVE_VSD_HEAD_INFO;
+  public com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO fullPicInfo;
+    descriptor: Lcom/sdk/interfance/bean/NET_SDK_IVE_PICTURE_INFO;
+  public com.sdk.interfance.bean.NET_SDK_IVE_VSD_TARGET_INFO[] targetInfo;
+    descriptor: [Lcom/sdk/interfance/bean/NET_SDK_IVE_VSD_TARGET_INFO;
+  public com.sdk.interfance.bean.N9000SmartVSDContainer();
+    descriptor: ()V
+}

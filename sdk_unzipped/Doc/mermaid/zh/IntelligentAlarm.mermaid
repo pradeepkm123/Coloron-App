@@ -1,0 +1,18 @@
+---
+title: 智能报警流程
+---
+
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+    subgraph 订阅/取消订阅
+    direction LR
+        C(订阅报警<br><strong>NET_SDK_SmartSubscribe</strong>)
+        D(取消订阅报警<br><strong>NET_SDK_UnsmartSubscribe</strong>)
+        C --> D
+    end
+    E(注册报警回调函数<br><strong>NET_SDK_SetSubscribeCallBack</strong>)
+    F(注销设备<br><strong>NET_SDK_Logout</strong>)
+    G(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> E --> 订阅/取消订阅  --> F --> G

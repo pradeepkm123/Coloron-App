@@ -1,0 +1,46 @@
+======================================
+EMAIL TO TVT SUPPORT FOR FULL SDK
+======================================
+
+TO: support@tvt.net.cn, international@tvt.net.cn
+
+SUBJECT: Request for Full SDK with Two-Way Audio Support
+
+---
+
+Dear TVT Support Team,
+
+I am developing a mobile VMS application using your TVT NetSDK for Android.
+
+My current SDK (dvrsdk.jar) is missing the following methods required for two-way audio (intercom) functionality:
+- StartTalk(int userId, int channelId, int streamType)
+- SendTalkData(long handle, byte[] data, int length)  
+- StopTalk(long handle)
+
+Please provide the FULL SDK version that includes these audio/talk methods so I can implement two-way audio communication with TVT cameras.
+
+Technical Requirements:
+- Platform: Android (React Native)
+- Feature Needed: Two-way audio (Push-to-Talk intercom)
+- Audio Format: G.711 A-law, 8kHz, Mono, 16-bit PCM
+- Protocol: TVT proprietary
+
+My current SDK version appears to be a limited/demo version. I need the complete enterprise SDK with full audio capabilities.
+
+Please send the updated SDK library (dvrsdk.jar) or provide download instructions.
+
+Thank you for your assistance.
+
+Best regards,
+[Your Name]
+[Your Company]
+[Your Contact Info]
+
+---
+
+ALTERNATIVE CONTACTS:
+- Website: www.tvt.net.cn
+- Email: support@tvt.net.cn
+- International: international@tvt.net.cn
+
+======================================

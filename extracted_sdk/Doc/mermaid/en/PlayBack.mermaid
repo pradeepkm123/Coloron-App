@@ -1,0 +1,28 @@
+---
+title: Video Playback
+---
+
+flowchart TD
+    A(Device SDK initialization <br> <strong>NET_SDK_Init</strong>)
+    B(User registers device <br> <strong>NET_SDK_Login</strong> or <br> <strong>NET_SDK_LoginEx</strong>)
+
+    subgraph SF [Find video file]
+        direction LR
+        S0(Find video file <br> <strong>NET_SDK_FindFile</strong>)
+        S1(Get video file information one by one <br> <strong>NET_SDK_FindNextFile</strong>)
+        S2(Stop video search <br> <strong>NET_SDK_FindClose</strong>)
+        S0 --> S1 --> S2
+    end
+
+    subgraph SF1 [Video file playback]
+        direction LR
+        S00(Playback by time <br> <strong>NET_SDK_PlayBackByTime</strong>)
+        S01(Playback status control <br> <strong>NET_SDK_PlayBackControl</strong>)
+        S02(Stop video playback <br> <strong>NET_SDK_StopPlayBack</strong>)
+        S00 --> S01 --> S02
+    end
+
+    E(Log out of device <br><strong>NET_SDK_Logout</strong>)
+    F(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> SF --> SF1 --> E --> F

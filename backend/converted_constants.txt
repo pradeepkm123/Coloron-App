@@ -1,0 +1,39 @@
+Running converter inside: E:\prd\app\VMS\backend
+sdkDefsFile exists: true
+callbackFile exists: true
+=== sdkdefs_constants.txt ===
+42: Inner Class: com.sdk.interfance.SDKDefs$DD_TRIGGER_ALARM_OUT
+65: Inner Class: com.sdk.interfance.SDKDefs$DD_EVENT_TYPE
+66:   DD_EVENT_TYPE_MOTION = 1
+67:   DD_EVENT_TYPE_SENSOR = 2
+68:   DD_EVENT_TYPE_V_LOSS = 4
+69:   DD_EVENT_TYPE_V_COVER = 8
+103:   DD_CONFIG_ITEM_ENCODE_ALARM = 1028
+127:   DD_CONFIG_ITEM_SENSOR_ALARM_OUT = 2051
+134:   DD_CONFIG_ITEM_MOTION_ALARM_OUT = 2307
+141:   DD_CONFIG_ITEM_SHELTER_ALARM_OUT = 2563
+145:   DD_CONFIG_ITEM_VLOSS_BASE = 2816
+146:   DD_CONFIG_ITEM_VLOSS_SCHEDULE = 2817
+147:   DD_CONFIG_ITEM_VLOSS_ALARM_OUT = 2818
+148:   DD_CONFIG_ITEM_VLOSS_TO_RECORD = 2819
+149:   DD_CONFIG_ITEM_VLOSS_TO_PTZ = 2820
+150:   DD_CONFIG_ITEM_VLOSS_END = 2821
+151:   DD_CONFIG_ITEM_ALARM_OUT_BASE = 3072
+156:   DD_CONFIG_ITEM_ALARM_OUT_END = 3077
+169:   DD_DECODER_CONFIG_OTHER_ALARMOUT = 3591
+176: Inner Class: com.sdk.interfance.SDKDefs$DD_ALARM_STATUS_INFO
+
+=== nvrsdkcallback.txt ===
+7:   public abstract void ExceptionCallback(int, int, int);
+10:   public abstract void onAlarmTypeVFD(com.sdk.interfance.bean.N900AlarmVFDContainer);
+11:   public abstract void onAlarmTypeAVD(com.sdk.interfance.bean.NET_SDK_IVE_AVD_T);
+12:   public abstract void onAlarmTypeFaceMatch(com.sdk.interfance.bean.NET_SDK_IVE_FACE_MATCH_T);
+13:   public abstract void onAlarmTypeFaceMatchForIPC(com.sdk.interfance.bean.N900AlarmFaceIPCContainer);
+14:   public abstract void onAlarmASD(com.sdk.interfance.bean.N9000SmartASDContainer);
+15:   public abstract void onAlarmIpcAOIENTRY(com.sdk.interfance.bean.N9000SmartCommonContainer);
+16:   public abstract void onAlarmNvrAOIENTRY(com.sdk.interfance.bean.N9000SmartCommonContainer);
+17:   public abstract void onAlarmIpcAOILEAVE(com.sdk.interfance.bean.N9000SmartCommonContainer);
+18:   public abstract void onAlarmNvrAOILEAVE(com.sdk.interfance.bean.N9000SmartCommonContainer);
+19:   public abstract void onAlarmPVD(com.sdk.interfance.bean.N9000SmartCommonContainer);
+20:   public abstract void onAlarmLoiter(com.sdk.interfance.bean.N9000SmartCommonContainer);
+21:   public abstract void onAlarmVSD(com.sdk.interfance.bean.N9000SmartVSDContainer);

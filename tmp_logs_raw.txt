@@ -1,0 +1,500 @@
+﻿03-05 17:21:10.374  1251  1350 I libPowerHal: [unsetGPUFreq] current min:0, max:0; scn_gpu_min:0, scn_gpu_max:-1; scn_gpu_min(HL):-1, scn_gpu_max(HL):-1
+03-05 17:21:10.374  1251  1350 I libPowerHal: system_server: set gpu opp level: 36
+03-05 17:21:10.374  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.374  1251  1350 I libPowerHal: [setGPUFreq] Soft min/max = (36, 0); Hard min/max = (36, 0)
+03-05 17:21:10.374  1251  1350 I libPowerHal: [setGPUFreq] final min/max = (36, 0)
+03-05 17:21:10.374  1251  1350 I libPowerHal: system_server: set gpu opp level: 36
+03-05 17:21:10.374  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.374  1251  1350 I libPowerHal: [PD] system_server update cmd:1404300 param:0
+03-05 17:21:10.374  1251  1350 I libPowerHal: [PD] system_server update cmd:1408300 param:0
+03-05 17:21:10.375  1251  1350 I libPowerHal: [PD] system_server update cmd:1000000 param:-1
+03-05 17:21:10.376  1251  1350 I libPowerHal: [perfLockRel] hdl:113, idx:-1
+03-05 17:21:10.398  1869  1890 E MTKBoostFramework: zengzm sAcquireFunc public int com.mediatek.powerhalwrapper.PowerHalWrapper.perfLockAcquire(int,int,int[])
+03-05 17:21:10.398  1869  1890 I mtkpower_client: perf_lock_acq, hdl:0, dur:100, num:16, pid:1869, tid:1890
+03-05 17:21:10.399  1869  1890 I mtkpower_client: ret_hdl:115
+03-05 17:21:10.400  1251  1350 I libPowerHal: [perfLockAcq] idx:4 hdl:115 hint:-1 pid:1869 duration:100 lock_user:system_server => ret_hdl:115
+03-05 17:21:10.400  1251  1350 I libPowerHal: [setGPUFreq] system_server user set gpu freq min:0, max:-1
+03-05 17:21:10.400  1251  1350 I libPowerHal: system_server: set gpu opp level: 0
+03-05 17:21:10.400  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.400  1251  1350 I libPowerHal: [setGPUFreq] Soft min/max = (0, 0); Hard min/max = (36, 0)
+03-05 17:21:10.400  1251  1350 I libPowerHal: [setGPUFreq] final min/max = (0, 0)
+03-05 17:21:10.400  1251  1350 I libPowerHal: system_server: set gpu opp level: 0
+03-05 17:21:10.400  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.401  1251  1350 I libPowerHal: [setClusterFreq] system_server: sysfs_freq set cpu freq: 1700000 1850000 1750000 2050000 
+03-05 17:21:10.401  1251  1350 I libPowerHal: [PE] system_server update cmd:1404300, param:1
+03-05 17:21:10.401  1251  1350 I libPowerHal: [PE] system_server update cmd:1408300, param:40
+03-05 17:21:10.402  1251  1350 I libPowerHal: [PE] system_server update cmd:1000000 param:0
+03-05 17:21:10.411  1295  1295 I Scheduler: notifyScrollEvent state=1
+03-05 17:21:10.439  1251  1350 I libPowerHal: [perfLockRel] hdl:114, idx:3
+03-05 17:21:10.439  1251  1350 I libPowerHal: [PD] MTKPOWER_HINT_APP_TOUCH update cmd:3408b00 param:0
+03-05 17:21:10.439  1869  1890 E MTKBoostFramework: zengzm sAcquireFunc public int com.mediatek.powerhalwrapper.PowerHalWrapper.perfLockAcquire(int,int,int[])
+03-05 17:21:10.439  1869  1890 I mtkpower_client: perf_lock_acq, hdl:0, dur:2245, num:16, pid:1869, tid:1890
+03-05 17:21:10.439  2319  2319 I FalsingManager: Skipped falsing. interactionType=8
+03-05 17:21:10.439  2319  2319 I FalsingManager: Skipped falsing. interactionType=8
+03-05 17:21:10.439  1869  1890 I mtkpower_client: ret_hdl:116
+03-05 17:21:10.440  1869  1890 W BoostOptController: not supported hint: 118
+03-05 17:21:10.440  1251  1350 I libPowerHal: [perfLockAcq] idx:3 hdl:116 hint:-1 pid:1869 duration:2245 lock_user:system_server => ret_hdl:116
+03-05 17:21:10.440  1251  1350 I libPowerHal: [setGPUFreq] system_server user set gpu freq min:0, max:-1
+03-05 17:21:10.440  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.440  1251  1350 I libPowerHal: [setGPUFreq] Soft min/max = (0, 0); Hard min/max = (36, 0)
+03-05 17:21:10.440  1251  1350 I libPowerHal: [setGPUFreq] final min/max = (0, 0)
+03-05 17:21:10.440  1251  1350 I libPowerHal: system_server: set gpu opp level: 0
+03-05 17:21:10.440  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.440  1869  1890 E MTKBoostFramework: zengzm sAcquireFunc public int com.mediatek.powerhalwrapper.PowerHalWrapper.perfLockAcquire(int,int,int[])
+03-05 17:21:10.440  1251  1350 I libPowerHal: [setClusterFreq] system_server: sysfs_freq set cpu freq: 1750000 1850000 1850000 2050000 
+03-05 17:21:10.440  1869  1890 I mtkpower_client: perf_lock_acq, hdl:0, dur:100, num:16, pid:1869, tid:1890
+03-05 17:21:10.441  1869  1890 I mtkpower_client: ret_hdl:117
+03-05 17:21:10.441  1251  1350 I libPowerHal: [perfLockAcq] idx:5 hdl:117 hint:-1 pid:1869 duration:100 lock_user:system_server => ret_hdl:117
+03-05 17:21:10.441  1251  1350 I libPowerHal: [setGPUFreq] system_server user set gpu freq min:0, max:-1
+03-05 17:21:10.441  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.441  1251  1350 I libPowerHal: [setGPUFreq] Soft min/max = (0, 0); Hard min/max = (36, 0)
+03-05 17:21:10.441  1251  1350 I libPowerHal: [setGPUFreq] final min/max = (0, 0)
+03-05 17:21:10.441  1251  1350 I libPowerHal: system_server: set gpu opp level: 0
+03-05 17:21:10.441  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.470  1295  1295 I BufferQueueProducer: [NotificationShade#176](this:0xb400007d58a2a820,id:-1,api:0,p:-1,c:1295) queueBuffer: fps=111.87 dur=1001.15 max=47.62 min=7.41
+03-05 17:21:10.477  1197  1666 W hwcomposer: [DRMDEV] paramIsSame(), id 40, w 1080/1080, h 2400/2400, pitch 1088/1088, format 0x2/0x1, secure 0/0  
+03-05 17:21:10.478  1295  1295 I BufferQueueProducer: [NavigationBar0#85](this:0xb400007d58a01820,id:-1,api:0,p:-1,c:1295) queueBuffer: fps=0.14 dur=303901.09 max=303220.63 min=16.45
+03-05 17:21:10.502  1251  1350 I mtkpower@impl: [powerd_req] TIMER_MSG_PERF_LOCK_TIMEOUT hdl:115
+03-05 17:21:10.502  1251  1350 I libPowerHal: [perfLockRel] hdl:115, idx:4
+03-05 17:21:10.502  1251  1350 I libPowerHal: [unsetGPUFreq] current min:0, max:0; scn_gpu_min:0, scn_gpu_max:-1; scn_gpu_min(HL):-1, scn_gpu_max(HL):-1
+03-05 17:21:10.502  1251  1350 I libPowerHal: [setGPUFreq] Soft min/max = (0, 0); Hard min/max = (36, 0)
+03-05 17:21:10.502  1251  1350 I libPowerHal: [setGPUFreq] final min/max = (0, 0)
+03-05 17:21:10.502  1251  1350 I libPowerHal: system_server: set gpu opp level: 0
+03-05 17:21:10.502  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.520  1295  1295 I BufferQueueProducer: [StatusBar#89](this:0xb400007d58a12820,id:-1,api:0,p:-1,c:1295) queueBuffer: fps=1.93 dur=1037.19 max=696.65 min=340.54
+03-05 17:21:10.538  2319  2319 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=com.android.systemui.back.domain.interactor.BackActionInteractor$callback$2@c0f2002
+03-05 17:21:10.539  1869  3980 D CoreBackPreview: Window{2490f91 u0 NotificationShade}: Setting back callback null
+03-05 17:21:10.542  1251  1350 I mtkpower@impl: [powerd_req] TIMER_MSG_PERF_LOCK_TIMEOUT hdl:117
+03-05 17:21:10.542  1251  1350 I libPowerHal: [perfLockRel] hdl:117, idx:5
+03-05 17:21:10.542  1251  1350 I libPowerHal: [unsetGPUFreq] current min:0, max:0; scn_gpu_min:0, scn_gpu_max:-1; scn_gpu_min(HL):-1, scn_gpu_max(HL):-1
+03-05 17:21:10.542  1251  1350 I libPowerHal: [setGPUFreq] Soft min/max = (0, 0); Hard min/max = (36, 0)
+03-05 17:21:10.542  1251  1350 I libPowerHal: [setGPUFreq] final min/max = (0, 0)
+03-05 17:21:10.542  1251  1350 I libPowerHal: system_server: set gpu opp level: 0
+03-05 17:21:10.542  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:10.552  2319  2429 D Surface : Surface::disconnect
+03-05 17:21:10.556  1295  1415 I BufferQueueDebug: [Surface(name=c451fc9 StatusBar)/@0x5c42b89 - animation-leash of insets_animation#180](this:0xb400007d58a4e020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1295:/system/bin/surfaceflinger)
+03-05 17:21:10.557  1295  1415 I BufferQueueDebug: [Surface(name=9ab4a4 NavigationBar0)/@0xec0778e - animation-leash of insets_animation#181](this:0xb400007d58a72820,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1295:/system/bin/surfaceflinger)
+03-05 17:21:10.560  2319  2319 D BLASTBufferQueue: [VRI[NotificationShade]#8](f:0,a:1) destructor()
+03-05 17:21:10.560  2319  2319 D BufferQueueConsumer: [NotificationShade#176(BLAST Consumer)pid:2319](id:90f0000000b,api:0,p:-1,c:2319) disconnect
+03-05 17:21:10.564  1869  1893 D SurfaceComposerClient: Transaction::apply InputWindowCommands.focusRequests timestamp=629879825652, windowName=91be1c9 com.vms/com.vms.MainActivity
+03-05 17:21:10.570  1295  1295 D SurfaceFlinger: Focus addInputWindowCommands timestamp=629879825652, windowName=91be1c9 com.vms/com.vms.MainActivity
+03-05 17:21:10.571  1295  1295 I SurfaceFlinger: onHandleDestroyed: name=Surface(name=9ab4a4 NavigationBar0)/@0xec0778e - animation-leash of insets_animation#179, layerId=179, parentId=0
+03-05 17:21:10.571  1295  1295 I SurfaceFlinger: onHandleDestroyed: name=Surface(name=c451fc9 StatusBar)/@0x5c42b89 - animation-leash of insets_animation#178, layerId=178, parentId=0
+03-05 17:21:10.572  1295  1295 I SurfaceFlinger: onHandleDestroyed: name=NotificationShade#176, layerId=176, parentId=0
+03-05 17:21:10.572  2319  2399 D ControlsListingControllerImpl: Unsubscribing callback
+03-05 17:21:10.577  1295  1746 D SurfaceFlinger: updateWinowInfo=1, setFocusedWindow timestamp=629879825652, windowName=91be1c9 com.vms/com.vms.MainActivity
+03-05 17:21:10.580  2319  2399 D ControlsListingControllerImpl: Unsubscribing callback
+03-05 17:21:10.581  1295  1295 I BufferQueueDebug: [NotificationShade#176](this:0xb400007d58a2a820,id:-1,api:0,p:-1,c:1295) onDestructor()
+03-05 17:21:10.581  1869  2054 I ImeTracker: com.vms:41eb3aff: onRequestHide at ORIGIN_SERVER reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR fromUser false
+03-05 17:21:10.581  1869  2054 I ImeTracker: com.vms:41eb3aff: onCancelled at PHASE_SERVER_SHOULD_HIDE
+03-05 17:21:10.582  1295  1295 I BufferQueueDebug: [Surface(name=c451fc9 StatusBar)/@0x5c42b89 - animation-leash of insets_animation#178](this:0xb400007d58a86820,id:-1,api:0,p:-1,c:1295) onDestructor()
+03-05 17:21:10.582  1295  1295 I BufferQueueDebug: [Surface(name=9ab4a4 NavigationBar0)/@0xec0778e - animation-leash of insets_animation#179](this:0xb400007d58a8c020,id:-1,api:0,p:-1,c:1295) onDestructor()
+03-05 17:21:10.583  2319  2399 D ControlsListingControllerImpl: Unsubscribing callback
+03-05 17:21:10.585  3752  3752 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2113 
+03-05 17:21:10.586  3752  3752 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():103 repeatCheckTimes = 0, locked = false
+03-05 17:21:10.586  3752  3752 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1384 onStartInput(EditorInfo{EditorInfo{packageName=com.vms, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+03-05 17:21:10.587  3752  3752 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():103 repeatCheckTimes = 1, locked = false
+03-05 17:21:10.588  1869  1886 W PackageConfigPersister: App-specific configuration not found for packageName: com.vms and userId: 0
+03-05 17:21:10.593  2319  2319 D ZenModeController: Removed callback class com.android.systemui.qs.tiles.DndTile$3
+03-05 17:21:11.075  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:116
+03-05 17:21:11.155  1869  1869 I EnhancedConnectivity: [DataStallService] isPoorSignal = false
+03-05 17:21:11.331  1197  1677 I hwcomposer: [HWCDisplay] [Display_0 (type:1)] fps:117.522705,dur:1004.06,max:16.69,min:8.10  
+03-05 17:21:11.387  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:11.388  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:11.388  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:11.388  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:11.390  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:11.482  1295  1295 I BufferQueueProducer: [NavigationBar0#85](this:0xb400007d58a01820,id:-1,api:0,p:-1,c:1295) queueBuffer: fps=115.53 dur=1004.07 max=26.76 min=7.90
+03-05 17:21:12.075  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:119
+03-05 17:21:12.335  1197  1677 I hwcomposer: [HWCDisplay] [Display_0 (type:1)] fps:119.516464,dur:1004.05,max:16.65,min:8.07  
+03-05 17:21:12.486  1295  1295 I BufferQueueProducer: [NavigationBar0#85](this:0xb400007d58a01820,id:-1,api:0,p:-1,c:1295) queueBuffer: fps=119.52 dur=1004.02 max=14.10 min=7.95
+03-05 17:21:12.688  1251  1350 I mtkpower@impl: [powerd_req] TIMER_MSG_PERF_LOCK_TIMEOUT hdl:116
+03-05 17:21:12.688  1251  1350 I libPowerHal: [perfLockRel] hdl:116, idx:3
+03-05 17:21:12.688  1251  1350 I libPowerHal: [setClusterFreq] system_server: sysfs_freq set cpu freq: -1 1850000 -1 2050000 
+03-05 17:21:12.688  1251  1350 I libPowerHal: [unsetGPUFreq] current min:0, max:0; scn_gpu_min:0, scn_gpu_max:-1; scn_gpu_min(HL):-1, scn_gpu_max(HL):-1
+03-05 17:21:12.688  1251  1350 I libPowerHal: system_server: set gpu opp level: 36
+03-05 17:21:12.688  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:12.688  1251  1350 I libPowerHal: [setGPUFreq] Soft min/max = (36, 0); Hard min/max = (36, 0)
+03-05 17:21:12.688  1251  1350 I libPowerHal: [setGPUFreq] final min/max = (36, 0)
+03-05 17:21:12.688  1251  1350 I libPowerHal: system_server: set gpu opp level: 36
+03-05 17:21:12.688  1251  1350 I libPowerHal: system_server: set gpu opp level max: 0
+03-05 17:21:12.688  1251  1350 I libPowerHal: [PD] system_server update cmd:1404300 param:0
+03-05 17:21:12.689  1251  1350 I libPowerHal: [PD] system_server update cmd:1408300 param:0
+03-05 17:21:12.689  1251  1350 I libPowerHal: [PD] system_server update cmd:1000000 param:-1
+03-05 17:21:13.034  1295  1295 I Scheduler: notifyScrollEvent state=0
+03-05 17:21:13.075  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:118
+03-05 17:21:13.429  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:13.435  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:13.801  1295  1728 I Scheduler: applyPolicy: UpdateRefreshRate 120 to 30 of group 0: [touch=0:0 touchBoost=0 scroll=0:0 idle=1:1]
+03-05 17:21:13.802  1295  1728 D DisplayModeController: setDesiredMode 0 {mode={fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}}, emitEvent=false, force=false}
+03-05 17:21:13.802  1295  1728 D Scheduler: MtkOverrideDuration: update vsync 30
+03-05 17:21:13.802  1295  1728 D Scheduler: MtkOverrideDuration: reset override duration
+03-05 17:21:13.803  1295  1728 I PowerHalWrapper: updateFps(): 30
+03-05 17:21:13.803  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:13.804  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:13.811  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 0(120.00 Hz:0) to 3(30.00 Hz:0) for display 0
+03-05 17:21:13.811  1197  1677 I hwcomposer: [HWC] (0) displaySetActiveConfig config:3  
+03-05 17:21:13.811  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges active mode changed to 3(30.00 Hz) for display 0. mBrightnessDimingCnt=0
+03-05 17:21:13.813  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:13.821  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:13.823  1197  1677 I hwcomposer: [HWCDisplay] [Display_0 (type:1)] fps:75.292854,dur:1487.53,max:508.40,min:8.10  
+03-05 17:21:13.825  1295  1295 I PowerHalWrapper: updateFps(): 30
+03-05 17:21:13.826  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 3(30.00 Hz:0) to 3(30.00 Hz:0) for display 0
+03-05 17:21:13.826  1295  1295 I PowerHalWrapper: updateFps(): 30
+03-05 17:21:14.046  1295  2705 I SurfaceFlinger: setDesiredDisplayModeSpecs: calling_process=system_server
+03-05 17:21:14.046  1295  1295 I SurfaceFlinger: setDesiredDisplayModeSpecs: policy={defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-05 17:21:14.046  1295  1295 D SurfaceFlinger: setDesiredDisplayModeSpecs[30~120]: by process 1869 uid 1000 for display 0
+03-05 17:21:14.046  1295  1295 D RefreshRateSelector: constructAvailableRefreshRates: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr} 
+03-05 17:21:14.047  1295  1295 D RefreshRateSelector: primary render rates: {fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}} {fps=40.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} {fps=45.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=60.00 Hz, modePtr={id=2, vsyncRate=60.00 Hz, peakRefreshRate=60.00 Hz}} , isVrrDevice? 0
+03-05 17:21:14.047  1295  1295 D RefreshRateSelector: app request render rates: {fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}} {fps=40.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} {fps=45.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=60.00 Hz, modePtr={id=2, vsyncRate=60.00 Hz, peakRefreshRate=60.00 Hz}} {fps=90.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=120.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} , isVrrDevice? 0
+03-05 17:21:14.047  1295  1295 I RefreshRateSelector: constructAvailableRefreshRates: Found m90HzRefreshRateModeOpt at index 1
+03-05 17:21:14.047  1295  1295 I RefreshRateSelector: constructAvailableRefreshRates: Found m60HzRefreshRateModeOpt at index 2
+03-05 17:21:14.047  1295  1295 D RefreshRateSelector: Special render rates: 
+03-05 17:21:14.047  1295  1295 D RefreshRateSelector: [90:120:0]: mTouchBoostRefreshRateAvailable=0, mScrollBoostRefreshRateAvailable=0, mTouchOnBlankNotBoostRefreshRateAvailable=0
+03-05 17:21:14.047  1295  1295 I RefreshRateSelector: Display 0 policy changed
+03-05 17:21:14.047  1295  1295 I RefreshRateSelector: Previous: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 120.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-05 17:21:14.047  1295  1295 I RefreshRateSelector: Current:  DisplayManagerPolicy{defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-05 17:21:14.047  1295  1295 I RefreshRateSelector: 3 mode changes were performed under the previous policy
+03-05 17:21:14.048  1295  1295 D SurfaceFlinger: Setting desired display mode specs: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr} for display 0
+03-05 17:21:14.048  1295  1295 I SurfaceFlinger: Switching to Scheduler preferred mode 3 (30.00 Hz) for display 0
+03-05 17:21:14.048  1295  1295 D DisplayModeController: setDesiredMode 0 {mode={fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}}, emitEvent=true, force=false}
+03-05 17:21:14.049  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:14.052  1869  1892 I DisplayDeviceRepository: Display device changed render timings: "Built-in Screen", renderFrameRate=30.000002, presentationDeadlineNanos=45266666, appVsyncOffsetNanos=8400000
+03-05 17:21:14.056  1869  1921 D BrightnessThermalClamper: Thermal status observer already started
+03-05 17:21:14.057  1869  2126 D AudioSystem: +setParameters(): screen_state=on 
+03-05 17:21:14.059  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10333/2718
+03-05 17:21:14.059  1187  3549 D AudioALSAHardware: +setParameters(): screen_state=on
+03-05 17:21:14.059  1187  3549 D AudioALSAStreamOut: +setScreenState(), flag 2, mode 1
+03-05 17:21:14.060  1187  3549 D AudioALSAStreamOut: +setScreenState(), flag 8, mode 1
+03-05 17:21:14.060  1187  3549 D AudioALSAStreamOut: +setScreenState(), flag 4, mode 1
+03-05 17:21:14.060  1187  3549 D AudioALSAStreamOut: +setScreenState(), flag 32768, mode 1
+03-05 17:21:14.060  1187  3549 D AudioALSAStreamOut: +setScreenState(), flag 65536, mode 1
+03-05 17:21:14.060  1187  3549 D AudioALSAHardware: -setParameters(): screen_state=on
+03-05 17:21:14.061  1187  2123 W BTAudioHw: adev_set_parameterserror paremeter : : ParamsMap=[key: 'screen_state' value: 'on'
+03-05 17:21:14.061  1187  2123 W BTAudioHw: ]
+03-05 17:21:14.063  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:14.064  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10267/18525
+03-05 17:21:14.065  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10399/19055
+03-05 17:21:14.065  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10365/19119
+03-05 17:21:14.065  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10372/19572
+03-05 17:21:14.065  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10413/19759
+03-05 17:21:14.070  9048 10107 D MCLOG   : [BrightnessTrigger] onDisplayChanged displayId = 0
+03-05 17:21:14.072  9048 10107 D MCLOG   : [BrightnessManager] displayId = 0 brightness = 0.6697852 nit = 302.99283 level = br4
+03-05 17:21:14.075  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:104
+03-05 17:21:14.095  1295  1728 I Scheduler: applyPolicy: UpdateRefreshRate 30 to 60 of group 0: [touch=0:0 touchBoost=0 scroll=0:0 idle=0:0]
+03-05 17:21:14.096  1295  1728 D DisplayModeController: setDesiredMode 0 {mode={fps=60.00 Hz, modePtr={id=2, vsyncRate=60.00 Hz, peakRefreshRate=60.00 Hz}}, emitEvent=true, force=false}
+03-05 17:21:14.096  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:14.096  1295  1728 D Scheduler: MtkOverrideDuration: update vsync 60
+03-05 17:21:14.096  1295  1728 D Scheduler: MtkOverrideDuration: reset override duration
+03-05 17:21:14.096  1295  1728 I PowerHalWrapper: updateFps(): 60
+03-05 17:21:14.130  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:14.143  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 3(30.00 Hz:0) to 2(60.00 Hz:0) for display 0
+03-05 17:21:14.144  1197  1677 I hwcomposer: [HWC] (0) displaySetActiveConfig config:2  
+03-05 17:21:14.144  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges active mode changed to 2(60.00 Hz) for display 0. mBrightnessDimingCnt=0
+03-05 17:21:14.176  1295  1295 I PowerHalWrapper: updateFps(): 60
+03-05 17:21:14.177  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 2(60.00 Hz:0) to 2(60.00 Hz:0) for display 0
+03-05 17:21:14.177  1295  1295 I PowerHalWrapper: updateFps(): 60
+03-05 17:21:14.178  1869  1892 I DisplayDeviceRepository: Display device changed render timings: "Built-in Screen", renderFrameRate=60.000004, presentationDeadlineNanos=28600000, appVsyncOffsetNanos=8400000
+03-05 17:21:14.182  1869  1921 D BrightnessThermalClamper: Thermal status observer already started
+03-05 17:21:14.183  1869  2126 D AudioSystem: +setParameters(): screen_state=on 
+03-05 17:21:14.185  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10333/2718
+03-05 17:21:14.186  1187  2123 D AudioALSAHardware: +setParameters(): screen_state=on
+03-05 17:21:14.186  1187  2123 D AudioALSAStreamOut: +setScreenState(), flag 2, mode 1
+03-05 17:21:14.187  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10267/18525
+03-05 17:21:14.187  1187  2123 D AudioALSAStreamOut: +setScreenState(), flag 8, mode 1
+03-05 17:21:14.187  1187  2123 D AudioALSAStreamOut: +setScreenState(), flag 4, mode 1
+03-05 17:21:14.187  1187  2123 D AudioALSAStreamOut: +setScreenState(), flag 32768, mode 1
+03-05 17:21:14.187  1187  2123 D AudioALSAStreamOut: +setScreenState(), flag 65536, mode 1
+03-05 17:21:14.187  1187  2123 D AudioALSAHardware: -setParameters(): screen_state=on
+03-05 17:21:14.187  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10399/19055
+03-05 17:21:14.187  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10365/19119
+03-05 17:21:14.188  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10372/19572
+03-05 17:21:14.188  1869  1892 D DisplayManagerService: Ignore redundant display event 0/2 to 10413/19759
+03-05 17:21:14.188  1187  2123 W BTAudioHw: adev_set_parameterserror paremeter : : ParamsMap=[key: 'screen_state' value: 'on'
+03-05 17:21:14.188  1187  2123 W BTAudioHw: ]
+03-05 17:21:14.193  9048 10107 D MCLOG   : [BrightnessTrigger] onDisplayChanged displayId = 0
+03-05 17:21:14.196  9048 10107 D MCLOG   : [BrightnessManager] displayId = 0 brightness = 0.6697852 nit = 302.99283 level = br4
+03-05 17:21:14.409  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:14.410  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:14.410  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:14.410  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:14.415  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:14.711  1295  1728 I Scheduler: applyPolicy: UpdateRefreshRate 60 to 30 of group 0: [touch=0:0 touchBoost=0 scroll=0:0 idle=1:1]
+03-05 17:21:14.711  1295  1728 D DisplayModeController: setDesiredMode 0 {mode={fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}}, emitEvent=false, force=false}
+03-05 17:21:14.712  1295  1728 D Scheduler: MtkOverrideDuration: update vsync 30
+03-05 17:21:14.712  1295  1728 D Scheduler: MtkOverrideDuration: reset override duration
+03-05 17:21:14.712  1295  1728 I PowerHalWrapper: updateFps(): 30
+03-05 17:21:14.713  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:14.726  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 2(60.00 Hz:0) to 3(30.00 Hz:0) for display 0
+03-05 17:21:14.726  1197  1677 I hwcomposer: [HWC] (0) displaySetActiveConfig config:3  
+03-05 17:21:14.727  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges active mode changed to 3(30.00 Hz) for display 0. mBrightnessDimingCnt=0
+03-05 17:21:14.729  1197  1673 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-05 17:21:14.741  1295  1295 I PowerHalWrapper: updateFps(): 30
+03-05 17:21:14.742  1295  1295 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 3(30.00 Hz:0) to 3(30.00 Hz:0) for display 0
+03-05 17:21:14.742  1295  1295 I PowerHalWrapper: updateFps(): 30
+03-05 17:21:15.076  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:16.076  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:16.119  1869  2035 D PowerManagerService: nativeAcquireSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 2
+03-05 17:21:16.123  2704  4640 W Settings: Setting airplane_mode_on has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+03-05 17:21:16.131  2704 16519 W SystemServiceRegistry: No service published for: wifirtt
+03-05 17:21:16.142  1516  1516 W wificond: Failed to get NL80211_ATTR_MAX_NUM_AKM_SUITES
+03-05 17:21:16.148  1516  1516 W wificond: Failed to get NL80211_ATTR_MAX_NUM_AKM_SUITES
+03-05 17:21:16.154  1516  1516 W wificond: Failed to get NL80211_ATTR_MAX_NUM_AKM_SUITES
+03-05 17:21:16.158  2210  2311 D WifiHAL : event received NL80211_CMD_TRIGGER_SCAN
+03-05 17:21:16.737  1869  2010 D BatteryService: uevent={POWER_SUPPLY_VOLTAGE_NOW=4352000, POWER_SUPPLY_VBUS_PRESENT=true, POWER_SUPPLY_TYPE=Battery, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_FULL_DESIGN=5972000, POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE=4500, SEQNUM=7339, POWER_SUPPLY_STATUS=Charging, POWER_SUPPLY_CYCLE_COUNT=429, POWER_SUPPLY_CAPACITY=91, DEVPATH=/devices/platform/11b20000.i2c/i2c-5/5-0034/11b20000.i2c:mt6375@34:mtk_gauge/power_supply/battery, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_CURRENT_AVG=125300, POWER_SUPPLY_CAPACITY_LEVEL=High, POWER_SUPPLY_CURRENT_NOW=89900, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_POWER_WATT=2, POWER_SUPPLY_CHARGE_FULL=6041600, POWER_SUPPLY_TIME_TO_FULL_NOW=11447, SUBSYSTEM=power_supply, POWER_SUPPLY_TEMP=340, ACTION=change, POWER_SUPPLY_AGE=100, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_LPD_PRESENT=false, POWER_SUPPLY_CHARGE_COUNTER=5497856}
+03-05 17:21:16.737  1869  2010 D BatteryService: uevent={POWER_SUPPLY_VOLTAGE_NOW=4352000, POWER_SUPPLY_VBUS_PRESENT=true, POWER_SUPPLY_TYPE=Battery, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_FULL_DESIGN=5972000, POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE=4500, SEQNUM=7339, POWER_SUPPLY_STATUS=Charging, POWER_SUPPLY_CYCLE_COUNT=429, POWER_SUPPLY_CAPACITY=91, DEVPATH=/devices/platform/11b20000.i2c/i2c-5/5-0034/11b20000.i2c:mt6375@34:mtk_gauge/power_supply/battery, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_CURRENT_AVG=125300, POWER_SUPPLY_CAPACITY_LEVEL=High, POWER_SUPPLY_CURRENT_NOW=89900, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_POWER_WATT=2, POWER_SUPPLY_CHARGE_FULL=6041600, POWER_SUPPLY_TIME_TO_FULL_NOW=11447, SUBSYSTEM=power_supply, POWER_SUPPLY_TEMP=340, ACTION=change, POWER_SUPPLY_AGE=100, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_LPD_PRESENT=false, POWER_SUPPLY_CHARGE_COUNTER=5497856}
+03-05 17:21:16.742  2319  3301 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:16.753  2319  3239 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:16.753  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:16.753  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:16.755  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:16.756  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:16.775  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:16.775  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:16.778  2319  2826 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:17.076  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:17.412  2210  2311 D WifiHAL : event received NL80211_CMD_NEW_SCAN_RESULTS
+03-05 17:21:17.412  2447  2686 D IpClient/wlan0: interfaceLinkStateChanged: ifindex 37 up
+03-05 17:21:17.414  1869  4320 D WifiNl80211Manager: Scan result ready event
+03-05 17:21:17.414  1869  4320 D WifiNative: Scan result ready event
+03-05 17:21:17.427  2704  5765 I WifiScanner: onFullResults
+03-05 17:21:17.428  2704  2714 I WifiScanner: onFullResults
+03-05 17:21:17.429  2704  6337 I WifiScanner: onFullResults
+03-05 17:21:17.433  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:17.433  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:17.433  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:17.433  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:17.438  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:17.445  1869  4320 D PowerManagerService: nativeReleaseSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 1
+03-05 17:21:17.450  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:17.450  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:17.450  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:17.450  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:17.454  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:17.746  1869  2099 D PowerManagerService: nativeAcquireSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 2
+03-05 17:21:17.778  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:17.784  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:17.792  1869  2099 D PowerManagerService: nativeReleaseSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 1
+03-05 17:21:18.077  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:19.077  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:19.098  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:19.104  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:20.077  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:20.458  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:20.458  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:20.458  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:20.458  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:20.463  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:20.514  1869  1901 D ActivityManager: unfreezing ProcessRecord{451016f 5696:com.facebook.services/u0a234}, reason = unfreezeTemporarily, adj = 915, adjType = cch-empty, adjSource = null
+03-05 17:21:20.517  1869  1901 D ActivityManager: sync unfroze 5696 com.facebook.services for 3
+03-05 17:21:21.078  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:21.401  1869  1869 I EnhancedConnectivity: [DataStallService] isPoorSignal = false
+03-05 17:21:22.078  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:22.164  1309  1340 D ccci_mdinit: (1):monitor_time_update_thread round:22 ########
+03-05 17:21:23.079  1251  1326 I libPerfCtl: xgfGetFPS pid:2319 fps:-1
+03-05 17:21:23.484  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:23.485  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:23.485  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:23.485  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:23.490  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:23.748  2319  3246 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:23.752  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:23.752  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:24.588  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:24.594  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:26.068  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:26.074  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:26.513  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:26.513  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:26.514  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:26.514  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:26.520  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:26.521  1869  1869 I EnhancedConnectivity: [DataStallService] isPoorSignal = false
+03-05 17:21:26.776  1869  2010 D BatteryService: uevent={POWER_SUPPLY_VOLTAGE_NOW=4352000, POWER_SUPPLY_VBUS_PRESENT=true, POWER_SUPPLY_TYPE=Battery, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_FULL_DESIGN=5972000, POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE=4500, SEQNUM=7341, POWER_SUPPLY_STATUS=Charging, POWER_SUPPLY_CYCLE_COUNT=429, POWER_SUPPLY_CAPACITY=91, DEVPATH=/devices/platform/11b20000.i2c/i2c-5/5-0034/11b20000.i2c:mt6375@34:mtk_gauge/power_supply/battery, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_CURRENT_AVG=125300, POWER_SUPPLY_CAPACITY_LEVEL=High, POWER_SUPPLY_CURRENT_NOW=184200, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_POWER_WATT=2, POWER_SUPPLY_CHARGE_FULL=6041600, POWER_SUPPLY_TIME_TO_FULL_NOW=14111, SUBSYSTEM=power_supply, POWER_SUPPLY_TEMP=340, ACTION=change, POWER_SUPPLY_AGE=100, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_LPD_PRESENT=false, POWER_SUPPLY_CHARGE_COUNTER=5497856}
+03-05 17:21:26.777  1869  2010 D BatteryService: uevent={POWER_SUPPLY_VOLTAGE_NOW=4352000, POWER_SUPPLY_VBUS_PRESENT=true, POWER_SUPPLY_TYPE=Battery, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_FULL_DESIGN=5972000, POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE=4500, SEQNUM=7341, POWER_SUPPLY_STATUS=Charging, POWER_SUPPLY_CYCLE_COUNT=429, POWER_SUPPLY_CAPACITY=91, DEVPATH=/devices/platform/11b20000.i2c/i2c-5/5-0034/11b20000.i2c:mt6375@34:mtk_gauge/power_supply/battery, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_CURRENT_AVG=125300, POWER_SUPPLY_CAPACITY_LEVEL=High, POWER_SUPPLY_CURRENT_NOW=184200, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_POWER_WATT=2, POWER_SUPPLY_CHARGE_FULL=6041600, POWER_SUPPLY_TIME_TO_FULL_NOW=14111, SUBSYSTEM=power_supply, POWER_SUPPLY_TEMP=340, ACTION=change, POWER_SUPPLY_AGE=100, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_LPD_PRESENT=false, POWER_SUPPLY_CHARGE_COUNTER=5497856}
+03-05 17:21:26.783  2319  3240 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:26.793  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:26.794  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:26.797  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:26.797  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:26.798  2319  3247 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:26.818  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:26.818  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:26.820  2319  3300 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:27.333  3890  4344 D AdaptWidgetUtil: width--->208
+03-05 17:21:27.333  3890  4344 D AdaptWidgetUtil: isSmallWidget: 520,635,minWidth=911.25
+03-05 17:21:27.334  3890  4344 D AdaptWidgetUtil: width--->208
+03-05 17:21:27.359  1869  2139 D AppWidgetServiceImpl: Trying to notify widget update for package com.motorola.timeweatherwidget with widget id: 2
+03-05 17:21:27.397  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:27.402  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:27.403  2704 16519 I NearbyDiscovery: (REDACTED) loadFastPairModule: checkFeaturesAreAvailable:%d
+03-05 17:21:27.403  2704 16519 I NearbyDiscovery: loadFastPairModule: FastPair module is downloaded. [CONTEXT service_id=265 ]
+03-05 17:21:28.883  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:28.888  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:29.540  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:29.540  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:29.540  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:29.540  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:29.546  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:30.562  1869  2030 D ActivityManager: freezing 5696 com.facebook.services, reason = unfreezeTemporarily
+03-05 17:21:30.569  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-05 17:21:30.577  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-05 17:21:30.578  1869  2109 D InetDiagMessage: Destroyed live tcp sockets for uids={10234} in 12ms
+03-05 17:21:31.709  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:31.714  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:32.570  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:32.571  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:32.571  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:32.571  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:32.576  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:32.921  1869  1869 I EnhancedConnectivity: [DataStallService] isPoorSignal = false
+03-05 17:21:33.210  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:33.215  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:33.787  1869  2035 D PowerManagerService: nativeAcquireSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 2
+03-05 17:21:33.795  1869  2017 D PowerManagerService: nativeReleaseSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 0
+03-05 17:21:33.800  1869  2017 D PowerManagerService: nativeAcquireSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 2
+03-05 17:21:33.809  1869  1869 W ProcessStats: Tracking association SourceState{8c5d7bb com.mediatek.ims/1001 BFgs #6780} whose proc state 4 is better than process ProcessState{6864702 system/1000 pkg=android (multi)} proc state 9 (5 skipped)
+03-05 17:21:33.821  1869  2145 D ActivityManager: unfreezing ProcessRecord{42132f2 3091:com.google.android.gms/u0a210}, reason = unfreezeTemporarily, adj = 920, adjType = service, adjSource = ProcessRecord{775ad 21795:com.google.android.apps.nbu.files/u0a194}
+03-05 17:21:33.822  1869  2145 D ActivityManager: sync unfroze 3091 com.google.android.gms for 27
+03-05 17:21:33.847  3091  3091 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+03-05 17:21:33.854  3091 23990 E ActivityThread: Failed to find provider info for subscribedfeeds
+03-05 17:21:33.855  1869  2145 W SyncManager: failed sync operation JobId=61 ***/com.google u0 [com.google.android.gms.chromesync] USER ExpectedIn=-39s EXPEDITED STANDBY-EXEMPTED Reason=10210 Retries=2, SyncResult: syncAlreadyInProgress: true stats []
+03-05 17:21:33.855  3091 23990 E ActivityThread: Failed to find provider info for subscribedfeeds
+03-05 17:21:33.857  3091 23990 I SyncAdapter: Executing sync via SyncAdapter. [CONTEXT service_id=80 ]
+03-05 17:21:33.857  3091 23990 I SyncManager: (REDACTED) Executing sync(type=%s%s)
+03-05 17:21:33.863  1869  2145 W SyncManager: failed sync operation JobId=58 ***/com.google u0 [com.google.android.gms.chromesync] USER ExpectedIn=-39s EXPEDITED STANDBY-EXEMPTED Reason=10210 Retries=2, SyncResult: syncAlreadyInProgress: true stats []
+03-05 17:21:33.870  1869  2145 W SyncManager: failed sync operation JobId=56 ***/com.google u0 [com.google.android.gms.chromesync] USER ExpectedIn=-41s EXPEDITED STANDBY-EXEMPTED Reason=10210 Retries=2, SyncResult: syncAlreadyInProgress: true stats []
+03-05 17:21:33.890  3091 23990 I SyncManager: (REDACTED) Executing sync(type=%s) finished in %s
+03-05 17:21:33.915  1869  2145 D PowerManagerService: nativeReleaseSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 0
+03-05 17:21:35.598  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:35.598  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:35.599  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:35.599  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:35.605  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:36.046  1869  3962 D PowerManagerService: nativeAcquireSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 2
+03-05 17:21:36.071  2704 16519 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 1615391]
+03-05 17:21:36.086  2704 23933 I AlarmManager: setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 775404]
+03-05 17:21:36.095  1869  1901 D ActivityManager: unfreezing ProcessRecord{7eb2016 17596:com.google.android.gm/u0a250}, reason = unfreezeTemporarily, adj = 985, adjType = cch-empty, adjSource = null
+03-05 17:21:36.102  1869  1901 D ActivityManager: sync unfroze 17596 com.google.android.gm for 3
+03-05 17:21:36.178 17596 17596 D ActivityThread: Package [com.motorola.securevault] reported as REPLACED, but missing application info. Assuming REMOVED.
+03-05 17:21:36.180 17596 17596 D ActivityThread: Package [com.motorola.securevault] reported as REPLACED, but missing application info. Assuming REMOVED.
+03-05 17:21:36.185 17596 17596 W bbfc    : Already started: bbfc@545e240
+03-05 17:21:36.187 17596 17596 W bbfc    : Failed to find local clusters.
+03-05 17:21:36.365  1869  2017 W PackageManager: Missing required system package: com.jio.myjio, but found with extended search.
+03-05 17:21:36.366  1869  2017 D ActivityManager: unfreezing ProcessRecord{9cddfe5 19239:com.jio.myjio/u0a362}, reason = unfreezeTemporarily, adj = 920, adjType = cch-empty, adjSource = null
+03-05 17:21:36.372  1869  2017 D ActivityManager: sync unfroze 19239 com.jio.myjio for 27
+03-05 17:21:36.378  1869  2017 W JobServiceContext: Sending onNetworkChanged for a job that isn't started. JobStatus{d550646 #u0a362/19070 com.jio.myjio/androidx.work.impl.background.systemjob.SystemJobService u=0 s=10362 TIME=-292ms:none NET BATNOTLOW READY}
+03-05 17:21:36.390 19239 19239 D ActivityThread: Package [com.motorola.securevault] reported as REPLACED, but missing application info. Assuming REMOVED.
+03-05 17:21:36.391 19239 19239 D ActivityThread: Package [com.motorola.securevault] reported as REPLACED, but missing application info. Assuming REMOVED.
+03-05 17:21:36.393 19239 19948 W JobInfo : Job 'com.jio.myjio/com.ril.jio.jiosdk.service.AMContactPhotoUploadService#5566' has a deadline with no functional constraints. The deadline won't improve job execution latency. Consider removing the deadline.
+03-05 17:21:36.396  1869  1887 W JobInfo : Job 'com.jio.myjio/com.ril.jio.jiosdk.service.AMContactPhotoUploadService#5566' has a deadline with no functional constraints. The deadline won't improve job execution latency. Consider removing the deadline.
+03-05 17:21:36.401  1869  1887 W PackageManager: Missing required system package: com.jio.myjio, but found with extended search.
+03-05 17:21:36.408  1869  1886 D ConnectivityService: requestNetwork for uid/pid:10362/19239 activeRequest: null callbackRequest: 621 [NetworkRequest [ REQUEST id=622, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10362 RequestorUid: 10362 RequestorPkg: com.jio.myjio UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOST|NC
+03-05 17:21:36.415  1869  2102 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=622, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10362 RequestorUid: 10362 RequestorPkg: com.jio.myjio UnderlyingNetworks: Null] ]
+03-05 17:21:36.417  1869  2102 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=622, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10362 RequestorUid: 10362 RequestorPkg: com.jio.myjio UnderlyingNetworks: Null] ]
+03-05 17:21:36.418  1869  2102 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=622, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10362 RequestorUid: 10362 RequestorPkg: com.jio.myjio UnderlyingNetworks: Null] ]
+03-05 17:21:36.419  1869  2102 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=622, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10362 RequestorUid: 10362 RequestorPkg: com.jio.myjio UnderlyingNetworks: Null] ]
+03-05 17:21:36.421  1869  2109 D ConnectivityService: NetReassign [622 : null ΓåÆ 101] [c 1] [a 2] [i 9]
+03-05 17:21:36.495 17596 24037 E bdab    : Sync subscriptions not available
+03-05 17:21:36.497 17596 17596 W okz     : [Hub Libraries] Timer: No ongoing submetric for SAPI_INIT
+03-05 17:21:36.505 17596 17596 W bbfc    : Failed to find local clusters.
+03-05 17:21:36.515  2704  2704 D BoundBrokerSvc: onRebind: Intent { act=com.google.android.gms.auth.aang.events.services.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+03-05 17:21:36.788  1869  2010 D BatteryService: uevent={POWER_SUPPLY_VOLTAGE_NOW=4332000, POWER_SUPPLY_VBUS_PRESENT=true, POWER_SUPPLY_TYPE=Battery, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_FULL_DESIGN=5972000, POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE=4400, SEQNUM=7342, POWER_SUPPLY_STATUS=Charging, POWER_SUPPLY_CYCLE_COUNT=429, POWER_SUPPLY_CAPACITY=91, DEVPATH=/devices/platform/11b20000.i2c/i2c-5/5-0034/11b20000.i2c:mt6375@34:mtk_gauge/power_supply/battery, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_CURRENT_AVG=126500, POWER_SUPPLY_CAPACITY_LEVEL=High, POWER_SUPPLY_CURRENT_NOW=-89300, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_POWER_WATT=2, POWER_SUPPLY_CHARGE_FULL=6041600, POWER_SUPPLY_TIME_TO_FULL_NOW=12562, SUBSYSTEM=power_supply, POWER_SUPPLY_TEMP=340, ACTION=change, POWER_SUPPLY_AGE=100, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_LPD_PRESENT=false, POWER_SUPPLY_CHARGE_COUNTER=5497856}
+03-05 17:21:36.789  1869  2010 D BatteryService: uevent={POWER_SUPPLY_VOLTAGE_NOW=4332000, POWER_SUPPLY_VBUS_PRESENT=true, POWER_SUPPLY_TYPE=Battery, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_FULL_DESIGN=5972000, POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE=4400, SEQNUM=7342, POWER_SUPPLY_STATUS=Charging, POWER_SUPPLY_CYCLE_COUNT=429, POWER_SUPPLY_CAPACITY=91, DEVPATH=/devices/platform/11b20000.i2c/i2c-5/5-0034/11b20000.i2c:mt6375@34:mtk_gauge/power_supply/battery, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_CURRENT_AVG=126500, POWER_SUPPLY_CAPACITY_LEVEL=High, POWER_SUPPLY_CURRENT_NOW=-89300, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_POWER_WATT=2, POWER_SUPPLY_CHARGE_FULL=6041600, POWER_SUPPLY_TIME_TO_FULL_NOW=12562, SUBSYSTEM=power_supply, POWER_SUPPLY_TEMP=340, ACTION=change, POWER_SUPPLY_AGE=100, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_LPD_PRESENT=false, POWER_SUPPLY_CHARGE_COUNTER=5497856}
+03-05 17:21:36.793  2319  3248 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:36.800  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:36.800  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:36.803  2319  3301 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:36.804  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:36.804  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:36.822  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:36.822  2319  3239 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:36.822  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:38.614  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:38.615  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:38.615  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:38.615  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:38.618  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:38.805  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:38.809  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:39.317  1869  1869 I EnhancedConnectivity: [DataStallService] isPoorSignal = false
+03-05 17:21:39.328 17596 17596 W bbfc    : Already started: bbfc@2cf1671
+03-05 17:21:39.335  2704  2704 D WearableService: Creating wearable service asynchronously.
+03-05 17:21:39.341  2704  2714 D WearableService: onGetService: waiting for onCreate to be completed.
+03-05 17:21:39.377  2704  2795 I Wear_Controller: Wearable module requires a companion app to be installed.
+03-05 17:21:39.377  2704  2795 I WearableService: onCreate: Wearable Services not starting. Wear is not available on this device.
+03-05 17:21:39.378  2704  2714 W WearableService: onGetService: Wear is not available on this device.
+03-05 17:21:39.394 17596 24040 W awwk    : Job(ItemListsService:stopItemList#3.46) Attempting to unregister unknown list: itemlist-ViewType(96)-2
+03-05 17:21:39.439 17596 17596 W okz     : [Gmail] MailSyncAdapterService: MailSyncAdapterService is destroyed! [CONTEXT android_log_tag="MailSyncAdapterService" ]
+03-05 17:21:39.445  1869  2145 D PowerManagerService: nativeReleaseSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 1
+03-05 17:21:39.974  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:39.980  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:40.714  3638  3868 I dkxb    : (REDACTED) Probing voice interaction service recovery for condition(%s).
+03-05 17:21:40.716  3638  3868 I dkxb    : (REDACTED) Skipping voice interaction service recovery(%s) for condition(%s).
+03-05 17:21:40.716  3638  3868 I dkxb    : (REDACTED) Skipping voice interaction service recovery(%s) for condition(%s).
+03-05 17:21:41.470  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:41.474  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:41.477  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-05 17:21:41.486  1869  2109 D InetDiagMessage: Destroyed 1 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-05 17:21:41.487  1869  2109 D InetDiagMessage: Destroyed live tcp sockets for uids={10362} in 16ms
+03-05 17:21:41.490  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-05 17:21:41.494  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-05 17:21:41.494  1869  2109 D InetDiagMessage: Destroyed live tcp sockets for uids={20362} in 7ms
+03-05 17:21:41.640  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:41.640  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:41.640  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:41.640  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:41.646  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:43.163  1869  1869 I EnhancedConnectivity: [DataStallService] isPoorSignal = false
+03-05 17:21:44.289  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:44.295  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:44.456  1869  2109 D InetDiagMessage: Destroyed 2 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-05 17:21:44.459  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-05 17:21:44.459  1869  2109 D InetDiagMessage: Destroyed live tcp sockets for uids={10250} in 9ms
+03-05 17:21:44.462  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-05 17:21:44.465  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-05 17:21:44.465  1869  2109 D InetDiagMessage: Destroyed live tcp sockets for uids={20250} in 6ms
+03-05 17:21:44.669  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:44.670  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:44.670  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:44.670  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:44.676  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:45.597  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:45.602  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:45.769  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:45.774  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:46.137  2704  2704 D BoundBrokerSvc: onRebind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+03-05 17:21:46.512  1869  2030 D ActivityManager: freezing 19239 com.jio.myjio, reason = oom_cached
+03-05 17:21:46.522  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-05 17:21:46.524  1869  2109 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-05 17:21:46.524  1869  2109 D InetDiagMessage: Destroyed live tcp sockets for uids={10362} in 5ms
+03-05 17:21:46.839  1869  2010 D BatteryService: uevent={POWER_SUPPLY_VOLTAGE_NOW=4352000, POWER_SUPPLY_VBUS_PRESENT=true, POWER_SUPPLY_TYPE=Battery, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_FULL_DESIGN=5972000, POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE=4400, SEQNUM=7343, POWER_SUPPLY_STATUS=Charging, POWER_SUPPLY_CYCLE_COUNT=429, POWER_SUPPLY_CAPACITY=91, DEVPATH=/devices/platform/11b20000.i2c/i2c-5/5-0034/11b20000.i2c:mt6375@34:mtk_gauge/power_supply/battery, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_CURRENT_AVG=126800, POWER_SUPPLY_CAPACITY_LEVEL=High, POWER_SUPPLY_CURRENT_NOW=184200, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_POWER_WATT=2, POWER_SUPPLY_CHARGE_FULL=6041600, POWER_SUPPLY_TIME_TO_FULL_NOW=11732, SUBSYSTEM=power_supply, POWER_SUPPLY_TEMP=340, ACTION=change, POWER_SUPPLY_AGE=100, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_LPD_PRESENT=false, POWER_SUPPLY_CHARGE_COUNTER=5497856}
+03-05 17:21:46.839  1869  2010 D BatteryService: uevent={POWER_SUPPLY_VOLTAGE_NOW=4352000, POWER_SUPPLY_VBUS_PRESENT=true, POWER_SUPPLY_TYPE=Battery, POWER_SUPPLY_HEALTH=Good, POWER_SUPPLY_TECHNOLOGY=Li-ion, POWER_SUPPLY_CHARGE_FULL_DESIGN=5972000, POWER_SUPPLY_CONSTANT_CHARGE_VOLTAGE=4400, SEQNUM=7343, POWER_SUPPLY_STATUS=Charging, POWER_SUPPLY_CYCLE_COUNT=429, POWER_SUPPLY_CAPACITY=91, DEVPATH=/devices/platform/11b20000.i2c/i2c-5/5-0034/11b20000.i2c:mt6375@34:mtk_gauge/power_supply/battery, POWER_SUPPLY_CHARGE_RATE=Normal, POWER_SUPPLY_CURRENT_AVG=126800, POWER_SUPPLY_CAPACITY_LEVEL=High, POWER_SUPPLY_CURRENT_NOW=184200, POWER_SUPPLY_PRESENT=1, POWER_SUPPLY_POWER_WATT=2, POWER_SUPPLY_CHARGE_FULL=6041600, POWER_SUPPLY_TIME_TO_FULL_NOW=11732, SUBSYSTEM=power_supply, POWER_SUPPLY_TEMP=340, ACTION=change, POWER_SUPPLY_AGE=100, POWER_SUPPLY_NAME=battery, POWER_SUPPLY_LPD_PRESENT=false, POWER_SUPPLY_CHARGE_COUNTER=5497856}
+03-05 17:21:46.847  2319  2826 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:46.854  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:46.854  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:46.858  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:46.859  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:46.859  2319  3246 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:46.876  1869  1869 V UiModeManager: updateLocked: null action, mDockState=0, category=null
+03-05 17:21:46.877  1869  1869 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mNightMode=com.android.server.UiModeManagerService$1@d492123; mNightModeCustomType=-1; uiMode=17
+03-05 17:21:46.877  2319  3240 D PowerUI : can't show warning due to - plugged: true status unknown: false
+03-05 17:21:47.002  1869  1869 I EnhancedConnectivity: [DataStallService] isPoorSignal = false
+03-05 17:21:47.698  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:47.699  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:47.699  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:47.700  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:47.705  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:49.451  1869  2030 D ActivityManager: freezing 3091 com.google.android.gms, reason = oom_cached
+03-05 17:21:50.727  2210  2210 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-05 17:21:50.727  2210  2210 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-05 17:21:50.727  2210  2210 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-05 17:21:50.727  2210  2210 I WifiHAL : feature_set=0x8488141a
+03-05 17:21:50.733  1869  2102 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-05 17:21:51.530  2704  2704 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.auth.aang.events.services.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+03-05 17:21:52.086  1251  1293 D power@timer: [mtkPowerTimer] visRead:0
+03-05 17:21:52.183  1309  1340 D ccci_mdinit: (1):monitor_time_update_thread round:23 ########
+03-05 17:21:52.713  2964  3071 I bt_btif_dm: btif_dm.cc:537 get_cod: remote_cod=0x00001f00
+03-05 17:21:52.719  2704  4893 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
+03-05 17:21:52.722  2704  2709 W .gms.persistent: Missing inline cache for void dgjp.o(dhky, int, long)
+03-05 17:21:52.753  1869  2017 D CompatChangeReporter: Compat change id reported: 262645982; UID 10312; state: ENABLED

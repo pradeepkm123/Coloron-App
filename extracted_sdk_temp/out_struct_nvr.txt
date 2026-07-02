@@ -1,0 +1,58 @@
+## Code:
+ 1 2 3 4 5 6 7 8 9 
+
+
+## Tables:
+Table 1:
+1 
+ 2 
+ 3 
+ 4 
+ 5 
+ 6 
+ 7 
+ 8 
+ 9 | struct     NVRChlInfoStruct 
+  {
+         int    softwareVersion;                
+         int    productType;                    
+         int    deviceType;                     
+         int    supportSoftEncrypt;             
+         char    detailedSoftwareVersion[ 64 ];   
+         char    mac[ 32 ];                       
+  };
+
+Table 2:
+1 
+  2 
+  3 
+  4 
+  5 
+  6 
+  7 
+  8 
+  9 
+ 10 
+ 11 
+ 12 | [StructLayout(LayoutKind.Sequential, Pack = 4)] 
+   public     struct     NVRChlInfoStruct 
+  {
+         public    Int32   softwareVersion;
+         public    Int32   productType;
+         public    Int32   deviceType;
+         public    Int32   supportSoftEncrypt;
+         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)] 
+         public     string    detailedSoftwareVersion;
+         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)] 
+         public     string    mac;
+  }
+
+Table 3:
+Member | Type | Remark
+softwareVersion | int | Software version.
+productType | int | Product model.
+deviceType | int | Device type.
+supportSoftEncrypt | int | Whether to support software encryption, 1: support; 0: do not support.
+detailedSoftwareVersion | char[64] | Detailed software version.
+mac | char[32] | MAC address.
+

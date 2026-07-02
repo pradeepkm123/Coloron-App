@@ -1,0 +1,13 @@
+---
+title: Receive Device Registration Connection
+---
+flowchart TD
+    A(Device SDK initialization <br> <strong>NET_SDK_Init</strong>)
+    B(Add reported device information <br> <strong>NET_SDK_AddRegisterDeviceInfo</strong>)
+    C(Configure reporting parameters on the device web page)
+    D(Set the port for listening to reports <br> <strong>NET_SDK_SetRegisterPort</strong>)
+    E(Set the callback function for device reporting success <br> <strong>NET_SDK_SetRegisterCallback</strong>)
+    F(Set the callback function for device disconnection reporting <br> <strong>NET_SDK_SetUnRegisterCallback</strong>)
+    G(Release SDK resources <br> <strong>NET_SDK_Cleanup</strong>)
+    style C fill:#e7b13387
+    A --> B --> C --> D --> E --> F --> G

@@ -1,0 +1,13 @@
+---
+title: Protocol Transparent Transmission
+---
+
+flowchart TD
+    A(Device SDK Initialization <br><strong>NET_SDK_Init</strong>)
+    B(User Registers Device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+    C(Protocol Transparent Transmission <br><strong>NET_SDK_TransparentConfig</strong>)
+    F(User Business Logic <br>...)
+    D(Deregister Device <br><strong>NET_SDK_Logout</strong>)
+    E(Release SDK Resources <br><strong>NET_SDK_Cleanup</strong>)
+    
+    A --> B --> C --> F --> D --> E

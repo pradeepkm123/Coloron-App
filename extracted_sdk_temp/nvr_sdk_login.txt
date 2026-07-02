@@ -1,0 +1,48 @@
+Line 7: export interface LoginParams {
+    host: string;
+    port: number;
+    username: string;
+    password: string;
+    loginType?: number;
+Line 12: loginType?: number;
+    sn?: string;
+    isWifi?: boolean;
+    protocol?: string;
+    }
+Line 18: export interface LoginResult {
+    userId: number;
+    channelCount: number;
+    deviceInfo?: {
+    deviceName?: string;
+    serialNumber?: string;
+Line 45: export const login = async (params: LoginParams): Promise<LoginResult> => {
+    try {
+    console.log('[NvrSdk] Attempting login to:', params.host);
+    // Ensure SDK is initialized
+    await TVTSdkModule.initSDK();
+Line 47: console.log('[NvrSdk] Attempting login to:', params.host);
+    // Ensure SDK is initialized
+    await TVTSdkModule.initSDK();
+    const userId = await TVTSdkModule.loginDevice(
+Line 52: const userId = await TVTSdkModule.loginDevice(
+    params.host,
+    params.port,
+    params.username,
+    params.password,
+    params.loginType || 0,
+Line 57: params.loginType || 0,
+    params.sn || '',
+    params.isWifi || false,
+    );
+    if (userId >= 0) {
+Line 83: console.error('[NvrSdk] Login Error:', error);
+    throw error;
+    }
+    };
+    export const logout = async (userId: number): Promise<void> => {
+Line 560: login,
+    logout,
+    startLive,
+    stopLive,
+    getDeviceInfo,
+    getDeviceIPCInfo,

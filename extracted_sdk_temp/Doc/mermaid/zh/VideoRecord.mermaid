@@ -1,0 +1,15 @@
+---
+title: 视频录制
+---
+
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+    C("启动设备端手动录像<br><strong>NET_SDK_StartDVRRecord</strong>")
+    D("停止设备端手动录像<br><strong>NET_SDK_StopDVRRecord</strong>")
+    E(注销设备<br><strong>NET_SDK_Logout</strong>)
+    F(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+
+    B --> C --> E
+    A --> B --> D --> E --> F
+    

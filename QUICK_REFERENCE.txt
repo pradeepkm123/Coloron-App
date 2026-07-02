@@ -1,0 +1,71 @@
+╔══════════════════════════════════════════════════════════════╗
+║        WIRESHARK AUDIO CAPTURE - QUICK REFERENCE            ║
+╚══════════════════════════════════════════════════════════════╝
+
+📥 DOWNLOAD WIRESHARK
+https://www.wireshark.org/download.html
+(Choose: Windows x64 Installer)
+
+🎯 YOUR CAMERA IP (from network scan)
+Likely one of these:
+  □ 192.168.1.1      □ 192.168.1.46
+  □ 192.168.1.3      □ 192.168.1.57
+  □ 192.168.1.8      □ 192.168.1.98
+  □ 192.168.1.13     □ 192.168.1.22
+
+📡 CAPTURE STEPS
+1. Start Wireshark → Select WiFi adapter → Click shark fin
+2. Open SuperLivePlus → Connect to camera
+3. Press & HOLD talk button → Speak for 10 seconds
+4. Release → Wait 3 sec → Talk again for 5 sec
+5. Stop Wireshark (red square) → Save as .pcapng
+
+🔍 FILTER IN WIRESHARK
+Type in filter box:
+  ip.addr == 192.168.1.XXX
+(Replace XXX with your camera IP)
+
+🎯 WHAT TO LOOK FOR
+✓ UDP packets (not TCP)
+✓ Packets TO camera (Destination = camera IP)
+✓ Size around 160-200 bytes
+✓ LOTS of packets in a row (when you spoke)
+✓ Port number (usually 9000, 8000, or 6666)
+
+📊 WHAT I NEED FROM YOU
+1. Camera IP: _______________
+2. Audio Port: ______________
+3. Packet size: _____________ bytes
+4. First 20 bytes (hex): _____________________
+5. Screenshot of packet details
+
+💡 WIRESHARK TIPS
+• Right-click packet → Follow → UDP Stream
+• View → Expand All (to see all packet details)
+• Edit → Find Packet (to search)
+• Statistics → Conversations (to see all IPs)
+
+🆘 COMMON ISSUES
+"Too many packets"
+  → Use filter: ip.addr == [CAMERA_IP]
+
+"Can't find audio"
+  → Look for UDP packets around 170 bytes
+  → Look during the time you were talking
+
+"Don't know camera IP"
+  → Try each IP from the list above
+  → The one with lots of traffic is your camera
+
+✅ SUCCESS = You can answer these:
+1. Camera IP? _______________
+2. Audio port? ______________
+3. TCP or UDP? ______________
+4. Packet size? _____________
+5. First bytes? _____________
+
+📞 NEXT: Share this info with me!
+
+╔══════════════════════════════════════════════════════════════╗
+║  Once you provide the info, I'll implement it in 1-2 hours! ║
+╚══════════════════════════════════════════════════════════════╝

@@ -1,0 +1,110 @@
+[
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_RANGE_BEGIN",
+    "value": 0
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_OSC",
+    "value": 5
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_AVD",
+    "value": 6
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_VFD",
+    "value": 12
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_CDD",
+    "value": 13
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_IPD",
+    "value": 14
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_CPC",
+    "value": 15
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_FACE_MATCH",
+    "value": 16
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_FACE_MATCH_FOR_IPC",
+    "value": 17
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_PEA_FOR_IPC",
+    "value": 18
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_TRAJECT",
+    "value": 19
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_VEHICLE",
+    "value": 20
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_AOIENTRY",
+    "value": 21
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_AOILEAVE",
+    "value": 22
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_PASSLINE",
+    "value": 23
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_TRAFFIC",
+    "value": 24
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_PEA_TARGET",
+    "value": 25
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_VSD",
+    "value": 26
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_TEMPERATURE_ALARM",
+    "value": 27
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_FIREPOINT",
+    "value": 28
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_NVR_VEHICLE",
+    "value": 29
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_NVR_AOIENTRY",
+    "value": 30
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_NVR_AOILEAVE",
+    "value": 31
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_PVD",
+    "value": 32
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_LOITER",
+    "value": 33
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_ASD",
+    "value": 34
+  },
+  {
+    "name": "NET_SDK_SMART_EVENT_TYPE_VFD_MATCH_FAILED",
+    "value": 35
+  }
+]

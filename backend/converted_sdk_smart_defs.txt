@@ -1,0 +1,5 @@
+65: Inner Class: com.sdk.interfance.SDKDefs$DD_EVENT_TYPE
+66:   DD_EVENT_TYPE_MOTION = 1
+67:   DD_EVENT_TYPE_SENSOR = 2
+68:   DD_EVENT_TYPE_V_LOSS = 4
+69:   DD_EVENT_TYPE_V_COVER = 8

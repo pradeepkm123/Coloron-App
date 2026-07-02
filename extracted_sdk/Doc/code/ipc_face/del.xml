@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns="http://www.ipc.com/ver10" version="1.0">
+    <types>
+        <deleteType>
+            <enum>byPersonID</enum>
+            <enum>byListType</enum>
+            <enum>byName</enum>
+            <enum>byIdentifyNumber</enum>
+        </deleteType>
+        <listType>
+            <enum>strangerList</enum>
+            <enum>whiteList</enum>
+            <enum>blackList</enum>
+        </listType>
+    </types>
+    <deleteAction>
+        <deleteType type="deleteType">byPersonID</deleteType>
+        <personID type="uint32">1543018104</personID>
+    </deleteAction>
+</config>

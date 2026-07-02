@@ -1,0 +1,17 @@
+---
+title: IPC人脸目标配置
+---
+
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+    C{支持人脸比对?}
+    D(调用接口<br><strong>NET_SDK_FaceMatchOperate</strong>)
+    C0(查询人脸列表<br><strong>NET_SDK_GET_FACE_INFO_LIST</strong><hr>增加人脸<br><strong>NET_SDK_ADD_FACE_INFO</strong><hr>修改人脸<br><strong>NET_SDK_SET_FACE_INFO</strong><hr>删除人脸<br><strong>NET_SDK_DEL_FACE_INFO</strong>)
+
+    E(用户业务逻辑<br>...)
+    F(注销设备<br><strong>NET_SDK_Logout</strong>)
+    G(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> C ---> |Yes| D --> |命令| C0 --> E --> F --> G
+    C -- No --> F

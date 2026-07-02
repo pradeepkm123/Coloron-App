@@ -1,0 +1,9 @@
+﻿javap.exe : Error: class not found: com.sdk.interfance.nvrsdk
+At line:1 char:130
++ ... \app\libs'; & 'C:\Program Files\Android\Android 
+Studio\jbr\bin\javap. ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: class no...terfance.nv 
+   rsdk:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

@@ -1,0 +1,25 @@
+---
+title: Voice Intercom And Forwarding
+---
+
+flowchart TD
+    A(Device SDK Initialization<br><strong>NET_SDK_Init</strong>)
+    B(User Registers Device<br><strong>NET_SDK_Login</strong> or<br><strong>NET_SDK_LoginEx</strong>)
+    C("Start Voice Intercom<br><strong>NET_SDK_StartVoiceCom</strong>")
+    D("Start Voice Forwarding<br><strong>NET_SDK_StartVoiceCom_MR</strong>")
+
+    subgraph S1 [Audio Data Encoding]
+        C1(Initialize Audio Encoder<br><strong>NET_SDK_InitAudioEncoder</strong>)
+        C2(Audio Encoding<br><strong>NET_SDK_EncodeAudioFrame</strong>)
+        C3(Release Audio Encoding Resources<br><strong>NET_SDK_ReleaseAudioEncoder</strong>)
+        C1 --> C2 --> C3
+    end
+
+    E("Send Audio Data<br><strong>NET_SDK_VoiceComSendData</strong>")
+    style S1 fill:#e7b13387,stroke:#f66,stroke-width:2px,stroke-dasharray: 5
+    X("Stop voice intercom or voice forwarding <br><strong>NET_SDK_StopVoiceCom</strong>")
+    Y(Log out of device <br><strong>NET_SDK_Logout</strong>)
+    Z(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> C ----> X --> Y --> Z
+    B ---> D --> S1 --> E ---> X

@@ -1,0 +1,518 @@
+﻿Compiled from "VideoPlayer.java"
+public class com.sdk.network.VideoPlayer extends android.widget.LinearLayout implements com.sdk.network.DecodeCallback {
+  private static final int MAX_FRAME_SIZE;
+    descriptor: I
+  private static final java.lang.String TAG;
+    descriptor: Ljava/lang/String;
+  private int mSign;
+    descriptor: I
+  private java.lang.Object mSignValue;
+    descriptor: Ljava/lang/Object;
+  private int mPlayerIndex;
+    descriptor: I
+  private boolean mDecodeState;
+    descriptor: Z
+  private boolean mStopDecodeState;
+    descriptor: Z
+  private boolean mPauseDecodeState;
+    descriptor: Z
+  private boolean mForwardState;
+    descriptor: Z
+  private java.util.concurrent.locks.ReentrantLock mFrameLock;
+    descriptor: Ljava/util/concurrent/locks/ReentrantLock;
+  private java.util.ArrayList<com.sdk.network.CFrameData> mFrameList;
+    descriptor: Ljava/util/ArrayList;
+  private com.sdk.network.VideoViewCallback mVideoCallback;
+    descriptor: Lcom/sdk/network/VideoViewCallback;
+  private com.sdk.mediacodec.AudioCodec m_G711AudioDecode;
+    descriptor: Lcom/sdk/mediacodec/AudioCodec;
+  private com.sdk.mediacodec.AudioCodec m_ADPCMAudioDecode;
+    descriptor: Lcom/sdk/mediacodec/AudioCodec;
+  private java.util.concurrent.locks.ReentrantLock mAudioLock;
+    descriptor: Ljava/util/concurrent/locks/ReentrantLock;
+  private boolean mWaitKeyFrame;
+    descriptor: Z
+  private java.lang.String mCapturePath;
+    descriptor: Ljava/lang/String;
+  private boolean mCaptureState;
+    descriptor: Z
+  private boolean mDropFrameState;
+    descriptor: Z
+  private boolean mCapturejepg;
+    descriptor: Z
+  private android.widget.LinearLayout mblackcoverlayout;
+    descriptor: Landroid/widget/LinearLayout;
+  private android.widget.TextView mInitView;
+    descriptor: Landroid/widget/TextView;
+  private com.sdk.network.VideoPlayer$MySurface mSurfaceView;
+    descriptor: Lcom/sdk/network/VideoPlayer$MySurface;
+  private long mRenderTime;
+    descriptor: J
+  private long mPreFrameTime;
+    descriptor: J
+  private int mVideoWidth;
+    descriptor: I
+  private int mVideoHeight;
+    descriptor: I
+  private boolean m_bRECing;
+    descriptor: Z
+  private java.util.concurrent.locks.ReentrantLock m_iRECFrameListLock;
+    descriptor: Ljava/util/concurrent/locks/ReentrantLock;
+  private com.sdk.network.RecorderInterface m_RECHandle;
+    descriptor: Lcom/sdk/network/RecorderInterface;
+  private java.util.ArrayList<com.sdk.network.CFrameData> m_iRECFrameList;
+    descriptor: Ljava/util/ArrayList;
+  private int m_iRECReservedSize;
+    descriptor: I
+  private int m_iChannelID;
+    descriptor: I
+  private int m_bCaptureing;
+    descriptor: I
+  private java.lang.String m_iChannelInformation;
+    descriptor: Ljava/lang/String;
+  private com.sdk.network.AudioPlay m_AudioPlay;
+    descriptor: Lcom/sdk/network/AudioPlay;
+  private boolean mAudioState;
+    descriptor: Z
+  private boolean m_bPlaySingleFrame;
+    descriptor: Z
+  private float beforeLenght;
+    descriptor: F
+  private float afterLenght;
+    descriptor: F
+  private float mScale;
+    descriptor: F
+  private float mMoveScale;
+    descriptor: F
+  private int m_iTwoFingerTouchType;
+    descriptor: I
+  private boolean bEnlargeState;
+    descriptor: Z
+  public float mpreDistanceX;
+    descriptor: F
+  public float mpreDistanceY;
+    descriptor: F
+  public float mpreScaleX;
+    descriptor: F
+  private boolean m_bEnlargedState;
+    descriptor: Z
+  private float m_onscrollbeginx;
+    descriptor: F
+  private float m_onscrollbeginy;
+    descriptor: F
+  private float m_onscrollendx;
+    descriptor: F
+  private float m_onscrollendy;
+    descriptor: F
+  private int mVideoUIWidth;
+    descriptor: I
+  private int mVideoUIHeight;
+    descriptor: I
+  private java.lang.String m_strServerName;
+    descriptor: Ljava/lang/String;
+  private java.lang.String m_strServerAddress;
+    descriptor: Ljava/lang/String;
+  private long m_LiveHandle;
+    descriptor: J
+  private com.sdk.mediacodec.H264Decode m_DecodeForRecord;
+    descriptor: Lcom/sdk/mediacodec/H264Decode;
+  private boolean m_bFirstFrameOfRecord;
+    descriptor: Z
+  private boolean m_bNeedWaitKeyFrame;
+    descriptor: Z
+  private int m_iCurEncodeType;
+    descriptor: I
+  private int m_iPreEncodeType;
+    descriptor: I
+  private int m_iViewWidth;
+    descriptor: I
+  private int m_iViewHeight;
+    descriptor: I
+  private android.os.Handler mHandler;
+    descriptor: Landroid/os/Handler;
+  private boolean isFishEyeForRender;
+    descriptor: Z
+  private long decodeTime;
+    descriptor: J
+  private java.lang.Runnable VideoDecodeThread;
+    descriptor: Ljava/lang/Runnable;
+  private java.lang.Runnable VideoRenderThread;
+    descriptor: Ljava/lang/Runnable;
+  long decodeTotalTime;
+    descriptor: J
+  long decodeFrameTotalCount;
+    descriptor: J
+  long decodeMinTime;
+    descriptor: J
+  long decodeMaxTime;
+    descriptor: J
+  long intervalDTime;
+    descriptor: J
+  private android.animation.AnimatorSet mAnimatorSet;
+    descriptor: Landroid/animation/AnimatorSet;
+  private boolean mDirection;
+    descriptor: Z
+  private java.util.concurrent.ScheduledExecutorService mExecutorService;
+    descriptor: Ljava/util/concurrent/ScheduledExecutorService;
+  private int mSelectIndex;
+    descriptor: I
+  private float mTouchX;
+    descriptor: F
+  private float mTouchY;
+    descriptor: F
+  private float mTouchPointX;
+    descriptor: F
+  private float mTouchPointY;
+    descriptor: F
+  private float mBeforeLength;
+    descriptor: F
+  private long mTouchTime;
+    descriptor: J
+  private float mPreScale;
+    descriptor: F
+  private boolean mCruiseState;
+    descriptor: Z
+  private boolean mDoubleFinger;
+    descriptor: Z
+  private float mVideoScale;
+    descriptor: F
+  private int mRenderModel;
+    descriptor: I
+  private boolean isForceSoftCodec;
+    descriptor: Z
+  private boolean mFishTouchState;
+    descriptor: Z
+  android.view.GestureDetector m_GestureHandle;
+    descriptor: Landroid/view/GestureDetector;
+  private boolean isPrintLog;
+    descriptor: Z
+  public java.lang.String getDecodeTime();
+    descriptor: ()Ljava/lang/String;
+
+  private com.sdk.network.VideoPlayer(android.content.Context);
+    descriptor: (Landroid/content/Context;)V
+
+  public void PlaySingleFrame();
+    descriptor: ()V
+
+  protected void onMeasure(int, int);
+    descriptor: (II)V
+
+  protected void onLayout(boolean, int, int, int, int);
+    descriptor: (ZIIII)V
+
+  public static com.sdk.network.VideoPlayer getVideoView(android.content.Context);
+    descriptor: (Landroid/content/Context;)Lcom/sdk/network/VideoPlayer;
+
+  public void setCallback(com.sdk.network.VideoViewCallback);
+    descriptor: (Lcom/sdk/network/VideoViewCallback;)V
+
+  public void SetupLayout(java.lang.String, int, int);
+    descriptor: (Ljava/lang/String;II)V
+
+  private void SetupLayout1(java.lang.String, int, int);
+    descriptor: (Ljava/lang/String;II)V
+
+  public void setPermissionDenied(boolean);
+    descriptor: (Z)V
+
+  public void setDenyPermissionText(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  private boolean isMainThread();
+    descriptor: ()Z
+
+  public void showOrHideVideo(boolean);
+    descriptor: (Z)V
+
+  private void showOrHideVideoPlayer(boolean);
+    descriptor: (Z)V
+
+  protected void onDraw(android.graphics.Canvas);
+    descriptor: (Landroid/graphics/Canvas;)V
+
+  public void setDropState(boolean);
+    descriptor: (Z)V
+
+  public boolean getDropState();
+    descriptor: ()Z
+
+  public void playVideoData(com.sdk.network.CFrameData);
+    descriptor: (Lcom/sdk/network/CFrameData;)V
+
+  public void playAudioData(com.sdk.network.CFrameData);
+    descriptor: (Lcom/sdk/network/CFrameData;)V
+
+  private byte[] DecodeDVI4ADPCMAudioFrame(int, byte[]);
+    descriptor: (I[B)[B
+
+  private byte[] DecodeG711AudioFrame(int, byte[], int);
+    descriptor: (I[BI)[B
+
+  private byte[] DecodeG726AudioFrame2(int, byte[], int);
+    descriptor: (I[BI)[B
+
+  public void onCapture(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public void onCapturejepg(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public boolean getDecodeState();
+    descriptor: ()Z
+
+  public boolean getPauseState();
+    descriptor: ()Z
+
+  public void pause();
+    descriptor: ()V
+
+  public void play();
+    descriptor: ()V
+
+  public void forward(boolean);
+    descriptor: (Z)V
+
+  public boolean getForwardState();
+    descriptor: ()Z
+
+  public void start();
+    descriptor: ()V
+
+  public void stop();
+    descriptor: ()V
+
+  public void startAudio();
+    descriptor: ()V
+
+  public void stopAudio();
+    descriptor: ()V
+
+  public boolean getAudioState();
+    descriptor: ()Z
+
+  private void RecordFrame(com.sdk.network.CFrameData);
+    descriptor: (Lcom/sdk/network/CFrameData;)V
+
+  private void EmptyRecordFrameList();
+    descriptor: ()V
+
+  private void CheckDisk();
+    descriptor: ()V
+
+  public boolean getRecordState();
+    descriptor: ()Z
+
+  public void startRecord(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public void stopRecord();
+    descriptor: ()V
+
+  private void StopRecordFile();
+    descriptor: ()V
+
+  private boolean CreateRecordFile(java.lang.String);
+    descriptor: (Ljava/lang/String;)Z
+
+  private void DecodeThread();
+    descriptor: ()V
+
+  private void renderThread();
+    descriptor: ()V
+
+  private void setIntervalDTime(long);
+    descriptor: (J)V
+
+  public void ClearFrame();
+    descriptor: ()V
+
+  private void DropFrame();
+    descriptor: ()V
+
+  private void DecodeFrameData(com.sdk.network.CFrameData);
+    descriptor: (Lcom/sdk/network/CFrameData;)V
+
+  public void onDecodeSucc(long);
+    descriptor: (J)V
+
+  public void onTextureErr();
+    descriptor: ()V
+
+  public void onCapture(boolean, java.lang.String);
+    descriptor: (ZLjava/lang/String;)V
+
+  public void shutdownAutoExecutor();
+    descriptor: ()V
+
+  public void startAutoExecutor();
+    descriptor: ()V
+
+  private void setVideoShape(float, boolean, boolean);
+    descriptor: (FZZ)V
+
+  public void setVideoMoving(float);
+    descriptor: (F)V
+
+  private void DoubleTapFishEye();
+    descriptor: ()V
+
+  public void setVideoScale(float);
+    descriptor: (F)V
+
+  private void FishEyeTouched(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)V
+
+  public void onGyroRotation(float[]);
+    descriptor: ([F)V
+
+  public void cancelAnimator();
+    descriptor: ()V
+
+  private void endAnimator();
+    descriptor: ()V
+
+  private void FlingMoving(int, com.sdk.network.VideoPlayer$TouchPoint, com.sdk.network.VideoPlayer$TouchPoint, com.sdk.network.VideoPlayer$TouchPoint, float);
+    descriptor: (ILcom/sdk/network/VideoPlayer$TouchPoint;Lcom/sdk/network/VideoPlayer$TouchPoint;Lcom/sdk/network/VideoPlayer$TouchPoint;F)V
+
+  public float Angle(com.sdk.network.VideoPlayer$TouchPoint, com.sdk.network.VideoPlayer$TouchPoint, com.sdk.network.VideoPlayer$TouchPoint);
+    descriptor: (Lcom/sdk/network/VideoPlayer$TouchPoint;Lcom/sdk/network/VideoPlayer$TouchPoint;Lcom/sdk/network/VideoPlayer$TouchPoint;)F
+
+  public void setRenderModel(int);
+    descriptor: (I)V
+
+  public void setMediaCodecType(boolean);
+    descriptor: (Z)V
+
+  public int getRenderModel();
+    descriptor: ()I
+
+  public void setAutoCruise(boolean);
+    descriptor: (Z)V
+
+  public boolean getAutoCruise();
+    descriptor: ()Z
+
+  private void resetAvgTime();
+    descriptor: ()V
+
+  public void setChannelID(int);
+    descriptor: (I)V
+
+  public int GetChannelID();
+    descriptor: ()I
+
+  public void onPauseRecord(boolean);
+    descriptor: (Z)V
+
+  public void setTouchState(boolean);
+    descriptor: (Z)V
+
+  public void playFishEye();
+    descriptor: ()V
+
+  public void stopFishEye();
+    descriptor: ()V
+
+  public boolean onTouchEvent(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)Z
+
+  private float spacing(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)F
+
+  void HandleDoubleTapEvent();
+    descriptor: ()V
+
+  public void setIdentityMatrix();
+    descriptor: ()V
+
+  public void RestoreVideoSize();
+    descriptor: ()V
+
+  public void setServerName(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public java.lang.String getServerName();
+    descriptor: ()Ljava/lang/String;
+
+  public void setServerAddress(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public java.lang.String getServerAddress();
+    descriptor: ()Ljava/lang/String;
+
+  public void setLiveHandle(long);
+    descriptor: (J)V
+
+  public long getLiveHandle();
+    descriptor: ()J
+
+  public void playVideoDataFormatHead(long, int);
+    descriptor: (JI)V
+
+  public void setPrintLog(boolean);
+    descriptor: (Z)V
+
+  static android.widget.TextView access$000(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)Landroid/widget/TextView;
+
+  static void access$100(com.sdk.network.VideoPlayer, boolean);
+    descriptor: (Lcom/sdk/network/VideoPlayer;Z)V
+
+  static void access$200(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)V
+
+  static void access$300(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)V
+
+  static int access$600(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)I
+
+  static void access$700(com.sdk.network.VideoPlayer, float, boolean, boolean);
+    descriptor: (Lcom/sdk/network/VideoPlayer;FZZ)V
+
+  static boolean access$900(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)Z
+
+  static int access$1100(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)I
+
+  static int access$1200(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)I
+
+  static int access$1300(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)I
+
+  static int access$1400(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)I
+
+  static void access$1500(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)V
+
+  static boolean access$1600(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)Z
+
+  static int access$1402(com.sdk.network.VideoPlayer, int);
+    descriptor: (Lcom/sdk/network/VideoPlayer;I)I
+
+  static int access$1102(com.sdk.network.VideoPlayer, int);
+    descriptor: (Lcom/sdk/network/VideoPlayer;I)I
+
+  static int access$1202(com.sdk.network.VideoPlayer, int);
+    descriptor: (Lcom/sdk/network/VideoPlayer;I)I
+
+  static com.sdk.network.VideoViewCallback access$1700(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)Lcom/sdk/network/VideoViewCallback;
+
+  static boolean access$1800(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)Z
+
+  static boolean access$1802(com.sdk.network.VideoPlayer, boolean);
+    descriptor: (Lcom/sdk/network/VideoPlayer;Z)Z
+
+  static boolean access$1902(com.sdk.network.VideoPlayer, boolean);
+    descriptor: (Lcom/sdk/network/VideoPlayer;Z)Z
+
+  static boolean access$1900(com.sdk.network.VideoPlayer);
+    descriptor: (Lcom/sdk/network/VideoPlayer;)Z
+}

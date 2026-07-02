@@ -1,0 +1,23 @@
+Compiled from "SDKDefs.java"
+public class com.sdk.interfance.SDKDefs$NET_SDK_IPC_DEVICE_INFO {
+  public int deviceID;
+  public short channel;
+  public short status;
+  public byte[] szEtherName;
+  public byte[] szServer;
+  public short nPort;
+  public short nHttpPort;
+  public short nCtrlPort;
+  public byte[] szID;
+  public byte[] username;
+  public int manufacturerId;
+  public byte[] manufacturerName;
+  public byte[] productModel;
+  public byte bUseDefaultCfg;
+  public byte bPOEDevice;
+  public byte[] resv;
+  public com.sdk.interfance.SDKDefs$NET_SDK_IPC_DEVICE_INFO();
+  public static int GetStructSize();
+  public static com.sdk.interfance.SDKDefs$NET_SDK_IPC_DEVICE_INFO deserialize(byte[], int) throws java.io.IOException;
+  public byte[] serialize() throws java.io.IOException;
+}

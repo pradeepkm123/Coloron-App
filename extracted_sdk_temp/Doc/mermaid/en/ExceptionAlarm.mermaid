@@ -1,0 +1,11 @@
+---
+title: Exception Alarm
+---
+flowchart TD
+A(Device SDK initialization <br> <strong>NET_SDK_Init</strong>)
+B(User registration device <br> <strong>NET_SDK_Login</strong> or <br> <strong>NET_SDK_LoginEx</strong>)
+C(Exception alarm callback function <br> <strong>NET_SDK_SetSDKMessageCallBack</strong>)
+D(Device logout <br> <strong>NET_SDK_Logout</strong>)
+E(Release SDK resources <br> <strong>NET_SDK_Cleanup</strong>)
+
+A --> B --> C --> D --> E

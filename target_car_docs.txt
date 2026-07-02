@@ -1,0 +1,19 @@
+=== NET_SDK_IVE_VSD_TARGET_CAR.html ===
+
+Table 1:
+1 2 3 4 5 6 7 8 9 10 11 12 | typedef struct { unsigned int byColor; unsigned int byYear; unsigned int byType; unsigned int byReserve1; char szBrand[64]; char szModel[64]; unsigned int dwBrandType; unsigned int dwModelType; char szReserve[120]; } NET_SDK_IVE_VSD_TARGET_CAR;
+
+Table 2:
+1 2 3 4 5 6 7 8 9 10 11 12 13 | [StructLayout(LayoutKind.Sequential, Pack = 4, Size = 272)] public unsafe struct NET_SDK_IVE_VSD_TARGET_CAR { public UInt32 byColor; public UInt32 byYear; public UInt32 byType; public UInt32 byReserve1; public fixed byte szBrand[64]; public fixed byte szModel[64]; public UInt32 dwBrandType; public UInt32 dwModelType; public fixed byte szReserve[120]; }
+
+Table 3:
+成员 | 类型 | 备注
+byColor | unsigned int | 颜色 0:未知 1:红 2:橙 3:黄 4:绿 5:蓝 6:青 7:紫 8:黑 9:白 10:银 11:灰 12:金 13:棕。
+byYear | unsigned int | 年款 0:未知 1:2008年 2:2009年 3:2010年 4:2011年 5:2012年 6:2013年 7:2014年 8:2015年 9:2016年 10:2017年 11:2018年。
+byType | unsigned int | 类型 0:未知 1:轿车 2:SUV 3:MPV 4:跑车 5:面包车 6:大巴 7:校车 8:公交车 9:轻客车 10:皮卡 11:货车 12:专用车。
+byReserve1 | unsigned int | 预留字段。
+szBrand | char[64] | 品牌。
+szModel | char[64] | 型号。
+dwBrandType | unsigned int | 品牌。
+dwModelType | unsigned int | 型号。
+szReserve | char[120] | 预留字段。

@@ -1,0 +1,35 @@
+655:   public boolean SetDVRMessCallBack(java.lang.String);
+656:     Code:
+657:        0: aload_1
+658:        1: invokestatic  #118                // Method setDVRMessCallBack:(Ljava/lang/String;)Z
+659:        4: ireturn
+660: 
+661:   public boolean PTZSetCruise(long, byte, com.sdk.interfance.SDKDefs$DD_CRUISE_POINT_INFO[], int);
+662:     Code:
+663:        0: lload_1
+664:        1: iload_3
+665:        2: aload         4
+666:        4: iload         5
+667:        6: invokestatic  #119                // Method ptzSetCruise:(JB[Lcom/sdk/interfance/SDKDefs$DD_CRUISE_POINT_INFO;I)Z
+668:        9: ireturn
+669: 
+670:   public boolean PTZSetCruiseOther(int, long, byte, com.sdk.interfance.SDKDefs$DD_CRUISE_POINT_INFO[], int);
+671:     Code:
+672:        0: iload_1
+673:        1: lload_2
+1314:   private static native boolean setDVRMessCallBack(java.lang.String);
+1315: 
+1316:   private static native boolean ptzSetCruise(long, byte, com.sdk.interfance.SDKDefs$DD_CRUISE_POINT_INFO[], int);
+1317: 
+1318:   private static native boolean ptzSetCruiseOther(int, long, byte, com.sdk.interfance.SDKDefs$DD_CRUISE_POINT_INFO[], int);
+1319: 
+1320:   private static native boolean ptzAutoScan(long, int, int, boolean);
+1321: 
+1322:   private static native boolean ptzAutoScanOther(int, long, int);
+1323: 
+1324:   private static native long formatDisk(int, int);
+1325: 
+1326:   private static native boolean closeFormatHandle(long);
+1327: 
+1328:   private static native int[] getFormatProgress(long);
+1329: 

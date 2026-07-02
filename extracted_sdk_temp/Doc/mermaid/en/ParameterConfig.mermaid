@@ -1,0 +1,14 @@
+---
+title: Parameter Configuration
+---
+
+flowchart TD
+    A(Device SDK Initialization <br><strong>NET_SDK_Init</strong>)
+    B(User Registers Device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+    C("Modify Device System Time <br><strong>NET_SDK_ChangeTime</strong>")
+    D("Modify Device Network Configuration <br><strong>NET_SDK_ModifyDeviceNetInfo</strong>")
+    E(Deregister Device <br><strong>NET_SDK_Logout</strong>)
+    F(Release SDK Resources <br><strong>NET_SDK_Cleanup</strong>)
+
+    B --> C --> E
+    A --> B --> D --> E --> F

@@ -1,0 +1,4 @@
+33:   public boolean SetDeviceManualAlarm(int, int[], int[], int);
+80:   public long SetupAlarmChan(int);
+81:   public boolean CloseAlarmChan(long);
+82:   public byte[] GetAlarmstatus(int);

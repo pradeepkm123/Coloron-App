@@ -1,0 +1,78 @@
+Subject: Urgent: SDK Upgrade Request - Two-Way Audio Support Required
+
+Dear SDK Support Team,
+
+I am developing a professional VMS (Video Management System) mobile application using your NVR SDK and urgently require two-way audio (intercom) functionality.
+
+CURRENT SITUATION:
+- SDK Library: dvrsdk.jar (com.sdk.interfance.nvrsdk)
+- Platform: Android (React Native)
+- Issue: SDK lacks audio transmission methods
+
+WHAT WE NEED:
+We need SDK methods for two-way audio, such as:
+- OpenSound() / StartVoiceCom()
+- InputAudioData() / TalkSendData()
+- CloseSound() / StopVoiceCom()
+
+Or any equivalent methods that enable audio transmission to the camera.
+
+WHY THIS IS URGENT:
+- Our competitor app (SuperLivePlus) successfully implements two-way audio with the same cameras
+- This proves the cameras support the feature
+- We need this functionality to launch our product
+- We are ready to purchase an upgraded SDK version immediately
+
+WHAT WE'VE DONE:
+✅ Implemented complete audio capture system (8kHz, G.711 A-law)
+✅ Built beautiful UI with permissions
+✅ Created RTP packet formatting
+✅ Everything is ready - we just need the SDK methods
+
+TECHNICAL DETAILS:
+Please see the attached comprehensive technical document (SDK_UPGRADE_REQUEST.md) which includes:
+- Complete list of current SDK methods we're using
+- Detailed technical requirements
+- Audio specifications (8kHz, Mono, G.711 A-law)
+- Sample code structure
+- Business justification
+
+WHAT WE NEED FROM YOU:
+1. SDK version with two-way audio support
+2. Documentation for audio methods
+3. Pricing and licensing information
+4. Timeline for delivery
+
+WE ARE READY TO:
+✅ Purchase upgraded SDK immediately
+✅ Sign NDA if required
+✅ Participate in beta testing
+✅ Provide feedback and bug reports
+✅ Pay for premium support
+
+URGENCY:
+This is blocking our product launch. Any expedited support would be greatly appreciated.
+
+Please respond with:
+1. Availability of audio-enabled SDK
+2. Pricing and licensing terms
+3. Documentation and sample code
+4. Estimated delivery timeline
+
+CONTACT INFORMATION:
+Name: [Your Name]
+Company: [Your Company]
+Email: [Your Email]
+Phone: [Your Phone Number]
+Project: VMS Mobile Application (Android/React Native)
+
+Thank you for your prompt attention to this matter. I look forward to your response.
+
+Best regards,
+[Your Name]
+[Your Title]
+[Your Company]
+
+---
+
+ATTACHMENT: SDK_UPGRADE_REQUEST.md (detailed technical specification)

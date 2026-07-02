@@ -1,0 +1,56 @@
+=== CAMERA INFORMATION ===
+Camera IP: _________________
+Camera Port (for audio): _________________
+Protocol (TCP/UDP): _________________
+
+=== PACKET STRUCTURE ===
+Total packet size: _________ bytes
+Header size (if any): _________ bytes
+Audio data size: _________ bytes (should be ~160 for G.711)
+
+=== HEADER FORMAT (First 20 bytes of packet) ===
+Bytes 0-3:   __ __ __ __  (Hex values - might be magic number/signature)
+Bytes 4-7:   __ __ __ __  (Might be sequence number)
+Bytes 8-11:  __ __ __ __  (Might be timestamp)
+Bytes 12-15: __ __ __ __  (Unknown)
+Bytes 16-19: __ __ __ __  (Unknown)
+
+=== SAMPLE PACKET 1 (First audio packet - paste hex dump) ===
+0000:  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+0010:  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+0020:  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+0030:  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+
+=== SAMPLE PACKET 2 (Second audio packet - paste hex dump) ===
+0000:  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+0010:  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+0020:  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+0030:  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+
+=== COMPARISON (What changed between packet 1 and 2?) ===
+- Bytes that changed: _______________________________
+- Bytes that stayed same: __________________________
+- Pattern observed: _________________________________
+
+=== BEFORE AUDIO PACKETS (Handshake/Setup) ===
+Did you see any special packets BEFORE the audio started?
+- Yes / No
+- If yes, describe: _________________________________
+- Port used: _______________________________________
+- Packet content (hex): ____________________________
+
+=== OBSERVATIONS ===
+1. _________________________________________________
+2. _________________________________________________
+3. _________________________________________________
+
+=== QUESTIONS FOR ANALYSIS ===
+1. Is there a pattern in the first 12 bytes? ________
+2. Do the packets look like RTP? ____________________
+3. Is there any authentication/login packet? ________
+4. What happens when you release the talk button? ___
+
+=== ADDITIONAL NOTES ===
+_____________________________________________________
+_____________________________________________________
+_____________________________________________________

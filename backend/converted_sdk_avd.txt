@@ -1,0 +1,104 @@
+70:       83: ldc           #26                 // class com/sdk/interfance/bean/NET_SDK_IVE_AVD_T
+71:       85: ldc           #27                 // class com/sdk/interfance/bean/NET_SDK_IVE_BASE_INFO
+72:       87: ldc           #28                 // class com/sdk/interfance/bean/NET_SDK_IVE_FACE_MATCH_T
+73:       89: ldc           #29                 // class com/sdk/interfance/bean/NET_SDK_IVE_PICTURE_INFO
+74:       91: ldc           #30                 // class com/sdk/interfance/bean/NET_SDK_AUDIO_ABNORMAL_INFO_T
+75:       93: ldc           #31                 // class com/sdk/interfance/NET_SDK_EVENT
+76:       95: ldc           #32                 // class com/sdk/interfance/bean/N9000SmartVSDContainer
+77:       97: ldc           #33                 // class com/sdk/interfance/bean/NET_SDK_IVE_VSD_TARGET_INFO
+78:       99: ldc           #34                 // class com/sdk/interfance/bean/NET_SDK_IVE_VSD_HEAD_INFO
+79:      101: ldc           #35                 // class com/sdk/interfance/bean/N9000SmartCommonContainer
+80:      103: ldc           #36                 // class com/sdk/interfance/bean/N9000SmartASDContainer
+81:      105: ldc           #37                 // class com/sdk/interfance/bean/NET_SDK_IVE_VSD_TARGET_UNION
+82:      107: ldc           #38                 // class com/sdk/interfance/bean/NET_SDK_IVE_VSD_TARGET_PERSON
+83:      109: ldc           #39                 // class com/sdk/interfance/bean/NET_SDK_IVE_VSD_TARGET_CAR
+84:      111: ldc           #40                 // class com/sdk/interfance/bean/NET_SDK_IVE_VSD_TARGET_BIKE
+85:      113: ldc           #41                 // class com/sdk/interfance/bean/NET_SDK_RECT
+86:      115: invokestatic  #42                 // Method setAlarmClsRef:(Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Class;)V
+87:      118: return
+88: 
+89:   private static native void setAlarmClsRef(java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class, java.lang.Class);
+90: 
+91:   public static synchronized com.sdk.interfance.nvrsdk getInstance(android.content.Context);
+92:     Code:
+93:        0: getstatic     #43                 // Field mNVRSDK:Lcom/sdk/interfance/nvrsdk;
+94:        3: ifnonnull     17
+95:        6: new           #10                 // class com/sdk/interfance/nvrsdk
+96:        9: dup
+97:       10: aload_0
+98:       11: invokespecial #44                 // Method "<init>":(Landroid/content/Context;)V
+99:       14: putstatic     #43                 // Field mNVRSDK:Lcom/sdk/interfance/nvrsdk;
+100:       17: getstatic     #43                 // Field mNVRSDK:Lcom/sdk/interfance/nvrsdk;
+101:       20: areturn
+102: 
+103:   public void SetID(int);
+104:     Code:
+105:        0: aload_0
+106:        1: iload_1
+107:        2: putfield      #4                  // Field m_ID:I
+108:        5: return
+109: 
+110:   public int GetID();
+1725:   private void alarmAVDCallback(com.sdk.interfance.bean.NET_SDK_IVE_AVD_T);
+1726:     Code:
+1727:        0: aconst_null
+1728:        1: aload_1
+1729:        2: if_acmpeq     49
+1730:        5: aload_0
+1731:        6: getfield      #2                  // Field mNVRSDKCallback:Lcom/sdk/interfance/NVRSDKCallback;
+1732:        9: ifnull        49
+1733:       12: ldc           #11                 // String nvrsdk
+1734:       14: new           #190                // class java/lang/StringBuilder
+1735:       17: dup
+1736:       18: invokespecial #191                // Method java/lang/StringBuilder."<init>":()V
+1737:       21: ldc           #233                // String -------------alarmFaceMatchCallback-----------
+1738:       23: invokevirtual #193                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+1739:       26: aload_1
+1740:       27: invokevirtual #234                // Method java/lang/Object.toString:()Ljava/lang/String;
+1741:       30: invokevirtual #193                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+1742:       33: invokevirtual #195                // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+1743:       36: invokestatic  #13                 // Method com/sdk/interfance/Util/LOG.D:(Ljava/lang/String;Ljava/lang/String;)V
+1744:       39: aload_0
+1745:       40: getfield      #2                  // Field mNVRSDKCallback:Lcom/sdk/interfance/NVRSDKCallback;
+1746:       43: aload_1
+1747:       44: invokeinterface #235,  2          // InterfaceMethod com/sdk/interfance/NVRSDKCallback.onAlarmTypeAVD:(Lcom/sdk/interfance/bean/NET_SDK_IVE_AVD_T;)V
+1748:       49: return
+1749: 
+1750:   private void alarmFaceMatchCallback(com.sdk.interfance.bean.NET_SDK_IVE_FACE_MATCH_T);
+1751:     Code:
+1752:        0: aconst_null
+1753:        1: aload_1
+1754:        2: if_acmpeq     49
+1755:        5: aload_0
+1756:        6: getfield      #2                  // Field mNVRSDKCallback:Lcom/sdk/interfance/NVRSDKCallback;
+1757:        9: ifnull        49
+1758:       12: ldc           #11                 // String nvrsdk
+1759:       14: new           #190                // class java/lang/StringBuilder
+1760:       17: dup
+1761:       18: invokespecial #191                // Method java/lang/StringBuilder."<init>":()V
+1762:       21: ldc           #233                // String -------------alarmFaceMatchCallback-----------
+1763:       23: invokevirtual #193                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+1764:       26: aload_1
+1765:       27: invokevirtual #234                // Method java/lang/Object.toString:()Ljava/lang/String;
+1766:       30: invokevirtual #193                // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+1767:       33: invokevirtual #195                // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+1768:       36: invokestatic  #13                 // Method com/sdk/interfance/Util/LOG.D:(Ljava/lang/String;Ljava/lang/String;)V
+1769:       39: aload_0
+1770:       40: getfield      #2                  // Field mNVRSDKCallback:Lcom/sdk/interfance/NVRSDKCallback;
+1771:       43: aload_1
+1772:       44: invokeinterface #236,  2          // InterfaceMethod com/sdk/interfance/NVRSDKCallback.onAlarmTypeFaceMatch:(Lcom/sdk/interfance/bean/NET_SDK_IVE_FACE_MATCH_T;)V
+1773:       49: return
+1774: 
+1775:   private void alarmFaceMatchIPCCallback(com.sdk.interfance.bean.N900AlarmFaceIPCContainer);
+1776:     Code:
+1777:        0: aconst_null
+1778:        1: aload_1
+1779:        2: if_acmpeq     49
+1780:        5: aload_0
+1781:        6: getfield      #2                  // Field mNVRSDKCallback:Lcom/sdk/interfance/NVRSDKCallback;
+1782:        9: ifnull        49
+1783:       12: ldc           #11                 // String nvrsdk
+1784:       14: new           #190                // class java/lang/StringBuilder
+1785:       17: dup
+1786:       18: invokespecial #191                // Method java/lang/StringBuilder."<init>":()V
+1787:       21: ldc           #237                // String -------------alarmFaceMatchIPCCallback-----------

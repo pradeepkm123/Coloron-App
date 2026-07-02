@@ -1,0 +1,56 @@
+Compiled from "NET_SDK_IVE_BASE_INFO.java"
+public class com.sdk.interfance.bean.NET_SDK_IVE_BASE_INFO {
+  public long i64SnapTime;
+    descriptor: J
+  public int iSnapPicId;
+    descriptor: I
+  public int iSimilarity;
+    descriptor: I
+  public int iPersonId;
+    descriptor: I
+  public int iType;
+    descriptor: I
+  public java.lang.String szName;
+    descriptor: Ljava/lang/String;
+  public int iMale;
+    descriptor: I
+  public int iAge;
+    descriptor: I
+  public java.lang.String szIdentifyNum;
+    descriptor: Ljava/lang/String;
+  public java.lang.String szTel;
+    descriptor: Ljava/lang/String;
+  public byte[] szRes;
+    descriptor: [B
+  public int iSnapPicQuality;
+    descriptor: I
+  public int iSnapPicAge;
+    descriptor: I
+  public int iSnapPicSex;
+    descriptor: I
+  public int livingBody;
+    descriptor: I
+  public int comparisonRes;
+    descriptor: I
+  public int wearmask;
+    descriptor: I
+  public int tempUnitsType;
+    descriptor: I
+  public int temperature;
+    descriptor: I
+  public java.lang.String keyID;
+    descriptor: Ljava/lang/String;
+  public byte[] szReserve;
+    descriptor: [B
+  public com.sdk.interfance.bean.NET_SDK_IVE_BASE_INFO();
+    descriptor: ()V
+
+  public void setSzRes(byte[]);
+    descriptor: ([B)V
+
+  public void setSzReserve(byte[]);
+    descriptor: ([B)V
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+}

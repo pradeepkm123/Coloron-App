@@ -1,0 +1,166 @@
+﻿Initialized native services in: C:\Users\Admin\.gradle\native
+Initialized jansi services in: C:\Users\Admin\.gradle\native
+Found daemon DaemonInfo{pid=31372, address=[8dcf23ce-33e2-4ecf-946c-ecf903d3e257 port:56664, addresses:[/127.0.0.1]], state=Idle, lastBusy=1778501803347, context=DefaultDaemonContext[uid=ff892ca7-e079-475a-9a44-205b37154160,javaHome=C:\Users\Admin\.antigravity\extensions\redhat.java-1.54.0-win32-x64\jre\21.0.10-win32-x86_64,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\Admin\.gradle\daemon,pid=31372,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=1024m,-Xmx4096m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Android\Android Studio\jbr (no JDK specified, using current Java home), daemonOpts=[-XX:MaxMetaspaceSize=1024m, -Xmx4096m, -Dfile.encoding=UTF-8, -Duser.country=US, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=ff892ca7-e079-475a-9a44-205b37154160,javaHome=C:\Users\Admin\.antigravity\extensions\redhat.java-1.54.0-win32-x64\jre\21.0.10-win32-x86_64,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\Admin\.gradle\daemon,pid=31372,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=1024m,-Xmx4096m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+Found daemon DaemonInfo{pid=3492, address=[a12b8daf-61ff-4e72-acd3-4e3e8cf930de port:64853, addresses:[/127.0.0.1]], state=Idle, lastBusy=1778501794490, context=DefaultDaemonContext[uid=b86eec76-6758-4f14-89d5-02e0e53ac35a,javaHome=C:\Users\Admin\.antigravity\extensions\redhat.java-1.54.0-win32-x64\jre\21.0.10-win32-x86_64,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\Admin\.gradle\daemon,pid=3492,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:+HeapDumpOnOutOfMemoryError,--add-exports,jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED,--add-exports,jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED,--add-exports,jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED,--add-exports,jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED,--add-exports,jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED,-Xmx2048m,-Dfile.encoding=UTF-8A,-Duser.country=US,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Android\Android Studio\jbr (no JDK specified, using current Java home), daemonOpts=[-XX:MaxMetaspaceSize=1024m, -Xmx4096m, -Dfile.encoding=UTF-8, -Duser.country=US, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=b86eec76-6758-4f14-89d5-02e0e53ac35a,javaHome=C:\Users\Admin\.antigravity\extensions\redhat.java-1.54.0-win32-x64\jre\21.0.10-win32-x86_64,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\Admin\.gradle\daemon,pid=3492,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:+HeapDumpOnOutOfMemoryError,--add-exports,jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED,--add-exports,jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED,--add-exports,jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED,--add-exports,jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED,--add-exports,jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED,-Xmx2048m,-Dfile.encoding=UTF-8A,-Duser.country=US,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 22864). The daemon log file: C:\Users\Admin\.gradle\daemon\9.0.0\daemon-22864.out.log
+Starting 28th build in daemon [uptime: 1 hrs 57 mins 10.214 secs, performance: 100%, GC rate: 0.00/s, heap usage: 1% of 4 GiB, non-heap usage: 23% of 1 GiB]
+Using 1 worker leases.
+Now considering [E:\prd\app\VMS\android, E:\prd\app\VMS\node_modules\@react-native\gradle-plugin] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Now considering [E:\prd\app\VMS\node_modules\@react-native\gradle-plugin, E:\prd\app\VMS\android] as hierarchies to watch
+Resolved plugin [id: 'org.gradle.toolchains.foojay-resolver-convention', version: '0.5.0']
+Using local directory build cache for build ':gradle-plugin' (location = C:\Users\Admin\.gradle\caches\build-cache-1, remove unused entries = after 7 days).
+
+> Configure project :gradle-plugin
+Evaluating project ':gradle-plugin' using build file 'E:\prd\app\VMS\node_modules\@react-native\gradle-plugin\build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20', apply: false]
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+
+> Configure project :gradle-plugin:react-native-gradle-plugin
+Evaluating project ':gradle-plugin:react-native-gradle-plugin' using build file 'E:\prd\app\VMS\node_modules\@react-native\gradle-plugin\react-native-gradle-plugin\build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+Resolved plugin [id: 'java-gradle-plugin']
+Build f1d9450e-3cfb-4154-9640-cd1bc44cd04b is started
+Using Kotlin Gradle Plugin gradle85 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :gradle-plugin:settings-plugin
+Evaluating project ':gradle-plugin:settings-plugin' using build file 'E:\prd\app\VMS\node_modules\@react-native\gradle-plugin\settings-plugin\build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+Resolved plugin [id: 'java-gradle-plugin']
+Using Kotlin Gradle Plugin gradle85 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :gradle-plugin:shared
+Evaluating project ':gradle-plugin:shared' using build file 'E:\prd\app\VMS\node_modules\@react-native\gradle-plugin\shared\build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+Using Kotlin Gradle Plugin gradle85 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :gradle-plugin:shared-testutil
+Evaluating project ':gradle-plugin:shared-testutil' using build file 'E:\prd\app\VMS\node_modules\@react-native\gradle-plugin\shared-testutil\build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+Using Kotlin Gradle Plugin gradle85 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+Resolved plugin [id: 'com.facebook.react.settings']
+Resolve mutations for :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :gradle-plugin:shared:compileKotlin (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:shared:compileKotlin (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
+Build cache key for task ':gradle-plugin:shared:compileKotlin' is e6e30ed8ad5335f688ed72c792e41132
+Skipping task ':gradle-plugin:shared:compileKotlin' as it is up-to-date.
+Resolve mutations for :gradle-plugin:shared:compileJava (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:shared:compileJava (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+Skipping task ':gradle-plugin:shared:compileJava' as it has no source files and no previous output files.
+Resolve mutations for :gradle-plugin:shared:processResources (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:shared:processResources (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:shared:processResources NO-SOURCE
+Skipping task ':gradle-plugin:shared:processResources' as it has no source files and no previous output files.
+Resolve mutations for :gradle-plugin:shared:classes (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:shared:classes (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:shared:classes UP-TO-DATE
+Skipping task ':gradle-plugin:shared:classes' as it has no actions.
+Resolve mutations for :gradle-plugin:shared:jar (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:shared:jar (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:shared:jar UP-TO-DATE
+Caching disabled for task ':gradle-plugin:shared:jar' because:
+  Not worth caching
+Skipping task ':gradle-plugin:shared:jar' as it is up-to-date.
+work action resolve shared.jar (project :gradle-plugin:shared) (Thread[#1184,included builds,5,main]) started.
+Resolve mutations for :gradle-plugin:settings-plugin:compileKotlin (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:settings-plugin:compileKotlin (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:compileKotlin UP-TO-DATE
+Build cache key for task ':gradle-plugin:settings-plugin:compileKotlin' is d80ee60623f303be81123b51d950dbed
+Skipping task ':gradle-plugin:settings-plugin:compileKotlin' as it is up-to-date.
+Resolve mutations for :gradle-plugin:settings-plugin:compileJava (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:settings-plugin:compileJava (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+Skipping task ':gradle-plugin:settings-plugin:compileJava' as it has no source files and no previous output files.
+Resolve mutations for :gradle-plugin:settings-plugin:pluginDescriptors (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:settings-plugin:pluginDescriptors (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
+Caching disabled for task ':gradle-plugin:settings-plugin:pluginDescriptors' because:
+  Not worth caching
+Skipping task ':gradle-plugin:settings-plugin:pluginDescriptors' as it is up-to-date.
+Resolve mutations for :gradle-plugin:settings-plugin:processResources (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:settings-plugin:processResources (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:processResources UP-TO-DATE
+Caching disabled for task ':gradle-plugin:settings-plugin:processResources' because:
+  Not worth caching
+Skipping task ':gradle-plugin:settings-plugin:processResources' as it is up-to-date.
+Resolve mutations for :gradle-plugin:settings-plugin:classes (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:settings-plugin:classes (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:classes UP-TO-DATE
+Skipping task ':gradle-plugin:settings-plugin:classes' as it has no actions.
+Resolve mutations for :gradle-plugin:settings-plugin:jar (Thread[#1184,included builds,5,main]) started.
+:gradle-plugin:settings-plugin:jar (Thread[#1184,included builds,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:jar UP-TO-DATE
+Caching disabled for task ':gradle-plugin:settings-plugin:jar' because:
+  Not worth caching
+Skipping task ':gradle-plugin:settings-plugin:jar' as it is up-to-date.
+Build f1d9450e-3cfb-4154-9640-cd1bc44cd04b is closed
+.\gradlew.bat : 
+At line:1 char:1
++ .\gradlew.bat app:assembleDebug -x lint -x test --info 2>&1 | Out-Fil ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+FAILURE: Build failed with an exception.
+
+* Where:
+Settings file 'E:\prd\app\VMS\android\settings.gradle' line: 5
+
+* What went wrong:
+A problem occurred evaluating settings 'android'.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 986ms
+6 actionable tasks: 6 up-to-date
+Watched directory hierarchies: [E:\prd\app\VMS\node_modules\@react-native\gradle-plugin, E:\prd\app\VMS\android]

@@ -1,0 +1,11 @@
+Compiled from "NET_SDK_IVE_AVD_INFO_T.java"
+public class com.sdk.interfance.bean.NET_SDK_IVE_AVD_INFO_T {
+  public int eventId;
+    descriptor: I
+  public int status;
+    descriptor: I
+  public int type;
+    descriptor: I
+  public com.sdk.interfance.bean.NET_SDK_IVE_AVD_INFO_T();
+    descriptor: ()V
+}

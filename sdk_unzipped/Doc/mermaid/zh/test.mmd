@@ -1,0 +1,57 @@
+
+%%{
+  init: {
+    "theme": "default",
+    "fontFamily": "monospace",
+    "logLevel": "info",
+    "flowchart": {
+      "htmlLabels": true,
+      "curve": "linear"
+    },
+    "sequence": {
+      "mirrorActors": true
+    }
+  }
+}%%
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+    C{"是否支持人脸比对<br><strong>NET_SDK_GetDeviceSupportFunction</strong><br>命令：<strong>NET_SDK_GET_FACE_MATCH_SUPPORT</strong>"}
+    subgraph 人脸目标组增删改查
+        C0(调用接口<br><strong>NET_SDK_FaceMatchOperate</strong>)
+        C1(查询人脸组列表<br><strong>NET_SDK_GET_FACE_INFO_GROUP_LIST</strong>)
+        C2(增加人脸组<br><strong>NET_SDK_ADD_FACE_INFO_GROUP</strong>)
+        C3(修改人脸组<br><strong>NET_SDK_SET_FACE_INFO_GROUP</strong>)
+        C4(删除人脸组<br><strong>NET_SDK_DEL_FACE_INFO_GROUP</strong>)
+        C0 --> C1
+        C0 --> C2
+        C0 --> C3
+        C0 --> C4
+    end
+    subgraph 人脸目标增删改查
+        C10(调用接口<br><strong>NET_SDK_FaceMatchOperate</strong>)
+        C11(查询人脸列表<br><strong>NET_SDK_GET_FACE_INFO_LIST</strong>)
+        C12(增加人脸<br><strong>NET_SDK_ADD_FACE_INFO</strong>)
+        C13(修改人脸<br><strong>NET_SDK_SET_FACE_INFO</strong>)
+        C14(删除人脸<br><strong>NET_SDK_DEL_FACE_INFO</strong>)
+        C10 --> C11
+        C10 --> C12
+        C10 --> C13
+        C10 --> C14
+    end
+    subgraph 人脸图像查找/以图收图
+        C01(查询人脸图片列表<br><strong>NET_SDK_SEARCH_CH_SNAP_FACE_IMG_LIST</strong>)
+        C02(查询人脸图片<br><strong>NET_SDK_SEARCH_CH_SNAP_FACE_IMG</strong>)
+        C03(以图搜图<br><strong>NET_SDK_SEARCH_IMAGE_BY_IMG</strong><br><strong>NET_SDK_SEARCH_IMAGE_BY_IMG_V2</strong>)
+        C01 --> C02
+    end
+    style 人脸图像查找/以图收图 stroke:#f66,stroke-width:2px,stroke-dasharray: 5
+    style 人脸目标增删改查 stroke:#f66,stroke-width:2px,stroke-dasharray: 5
+    style 人脸目标组增删改查 stroke:#f66,stroke-width:2px,stroke-dasharray: 5
+    
+    E(用户业务逻辑<br>...)
+    F(注销设备<br><strong>NET_SDK_Logout</strong>)
+    G(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+
+    A ---> B ----> C ----> |Yes| 人脸目标增删改查 -->  人脸目标组增删改查  --> 人脸图像查找/以图收图 --> E ---> F --> G
+    C -- No ---> F

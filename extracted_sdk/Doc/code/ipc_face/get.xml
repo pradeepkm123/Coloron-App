@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns="http://www.ipc.com/ver10" version="1.0">
+    <types>
+        <queryType>
+            <enum>byPersonID</enum>
+            <enum>byListType</enum>
+            <enum>byName</enum>
+            <enum>byIdentifyNumber</enum>
+            <enum>byPersonID</enum>
+        </queryType>
+        <listType>
+            <enum>strangerList</enum>
+            <enum>whiteList</enum>
+            <enum>blackList</enum>
+        </listType>
+    </types>
+    <queryAction>
+        <queryType type="queryType">byListType</queryType>
+        <listType type="listType">whiteList</listType>
+    </queryAction>
+</config>

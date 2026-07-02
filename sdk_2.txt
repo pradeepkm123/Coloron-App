@@ -1,0 +1,4 @@
+sdk_2/
+*.zip
+android/app/build/
+node_modules/

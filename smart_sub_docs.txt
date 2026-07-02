@@ -1,0 +1,14 @@
+=== NET_SDK_SmartSubscrib.html ===
+
+Table 1:
+1 2 3 4 5 | BOOL NET_SDK_SmartSubscrib( LONG lUserID, DWORD dwCommand, LONG lChannel, NET_DVR_SUBSCRIBE_REPLY* pOutBuffer);
+
+Table 2:
+1 2 3 4 5 | public static extern bool NET_SDK_SmartSubscrib( int lUserID, int dwCommand, int lChannel, ref NET_DVR_SUBSCRIBE_REPLY pOutBuffer);
+
+Table 3:
+参数 | 类型 | 说明
+lUserIDin | LONG | 用户ID，NET_SDK_Login或NET_SDK_LoginEx的返回值。
+dwCommandin | DWORD | 设备配置命令，参考NET_SDK_SMART_EVENT_TYPE。
+lChannelin | LONG | 通道编号，从0开始，IPC设备此参数无效。
+pOutBufferout | NET_DVR_SUBSCRIBE_REPLY* | 输出数据的缓冲指针。

@@ -1,0 +1,6 @@
+Compiled from "VideoPlayer.java"
+interface com.sdk.network.DecodeCallback {
+  public abstract void onDecodeSucc(long);
+  public abstract void onTextureErr();
+  public abstract void onCapture(boolean, java.lang.String);
+}

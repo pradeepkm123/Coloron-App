@@ -1,0 +1,16 @@
+Compiled from "NET_DVR_SUBSCRIBE_REPLY.java"
+public class com.sdk.interfance.bean.NET_DVR_SUBSCRIBE_REPLY {
+  public java.lang.String serverAddress;
+    descriptor: Ljava/lang/String;
+  public long currentTime;
+    descriptor: J
+  public long terminationTime;
+    descriptor: J
+  public byte[] resv;
+    descriptor: [B
+  public com.sdk.interfance.bean.NET_DVR_SUBSCRIBE_REPLY();
+    descriptor: ()V
+
+  public void setResvAry(byte[]);
+    descriptor: ([B)V
+}

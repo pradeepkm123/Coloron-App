@@ -1,0 +1,163 @@
+=== dvrsdk.jar Inspection ===
+
+Class: com.sdk.interfance.bean.N9000SmartCommonContainer
+Fields:
+  int userId
+  com.sdk.interfance.NET_SDK_EVENT event
+  com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO fullPicInfo
+  [Lcom.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO; snapPicInfo
+Methods:
+
+Class: com.sdk.interfance.bean.N9000SmartASDContainer
+Fields:
+  int userId
+  com.sdk.interfance.NET_SDK_EVENT event
+  [Lcom.sdk.interfance.bean.NET_SDK_AUDIO_ABNORMAL_INFO_T; audioInfo
+Methods:
+
+Class: com.sdk.interfance.bean.NET_SDK_IVE_VSD_TARGET_BIKE
+Fields:
+  int bikeType
+  [I reserve
+Methods:
+
+Class: com.sdk.interfance.bean.NET_SDK_IVE_VSD_TARGET_CAR
+Fields:
+  int color
+  int year
+  int type
+  int reserve1
+  java.lang.String brand
+  java.lang.String model
+  int brandType
+  int modelType
+  [B reserve
+Methods:
+
+Class: com.sdk.interfance.NVRSDKCallback
+Fields:
+Methods:
+  void onAlarmIpcAOIENTRY(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAudioData(long, int, [B, int, long, int, int, int, int)
+  void onVideoData(long, int, [B, int, long, boolean, int, int, int, int, int)
+  void ExceptionCallback(int, int, int)
+  void onPlaybackEnd()
+  void onAlarmNvrAOIENTRY(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmTypeVFD(com.sdk.interfance.bean.N900AlarmVFDContainer)
+  void onAlarmIpcAOILEAVE(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmNvrAOILEAVE(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmLoiter(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmTypeAVD(com.sdk.interfance.bean.NET_SDK_IVE_AVD_T)
+  void onAlarmTypeFaceMatchForIPC(com.sdk.interfance.bean.N900AlarmFaceIPCContainer)
+  void onVideoDataFormatHead(long, int)
+  void AcceptRegisterCallback(int, int, [Lcom.sdk.interfance.NET_SDK_DEVICEINFO;)
+  void onAlarmTypeFaceMatch(com.sdk.interfance.bean.NET_SDK_IVE_FACE_MATCH_T)
+  void onAlarmPVD(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmASD(com.sdk.interfance.bean.N9000SmartASDContainer)
+  void onTalkData(int, int, [B)
+  void onAlarmVSD(com.sdk.interfance.bean.N9000SmartVSDContainer)
+
+Class: com.sdk.interfance.bean.N9000SmartVSDContainer
+Fields:
+  int userId
+  com.sdk.interfance.bean.NET_SDK_IVE_VSD_HEAD_INFO head
+  com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO fullPicInfo
+  [Lcom.sdk.interfance.bean.NET_SDK_IVE_VSD_TARGET_INFO; targetInfo
+Methods:
+
+Class: com.sdk.interfance.bean.NET_SDK_IVE_VSD_TARGET_INFO
+Fields:
+  int targetId
+  int targetType
+  int dataLen
+  com.sdk.interfance.bean.NET_SDK_RECT pos
+  int width
+  int height
+  int picFormat
+  [B img
+  com.sdk.interfance.bean.NET_SDK_IVE_VSD_TARGET_UNION targetUnion
+Methods:
+  void setImgData([B)
+
+Class: com.sdk.interfance.bean.N900AlarmVFDContainer
+Fields:
+  int userId
+  com.sdk.interfance.bean.NET_DVR_IVE_VFD_RESULT_HEAD_T head
+  com.sdk.interfance.bean.NET_DVR_IVE_VFD_RESULT_DATA_INFO_T resultInfo
+  [Lcom.sdk.interfance.bean.NET_DVR_IVE_VFD_RESULT_FACE_DATA_INFO_T; faces
+Methods:
+  java.lang.String toString()
+  void setAlarmItem(int, com.sdk.interfance.bean.NET_DVR_IVE_VFD_RESULT_HEAD_T, com.sdk.interfance.bean.NET_DVR_IVE_VFD_RESULT_DATA_INFO_T, [Lcom.sdk.interfance.bean.NET_DVR_IVE_VFD_RESULT_FACE_DATA_INFO_T;)
+
+Class: com.sdk.interfance.NVRSDKCallback$Default
+Fields:
+Methods:
+  void onAlarmIpcAOIENTRY(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAudioData(long, int, [B, int, long, int, int, int, int)
+  void onVideoData(long, int, [B, int, long, boolean, int, int, int, int, int)
+  void ExceptionCallback(int, int, int)
+  void onPlaybackEnd()
+  void onAlarmNvrAOIENTRY(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmTypeVFD(com.sdk.interfance.bean.N900AlarmVFDContainer)
+  void onAlarmIpcAOILEAVE(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmNvrAOILEAVE(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmLoiter(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmTypeAVD(com.sdk.interfance.bean.NET_SDK_IVE_AVD_T)
+  void onAlarmTypeFaceMatchForIPC(com.sdk.interfance.bean.N900AlarmFaceIPCContainer)
+  void onVideoDataFormatHead(long, int)
+  void AcceptRegisterCallback(int, int, [Lcom.sdk.interfance.NET_SDK_DEVICEINFO;)
+  void onAlarmTypeFaceMatch(com.sdk.interfance.bean.NET_SDK_IVE_FACE_MATCH_T)
+  void onAlarmPVD(com.sdk.interfance.bean.N9000SmartCommonContainer)
+  void onAlarmASD(com.sdk.interfance.bean.N9000SmartASDContainer)
+  void onTalkData(int, int, [B)
+  void onAlarmVSD(com.sdk.interfance.bean.N9000SmartVSDContainer)
+
+Class: com.sdk.interfance.bean.SmartType
+Fields:
+  int NET_DVR_SMART_AVD
+  int NET_DVR_SMART_VFD
+  int NET_DVR_SMART_VFD_MATCH
+  int NET_DVR_SMART_PEA
+  int NET_DVR_SMART_OSC
+  int NET_DVR_SMART_CPC
+  int NET_DVR_SMART_CDD
+  int NET_DVR_SMART_IPD
+Methods:
+
+Class: com.sdk.interfance.bean.NET_SDK_IVE_VSD_TARGET_UNION
+Fields:
+Methods:
+
+Class: com.sdk.interfance.bean.NET_SDK_IVE_VSD_HEAD_INFO
+Fields:
+  int count
+  int channel
+  int relativeTick
+Methods:
+
+Class: com.sdk.interfance.bean.N900AlarmFaceIPCContainer
+Fields:
+  int userId
+  com.sdk.interfance.bean.NET_SDK_IVE_BASE_INFO baseInfo
+  com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO pictureInfo
+  com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO pictureInfoAlbum
+Methods:
+  void setFaceIPCItem(com.sdk.interfance.bean.NET_SDK_IVE_BASE_INFO, com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO, com.sdk.interfance.bean.NET_SDK_IVE_PICTURE_INFO)
+
+Class: com.sdk.interfance.bean.NET_SDK_IVE_VSD_TARGET_PERSON
+Fields:
+  int gender
+  int age
+  int orient
+  int hat
+  int glasses
+  int backpack
+  int shoulderBag
+  int upperLength
+  int lowerLength
+  int upperColor
+  int lowerColor
+  int skirt
+  int mask
+  [I reserve
+Methods:

@@ -1,0 +1,28 @@
+---
+title: PTZ Control
+---
+
+flowchart TD
+    A(Device SDK initialization <br><strong>NET_SDK_Init</strong>)
+    B(User registers device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+
+    C("Start preview <br><strong>NET_SDK_LivePlay</strong>")
+    D("PTZ control <br><strong>NET_SDK_PTZControl</strong>")
+    E("PTZ preset point operation <br><strong>NET_SDK_PTZPreset</strong>")
+    F("... ...")
+    G("Stop preview <br><strong>NET_SDK_StopLivePlay</strong>")
+
+    H("PTZ cruise operation <br><strong>NET_SDK_PTZTrack_Other</strong>")
+    I("PTZ auto scan operation <br><strong>NET_SDK_PTZAutoScan_Other</strong>")
+    J("... ...")
+
+    Y(Device logout <br><strong>NET_SDK_Logout</strong>)
+    Z(Release SDK resources<br><strong>NET_SDK_Cleanup</strong>) 
+    C --> D --> G 
+    C --> E --> G 
+    C --> F --> G 
+    A --> B ---> C 
+    G --> Y --> Z 
+    B --> H ---> Y 
+    B --> I ---> Y 
+    B --> J ---> Y

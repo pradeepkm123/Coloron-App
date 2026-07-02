@@ -1,0 +1,21 @@
+﻿Compiled from "CFrameData.java"
+public class com.sdk.network.CFrameData implements java.lang.Cloneable {
+  public int iNodeID;
+  public int iFrameLen;
+  public byte[] bFrameData;
+  public long dwLowDateTime;
+  public boolean isKeyFrame;
+  public int iFrameWidth;
+  public int iFrameHeight;
+  public int b8BitWidth;
+  public int bMono;
+  public int iSampleRateInHz;
+  public int iEncodeType;
+  public int iFrameIndex;
+  public com.sdk.network.CFrameData();
+  public com.sdk.network.CFrameData clone();
+  public int GetStructSize();
+  public static com.sdk.network.CFrameData deserialize(byte[], int) throws java.io.IOException;
+  public byte[] serialize() throws java.io.IOException;
+  public java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+}

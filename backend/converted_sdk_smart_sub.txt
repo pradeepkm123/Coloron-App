@@ -1,0 +1,2 @@
+140:   public com.sdk.interfance.bean.NET_DVR_SUBSCRIBE_REPLY smartSubscrib(int, int, int);
+141:   public int unSmartSubscrib(int, int, int, java.lang.String);

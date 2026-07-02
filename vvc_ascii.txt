@@ -1,0 +1,6 @@
+Compiled from "VideoViewCallback.java"
+public interface com.sdk.network.VideoViewCallback {
+  public abstract void onCaptureRet(boolean, java.lang.String);
+  public abstract void onDecodeFrameTime(boolean, long, int);
+  public abstract void onRequestSingleFrameData();
+}

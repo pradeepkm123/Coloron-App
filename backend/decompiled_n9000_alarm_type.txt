@@ -1,0 +1,95 @@
+Compiled from "NET_SDK_N9000_ALARM_TYPE.java"
+public class com.sdk.interfance.NET_SDK_N9000_ALARM_TYPE {
+  public static final int NET_SDK_N9000_ALARM_TYPE_RANGE_BEGIN;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_MOTION0;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_SENSOR;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_VLOSS;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_FRONT_OFFLINE;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_OSC;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_AVD;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_AVD_SCENE;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_AVD_CLARITY;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_AVD_COLOR;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_PEA_TRIPWIRE;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_PEA_PERIMETER;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_VFD;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_CDD;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_IPD;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_CPC;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_FACE_MATCH;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_FACE_MATCH_FOR_IPC;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_PEA_FOR_IPC;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_TRAJECT;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_VEHICE;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_AOIENTRY;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_AOILEAVE;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_PASSLINE;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_TRAFFIC;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_DOOR_BELL;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_GPS_SPEED_OVER;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_GPS_CROSS_BOADER;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_GPS_TEMPERATURE_OVER;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_GPS_GSENSOR_X;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_GPS_GSENSOR_Y;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_GPS_GSENSOR_Z;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_EXCEPTION;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_IP_CONFLICT;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_DISK_IO_ERROR;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_DISK_FULL;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_RAID_SUBHEALTH;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_RAID_UNAVAILABLE;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_ILLEIGAL_ACCESS;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_NET_DISCONNECT;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_NO_DISK;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_SIGNAL_SHELTER;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_HDD_PULL_OUT;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_ALARM_OUT;
+    descriptor: I
+  public static final int NET_SDK_N9000_ALARM_TYPE_RANGE_END;
+    descriptor: I
+  public com.sdk.interfance.NET_SDK_N9000_ALARM_TYPE();
+    descriptor: ()V
+}

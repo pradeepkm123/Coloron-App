@@ -1,0 +1,18 @@
+---
+title: Smart Alarm Process
+---
+
+flowchart TD
+    A(Device SDK initialization <br><strong>NET_SDK_Init</strong>)
+    B(User registers device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+    subgraph Subscribe/Unsubscribe
+        direction LR
+        C(Subscribe to alarm <br><strong>NET_SDK_SmartSubscribe</strong>)
+        D(Unsubscribe to alarm <br><strong>NET_SDK_UnsmartSubscribe</strong>)
+        C --> D
+    end
+    E(Register alarm callback function <br><strong>NET_SDK_SetSubscribeCallBack</strong>)
+    F(Unregister device <br><strong>NET_SDK_Logout</strong>)
+    G(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+    
+    A --> B --> E --> Subscribe/Unsubscribe --> F --> G

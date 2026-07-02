@@ -1,0 +1,13 @@
+---
+title: 报警模块流程
+---
+flowchart TD
+    line1(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    line2(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+    line3(配置报警条件和处理方式)
+    line4(报警或状态回调<br><strong>NET_SDK_SetDVRMessageCallBack</strong>)
+    line5(设置报警<br><strong>NET_SDK_SetupAlarmChan</strong>)
+    line6(关闭报警<br><strong>NET_SDK_CloseAlarmChan</strong>)
+    line7(注销设备<br><strong>NET_SDK_Logout</strong>)
+    line8(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+    line1 --> line2 --> line3 --> line4 -->line5 -->line6 -->line7 -->line8

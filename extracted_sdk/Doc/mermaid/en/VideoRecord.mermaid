@@ -1,0 +1,14 @@
+---
+title: Video Recording
+---
+
+flowchart TD
+    A(Device SDK initialization <br><strong>NET_SDK_Init</strong>)
+    B(User registers device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+    C("Start manual recording on the device <br><strong>NET_SDK_StartDVRRecord</strong>")
+    D("Stop manual recording on the device <br><strong>NET_SDK_StopDVRRecord</strong>")
+    E(Log out of device <br><strong>NET_SDK_Logout</strong>)
+    F(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+
+    B --> C --> E
+    A --> B --> D --> E --> F

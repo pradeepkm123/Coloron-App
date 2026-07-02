@@ -1,0 +1,10 @@
+javap : Error: class not found: 
+.\com\sdk\network\VideoPlayer.class
+At line:1 char:1
++ javap -p .\com\sdk\network\VideoPlayer.class 2>&1 | 
+Out-File -Encodin ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: class no 
+   ...deoPlayer.class:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

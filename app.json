@@ -1,0 +1,9 @@
+{
+  "name": "ColorOn",
+  "displayName": "ColorOn",
+  "slug": "vms",
+  "version": "1.0.0",
+  "android": {
+    "package": "com.vms"
+  }
+}

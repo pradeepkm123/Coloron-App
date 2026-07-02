@@ -1,0 +1,20 @@
+---
+title: Preview
+---
+
+flowchart TD
+    A(Device SDK initialization <br><strong>NET_SDK_Init</strong>)
+    B(User registers device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+
+    subgraph SS [Sound control]
+        S0(Open sound <br><strong>NET_SDK_OpenSound</strong>)
+        S1(Adjust volume <br><strong>NET_SDK_Volume</strong>)
+        S2(Close sound <br><strong>NET_SDK_CloseSound</strong>)
+        S0 --> S1 --> S2
+    end
+    style SS fill:#e7b13387,stroke:#f66,stroke-width:2px,stroke-dasharray: 5
+    C(Stop preview <br><strong>NET_SDK_StopLivePlay</strong>)
+    E(Log out of device <br><strong>NET_SDK_Logout</strong>)
+    F(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> SS --> C --> E --> F

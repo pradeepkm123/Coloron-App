@@ -1,0 +1,9 @@
+Compiled from "NET_SDK_IVE_AVD_T.java"
+public class com.sdk.interfance.bean.NET_SDK_IVE_AVD_T {
+  public int count;
+    descriptor: I
+  public com.sdk.interfance.bean.NET_SDK_IVE_AVD_INFO_T[] avdInfo;
+    descriptor: [Lcom/sdk/interfance/bean/NET_SDK_IVE_AVD_INFO_T;
+  public com.sdk.interfance.bean.NET_SDK_IVE_AVD_T();
+    descriptor: ()V
+}

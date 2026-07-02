@@ -1,0 +1,27 @@
+---
+title: Video Download
+---
+
+flowchart TD
+    A(Device SDK Initialization <br><strong>NET_SDK_Init</strong>)
+    B(User Registers Device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+
+    subgraph SS [Find Video File]
+        direction LR
+        S0(Find Video File <br><strong>NET_SDK_FindFile</strong>)
+        S1(Get Video File Information One by One <br><strong>NET_SDK_FindNextFile</strong>)
+        S2(Stop Video Search <br><strong>NET_SDK_FindClose</strong>)
+        S0 --> S1 --> S2
+    end
+
+    subgraph SS1 [Video File Download]
+        direction LR
+        S00(Playback by Time <br><strong>NET_SDK_GetFileByTimeExV2</strong>)
+        S01(Stop Video Playback <br><strong>NET_SDK_StopPlayBack</strong>)
+        S00 --> S01
+    end
+
+    E(Logout Device <br><strong>NET_SDK_Logout</strong>)
+    F(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> SS --> SS1 --> E --> F

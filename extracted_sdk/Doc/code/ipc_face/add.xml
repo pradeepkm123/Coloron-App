@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns="http://www.ipc.com/ver10" version="1.0">
+    <types>
+        <listType>
+            <enum>strangerList</enum>
+            <enum>whiteList</enum>
+            <enum>blackList</enum>
+        </listType>
+        <sexType>
+            <enum>male</enum>
+            <enum>female</enum>
+        </sexType>
+        <formatType>
+            <enum>jpg</enum>
+        </formatType>
+    </types>
+    <personInfo>
+        <listType type="listType">whiteList</listType>
+        <name type="string" maxLen="127">
+            <![CDATA[user]]>
+        </name>
+        <sex type="sexType">male</sex>
+        <age type="uint32">34</age>
+        <identifyNumber type="string" maxLen="127">
+            <![CDATA[A123]]>
+        </identifyNumber>
+        <telephone type="string" maxLen="63">
+            <![CDATA[18888888888]]>
+        </telephone>
+        <comment type="string" maxLen="63">
+            <![CDATA[]]>
+        </comment>
+    </personInfo>
+    <faceImgs type="list" maxCount="5" count="2">
+        <item>
+            <pictureData type="string" maxLen="95576">
+                <![CDATA[Base64 Picture Data]]>
+            </pictureData>
+            <pictureNum type="uint32">1</pictureNum>
+            <width type="uint32">100</width>
+            <height type="uint32">80</height>
+            <format type="formatType">jpg</format>
+            <size type="uint32">50000</size>
+        </item>
+        <item>
+            <pictureData type="string" maxLen="95576">
+                <![CDATA[Base64 Picture Data]]>
+            </pictureData>
+            <pictureNum type="uint32">2</pictureNum>
+            <width type="uint32">200</width>
+            <height type="uint32">180</height>
+            <format type="formatType">jpg</format>
+            <size type="uint32">60000</size>
+        </item>
+    </faceImgs>
+</config>

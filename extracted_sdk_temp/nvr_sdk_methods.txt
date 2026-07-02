@@ -1,0 +1,20 @@
+Line 63: const info = await TVTSdkModule.getDeviceInfo(userId);
+    console.log('[NvrSdk] Native Device Info:', info);
+    return {
+    userId,
+    channelCount: info.videoInputNum || 1,
+Line 96: export const getDeviceInfo = async (userId: number): Promise<DeviceInfo> => {
+    try {
+    const info = await TVTSdkModule.getDeviceInfo(userId);
+    return {
+    deviceName: info.deviceName || 'TVT Device',
+Line 98: const info = await TVTSdkModule.getDeviceInfo(userId);
+    return {
+    deviceName: info.deviceName || 'TVT Device',
+    serialNumber: info.serialNumber || '',
+    model: info.model || 'TVT Model',
+Line 554: getDeviceInfo,
+    init,
+    cleanup,
+    checkConnect,
+    setNat2Addr,

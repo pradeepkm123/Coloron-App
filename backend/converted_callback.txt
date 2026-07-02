@@ -1,0 +1,22 @@
+﻿Compiled from "NVRSDKCallback.java"
+public interface com.sdk.interfance.NVRSDKCallback {
+  public abstract void onVideoData(long, int, byte[], int, long, boolean, int, int, int, int, int);
+  public abstract void onVideoDataFormatHead(long, int);
+  public abstract void onAudioData(long, int, byte[], int, long, int, int, int, int);
+  public abstract void onTalkData(int, int, byte[]);
+  public abstract void ExceptionCallback(int, int, int);
+  public abstract void AcceptRegisterCallback(int, int, com.sdk.interfance.NET_SDK_DEVICEINFO[]);
+  public abstract void onPlaybackEnd();
+  public abstract void onAlarmTypeVFD(com.sdk.interfance.bean.N900AlarmVFDContainer);
+  public abstract void onAlarmTypeAVD(com.sdk.interfance.bean.NET_SDK_IVE_AVD_T);
+  public abstract void onAlarmTypeFaceMatch(com.sdk.interfance.bean.NET_SDK_IVE_FACE_MATCH_T);
+  public abstract void onAlarmTypeFaceMatchForIPC(com.sdk.interfance.bean.N900AlarmFaceIPCContainer);
+  public abstract void onAlarmASD(com.sdk.interfance.bean.N9000SmartASDContainer);
+  public abstract void onAlarmIpcAOIENTRY(com.sdk.interfance.bean.N9000SmartCommonContainer);
+  public abstract void onAlarmNvrAOIENTRY(com.sdk.interfance.bean.N9000SmartCommonContainer);
+  public abstract void onAlarmIpcAOILEAVE(com.sdk.interfance.bean.N9000SmartCommonContainer);
+  public abstract void onAlarmNvrAOILEAVE(com.sdk.interfance.bean.N9000SmartCommonContainer);
+  public abstract void onAlarmPVD(com.sdk.interfance.bean.N9000SmartCommonContainer);
+  public abstract void onAlarmLoiter(com.sdk.interfance.bean.N9000SmartCommonContainer);
+  public abstract void onAlarmVSD(com.sdk.interfance.bean.N9000SmartVSDContainer);
+}

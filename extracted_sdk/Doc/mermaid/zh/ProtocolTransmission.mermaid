@@ -1,0 +1,14 @@
+---
+title: 协议透传
+---
+
+flowchart TD
+    A(设备SDK初始化<br><strong>NET_SDK_Init</strong>)
+    B(用户注册设备<br><strong>NET_SDK_Login</strong>或<br><strong>NET_SDK_LoginEx</strong>)
+    C(协议透传<br><strong>NET_SDK_TransparentConfig</strong>)
+    F(用户业务逻辑<br>...)
+    D(注销设备<br><strong>NET_SDK_Logout</strong>)
+    E(释放SDK资源<br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B --> C --> F --> D --> E
+    

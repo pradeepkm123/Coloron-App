@@ -1,0 +1,26 @@
+---
+title: Remote Device Maintenance
+---
+flowchart TD
+    A(Device SDK initialization <br><strong>NET_SDK_Init</strong>)
+    B(User registers device <br><strong>NET_SDK_Login</strong> or <br><strong>NET_SDK_LoginEx</strong>)
+
+    C("Get device working status <br>...")
+    D("Device remote upgrade <br><strong>NET_SDK_Upgrade</strong>")
+    E("Device log search <br><strong>NET_SDK_FindDVRLog</strong>")
+    F("Restore device default configuration <br><strong>NET_SDK_RestoreConfig</strong>")
+    G("Import configuration file <br><strong>NET_SDK_GetConfigFile</strong>")
+    H("Export configuration file <br><strong>NET_SDK_SetConfigFile</strong>")
+    style C fill:#e7b13387
+
+    Y(Log out device <br><strong>NET_SDK_Logout</strong>)
+    Z(Release SDK resources <br><strong>NET_SDK_Cleanup</strong>)
+
+    A --> B
+    Y --> Z
+    B ---> C ---> Y
+    B ---> D ---> Y 
+    B ---> E ---> Y 
+    B ---> F ---> Y 
+    B ---> G ---> Y 
+    B ---> H ---> Y

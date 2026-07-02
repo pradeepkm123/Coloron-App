@@ -1,0 +1,958 @@
+﻿--------- beginning of main
+03-04 19:04:23.220  1872  3931 W PackageManager: Missing required system package: com.vms, but found with extended search.
+--------- beginning of system
+03-04 19:04:23.220  1872  3931 W ActivityTaskManager: callingPackage for (uid=2000, pid=17107) has no WPC
+03-04 19:04:23.220  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid true user set display id 0, current focus display 0
+03-04 19:04:23.221  1872  3931 I SettingsAccessControlPolicy: isDeviceSettingsChangeDisabled: value -> false
+03-04 19:04:23.222  1872  3931 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_ORIENTATION_OVERRIDE
+03-04 19:04:23.222  1872  3931 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@144166c5 does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+03-04 19:04:23.222  1872  3931 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_RESIZEABLE_ACTIVITY_OVERRIDES
+03-04 19:04:23.223  1872  3931 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_MIN_ASPECT_RATIO_OVERRIDE
+03-04 19:04:23.225  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid true user set display id 0, current focus display 0
+03-04 19:04:23.225  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid true user set display id 0, current focus display 0
+03-04 19:04:23.225  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid true user set display id 0, current focus display 0
+03-04 19:04:23.226  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid true user set display id 0, current focus display 0
+03-04 19:04:23.226  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid true user set display id 0, current focus display 0
+03-04 19:04:23.226  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid true user set display id 0, current focus display 0
+03-04 19:04:23.227  1872  3931 D ActivityTaskManager: sendShowDecorCaptionWindow Task is not organized Task{3c6a1f9 #2080 type=undefined}
+03-04 19:04:23.227  1872  3931 D ActivityTaskManager: sendShowDecorCaptionWindow Task is not organized Task{3c6a1f9 #2080 type=undefined}
+03-04 19:04:23.228  1274  1378 I BufferQueueDebug: [Task=2080#38920](this:0xb400007436c50020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:23.231  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid false user set display id 0, current focus display 0
+03-04 19:04:23.231  1872  3931 D ActivityTaskManager: getPreferredLaunchDisplay userset_displayid false user set display id 0, current focus display 0
+03-04 19:04:23.232  1274  1378 I BufferQueueDebug: [ActivityRecord{ce2d243 u0 com.vms/.MainActivity#38921](this:0xb400007436c97020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:23.232  1274  1728 I Scheduler: applyPolicy: UpdateRefreshRate 30 to 120 of group 0: [touch=0:0 touchBoost=0 scroll=0:0 idle=0:0]
+03-04 19:04:23.232  1274  1728 D DisplayModeController: setDesiredMode 0 {mode={fps=120.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}}, emitEvent=true, force=false}
+03-04 19:04:23.232  1274  1728 D Scheduler: MtkOverrideDuration: update vsync 120
+03-04 19:04:23.233  1274  1728 D Scheduler: MtkOverrideDuration: reset override duration
+03-04 19:04:23.233  1274  1728 I PowerHalWrapper: updateFps(): 120
+03-04 19:04:23.233  1193  1578 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-04 19:04:23.236  1240  1277 I mtkpower@impl: [setMode] type:5, enabled:1
+03-04 19:04:23.236  1872  3931 D PowerManagerService: nativeSetPowerMode ret:true mode:5 enabled:true duration ms: 0
+03-04 19:04:23.238  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 3(30.00 Hz:0) to 0(120.00 Hz:0) for display 0
+03-04 19:04:23.238  1193  1323 I hwcomposer: [HWC] (0) displaySetActiveConfig config:0  
+03-04 19:04:23.238  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges active mode changed to 0(120.00 Hz) for display 0. mBrightnessDimingCnt=0
+03-04 19:04:23.238  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.238  1240  1332 I libPowerHal: [perfLockAcq] idx:2 hdl:52273 hint:11 pid:1240 duration:3000 lock_user:mtkpower@1.0-se => ret_hdl:52273
+03-04 19:04:23.239  1240  1332 I libPowerHal: [setGPUFreq] LAUNCH user set gpu freq min:23, max:-1
+03-04 19:04:23.239  1240  1332 I libPowerHal: LAUNCH: set gpu opp level: 23
+03-04 19:04:23.239  1240  1332 I libPowerHal: LAUNCH: set gpu opp level max: 0
+03-04 19:04:23.239  1240  1332 I libPowerHal: [setGPUFreq] Soft min/max = (23, 0); Hard min/max = (36, 0)
+03-04 19:04:23.239  1240  1332 I libPowerHal: [setGPUFreq] final min/max = (23, 0)
+03-04 19:04:23.239  1240  1332 I libPowerHal: LAUNCH: set gpu opp level: 23
+03-04 19:04:23.239  1240  1332 I libPowerHal: LAUNCH: set gpu opp level max: 0
+03-04 19:04:23.239  1240  1332 I libPowerHal: [setClusterFreq] LAUNCH: sysfs_freq set cpu freq: 2000000 -1 2200000 -1 
+03-04 19:04:23.240  1193  1323 I hwcomposer: [HWCDisplay] [Display_0 (type:1)] fps:1.505151,dur:1328.77,max:1303.72,min:25.05  
+03-04 19:04:23.240  1872  3931 D PowerManagerService: nativeAcquireSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 2
+03-04 19:04:23.240  1240  1332 I libPowerHal: [PE] LAUNCH update cmd:1408300, param:100
+03-04 19:04:23.240  1240  1332 I libPowerHal: [PE] LAUNCH update cmd:300c000, param:15
+03-04 19:04:23.240  1240  1332 I libPowerHal: set_data_partition_boost: value:1, scn:0xb4000075a0189880
+03-04 19:04:23.240  1240  1332 I libPowerHal: set_f2fs_current_flush_merge:1
+03-04 19:04:23.240  1240  1332 I libPowerHal: [PE] LAUNCH update cmd:2c14000 param:1
+03-04 19:04:23.241  1240  1332 I libPowerHal: [PE] LAUNCH update cmd:1000000 param:0
+03-04 19:04:23.242  1872  3931 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.vms/.MainActivity} with LAUNCH_SINGLE_TASK from uid 2000 (startActivityAsUser) (BAL_ALLOW_PERMISSION) result code=0
+03-04 19:04:23.242  1240  1332 I libPowerHal: [perfLockRel] hdl:52257, idx:-1
+03-04 19:04:23.244  2336  2373 V WindowManagerShell: Transition requested (#2568): android.os.BinderProxy@7bb1e4c TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=2080 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.vms/.MainActivity } baseActivity=ComponentInfo{com.vms/com.vms.MainActivity} topActivity=ComponentInfo{com.vms/com.vms.MainActivity} origActivity=null realActivity=ComponentInfo{com.vms/com.vms.MainActivity} numActivities=1 lastActiveTime=243878933 supportsMultiWindow=true supportsGlobalFreeform=true resizeMode=1 isResizeable=true isAppLocked=false isShowDecorCaptionWindowRequest=false canKillAndRestart=false minWidth=-1 minHeight=-1 defaultMinSize=200 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@8af3e95} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 117 - 0, 0) topActivityInfo=ActivityInfo{3ed3baa com.vms.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= falseisLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false topActivityEligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=1080 topActivityLetterboxHeight=2400 isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatControlState=hidden freeformCameraCompatMode=inactive}}}, pipTask = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 2568 }
+03-04 19:04:23.246  1872  2454 E PersistenceController: SettingNotFoundException: sv_custom_ai_icon_enabled
+03-04 19:04:23.246  1274  1378 D SurfaceFlinger: [SF client] NEW(0xb40000743699f580) for (2336:com.android.systemui)
+03-04 19:04:23.247  1872  2333 I PowerHalWrapper: amsBoostNotify pid:14600,activity:com.android.launcher3.CustomizationPanelLauncher, package:com.motorola.launcher3, mProcessCreatePackcom.vms 
+03-04 19:04:23.247  1872  2333 I PowerHalWrapper: state: 0 
+03-04 19:04:23.249  1872  2333 I mtkpower_client: [PowerHal_Wrap_notifyAppState] com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher pid=14600 activityId:232480258 state:0
+03-04 19:04:23.249  1872  2333 I mtkpower_client: [Legacy][PowerHal_Wrap_notifyAppState] com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher pid=14600 state:232480258
+03-04 19:04:23.249  1240  1332 I libPowerHal: [perfNotifyAppState] pack:com.motorola.launcher3, act:com.android.launcher3.CustomizationPanelLauncher, state:0, pid:14600, uid:10294, fps:-1
+03-04 19:04:23.250  1872  2333 I PowerHalWrapper: amsBoostNotify AMS_BOOST_PROCESS_CREATE_BOOST:false 
+03-04 19:04:23.251  1872  1894 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@144166c5 does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+03-04 19:04:23.252  1872  2333 I PowerHalWrapper: amsBoostProcessCreate package:com.vms 
+03-04 19:04:23.252 14600 14600 I TopTaskTracker: onTaskMovedToFront: (moved taskInfo to front) taskId=2080, baseIntent=Intent { flg=0x10000000 cmp=com.vms/.MainActivity }
+03-04 19:04:23.253  1240  1332 I libPowerHal: [perfLockRel] hdl:52241, idx:5
+03-04 19:04:23.253  2336  2373 D WindowManagerShell: setLauncherKeepClearAreaHeight: visible=false, height=193
+03-04 19:04:23.254  3237  3925 D GameMode: isScreenUnlocked: true
+03-04 19:04:23.254  1240  1332 I libPowerHal: [perfLockAcq] idx:3 hdl:52274 hint:21 pid:1240 duration:10000 lock_user:mtkpower@1.0-se => ret_hdl:52274
+03-04 19:04:23.254  1240  1332 I libPowerHal: [perfLockRel] hdl:52240, idx:-1
+03-04 19:04:23.255  1872  1894 W ProcessStats: Tracking association SourceState{df933ab system/1000 ImpFg #337954} whose proc state 5 is better than process ProcessState{daa39d0 com.google.android.tts/10255 pkg=com.google.android.tts} proc state 14 (2 skipped)
+03-04 19:04:23.258  1872  3931 W AutofillManagerServiceImpl: getFillEventHistory() called by UID 10175, but service UID is 10210
+03-04 19:04:23.259  1274  1378 I BufferQueueDebug: [226374a Splash Screen com.vms#38922](this:0xb400007436d09020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:23.266  1274  1274 I PowerHalWrapper: updateFps(): 120
+03-04 19:04:23.268  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 0(120.00 Hz:0) to 0(120.00 Hz:0) for display 0
+03-04 19:04:23.268  1274  1274 I PowerHalWrapper: updateFps(): 120
+03-04 19:04:23.268  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.268  1156  1156 I Zygote  : Entering forkRepeatedly native zygote loop
+03-04 19:04:23.273  1274  1274 I BufferQueueProducer: [VDS-studio.screen.sharing:0 SINK](this:0xb400007436a8fb98,id:-1,api:1,p:1274,c:1274) queueBuffer: fps=28.34 dur=2470.03 max=1863.21 min=6.14
+03-04 19:04:23.282  1274  1274 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+03-04 19:04:23.282  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.283  1156  1156 D Zygote  : Forked child process 17110
+03-04 19:04:23.284  1872  1904 I ActivityManager: Start proc 17110:com.vms/u0a422 for next-top-activity {com.vms/com.vms.MainActivity}
+03-04 19:04:23.284 16358 16384 I MediaCodec: [0xb4000075701bc000] dequeue 7 output frames in last 1453 ms, latest timeUs 182404295608, flags 0
+03-04 19:04:23.294 17110 17110 I com.vms : Late-enabling -Xcheck:jni
+03-04 19:04:23.314 17110 17110 I com.vms : Using CollectorTypeCMC GC.
+03-04 19:04:23.321  1422  1461 I adbd    : jdwp connection from 17110
+03-04 19:04:23.324 17110 17110 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+03-04 19:04:23.335  1274  2740 I BufferQueueDebug: [Splash Screen com.vms#38923](this:0xb400007436c5e020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:23.341  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.343  1872  3931 D CoreBackPreview: Window{226374a u0 Splash Screen com.vms}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@7ad0984, mPriority=0, mIsAnimationCallback=false}
+03-04 19:04:23.343  2336  2432 D BufferQueueConsumer: [](id:920000008aa,api:0,p:-1,c:2336) connect: controlledByApp=false
+03-04 19:04:23.343  2336  2432 D BLASTBufferQueue: [VRI[vms]#2215](f:0,a:0) constructor()
+03-04 19:04:23.343  2336  2432 D BLASTBufferQueue: [VRI[vms]#2215](f:0,a:0) update width=1080 height=2400 format=-3 mTransformHint=0
+03-04 19:04:23.345 14648 14648 I brdx    : onPause
+03-04 19:04:23.353  3237  3237 D GameMode: onStartedActivityChange: componnent: ComponentInfo{com.vms/com.vms.MainActivity} entered launcher screen? true
+03-04 19:04:23.356  1872  2042 D ActivityTaskManager: sendShowDecorCaptionWindow Task is not organized Task{718bb67 #1539 type=undefined I=com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher}
+03-04 19:04:23.356  3237  3925 D GameMode: isScreenUnlocked: true
+03-04 19:04:23.357  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.357  3237  3925 D GameMode: isScreenUnlocked: true
+03-04 19:04:23.357 14648 15498 V ClearcutMetricXmitter: Transmission is done.
+03-04 19:04:23.358  2336  2445 D BLASTBufferQueue: [VRI[vms]#2215](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=182404381986872(auto) mPendingTransactions.size=0 graphicBufferId=10033043626067 transform=0
+03-04 19:04:23.361  1872  2333 I PowerHalWrapper: amsBoostNotify pid:17110,activity:com.vms.MainActivity, package:com.vms, mProcessCreatePackcom.vms 
+03-04 19:04:23.361  1872  2333 I PowerHalWrapper: state: 1 
+03-04 19:04:23.365  1872  2333 I ScnModule: [GameDetection] packname: com.vms, apkSize: 426096136. 
+03-04 19:04:23.365  1872  2333 I mtkpower_client: [PowerHal_Wrap_notifyAppState] com.vms/com.vms.MainActivity pid=17110 activityId:216191555 state:1
+03-04 19:04:23.366  1872  2333 I mtkpower_client: [Legacy][PowerHal_Wrap_notifyAppState] com.vms/com.vms.MainActivity pid=17110 state:216191555
+03-04 19:04:23.366  3237  3925 D GameMode: isScreenUnlocked: true
+03-04 19:04:23.367  1872  2333 I PowerHalWrapper: amsBoostNotify AMS_BOOST_PROCESS_CREATE_BOOST:true 
+03-04 19:04:23.368  3237  3925 D GameMode: isScreenUnlocked: true
+03-04 19:04:23.368  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.370  1240  1332 I libPowerHal: [perfNotifyAppState] pack:com.vms, act:com.vms.MainActivity, state:1, pid:17110, uid:10422, fps:-1
+03-04 19:04:23.370  1240  1332 I libPowerHal: [perfNotifyAppState] foreground:com.vms, pid:17110, uid:10422
+03-04 19:04:23.370  1274  1798 I BufferQueueDebug: [Transition Root: Task=2080#38924](this:0xb400007436c61820,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:23.371  1240  1332 I UxUtility: notifyForegroundApp pack:com.vms, uid:10422
+03-04 19:04:23.371  1240  1332 I TouchUtility: notifyAppState error = NULL
+03-04 19:04:23.371  1240  1276 I mtkpower@impl: [notifyAppState] pc:1, com.motorola.launcher3 => com.vms
+03-04 19:04:23.376  3237  3237 D GameMode: exiting game mode
+03-04 19:04:23.377  1872  1891 V WindowManager: Sent Transition (#2568) createdAt=03-04 19:04:23.224 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=2080 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.vms/.MainActivity } baseActivity=ComponentInfo{com.vms/com.vms.MainActivity} topActivity=ComponentInfo{com.vms/com.vms.MainActivity} origActivity=null realActivity=ComponentInfo{com.vms/com.vms.MainActivity} numActivities=1 lastActiveTime=243878933 supportsMultiWindow=true supportsGlobalFreeform=true resizeMode=1 isResizeable=true isAppLocked=false isShowDecorCaptionWindowRequest=false canKillAndRestart=true minWidth=-1 minHeight=-1 defaultMinSize=200 token=WCT{RemoteToken{11939ee Task{3c6a1f9 #2080 type=standard A=10422:com.vms}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 117 - 0, 0) topActivityInfo=ActivityInfo{3785e8f com.vms.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= falseisLetterboxEducationEnabled= false isLetterboxDoubleTapEnabled= false topActivityEligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=1080 topActivityLetterboxHeight=2400 isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatControlState=hidden freeformCameraCompatMode=inactive}}}, pipTask = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 2568 }
+03-04 19:04:23.377  1872  1891 V WindowManager:     startWCT=WindowContainerTransaction { changes = {} hops = [] errorCallbackToken=null taskFragmentOrganizer=null }
+03-04 19:04:23.377  2336  2933 V WindowManagerShell: onTransitionReady(transaction=8040179036716)
+03-04 19:04:23.377  1872  1891 V WindowManager:     info={id=2568 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+03-04 19:04:23.377  1872  1891 V WindowManager:         {WCT{RemoteToken{11939ee Task{3c6a1f9 #2080 type=standard A=10422:com.vms}}} m=OPEN f=NONE pTaskId=-1 leash=Surface(name=Task=2080)/@0x1b339f0 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},
+03-04 19:04:23.377  1872  1891 V WindowManager:         {WCT{RemoteToken{48f024f Task{5715d48 #1 type=undefined}}} m=TO_BACK f=SHOW_WALLPAPER pTaskId=-1 leash=Surface(name=Task=1)/@0x376a287 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1}
+03-04 19:04:23.377  1872  1891 V WindowManager:     ]}
+03-04 19:04:23.377  2336  2373 V WindowManagerShell: onTransitionReady (#2568) android.os.BinderProxy@7bb1e4c: {id=2568 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@5431367} m=OPEN f=NONE pTaskId=-1 leash=Surface(name=Task=2080)/@0x3cc7a68 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},{WCT{android.window.IWindowContainerToken$Stub$Proxy@622d514} m=TO_BACK f=SHOW_WALLPAPER pTaskId=-1 leash=Surface(name=Task=1)/@0xfcbfe81 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1}]}
+03-04 19:04:23.377  2336  2373 V WindowManagerShell: Playing animation for (#2568) android.os.BinderProxy@7bb1e4c@0
+03-04 19:04:23.377  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.transition.DefaultMixedHandler@147c61f
+03-04 19:04:23.378  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.keyguard.KeyguardTransitionHandler@4e6fd6c
+03-04 19:04:23.378  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.pip.PipTransition@7d85785
+03-04 19:04:23.378  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.activityembedding.ActivityEmbeddingController@7a5f9da
+03-04 19:04:23.378  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.recents.RecentsTransitionHandler@c67fe0b
+03-04 19:04:23.378  2336  2373 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+03-04 19:04:23.378  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.splitscreen.StageCoordinator@f30b4e8
+03-04 19:04:23.378  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.transition.RemoteTransitionHandler@24be701
+03-04 19:04:23.378  2336  2373 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=2568 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@5431367} m=OPEN f=NONE pTaskId=-1 leash=Surface(name=Task=2080)/@0x3cc7a68 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},{WCT{android.window.IWindowContainerToken$Stub$Proxy@622d514} m=TO_BACK f=SHOW_WALLPAPER pTaskId=-1 leash=Surface(name=Task=1)/@0xfcbfe81 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1}]}
+03-04 19:04:23.378  2336  2373 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.motorola.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} launchCookie=null},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@62a0b15, appThread = android.app.IApplicationThread$Stub$Proxy@6854e2a, debugName = QuickstepLaunchHome }}
+03-04 19:04:23.379  2336  2373 V WindowManagerShell:  Delegate animation for (#2568) to null
+03-04 19:04:23.379  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.transition.DefaultTransitionHandler@679d9a6
+03-04 19:04:23.379  1274  1798 I BufferQueueDebug: [b7620c0 ActivityRecordInputSink com.vms/.MainActivity#38925](this:0xb400007436d17020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:23.379  2336  2373 V WindowManagerShell: start default transition animation, info = {id=2568 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@5431367} m=OPEN f=NONE pTaskId=-1 leash=Surface(name=Task=2080)/@0x3cc7a68 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},{WCT{android.window.IWindowContainerToken$Stub$Proxy@622d514} m=TO_BACK f=SHOW_WALLPAPER pTaskId=-1 leash=Surface(name=Task=1)/@0xfcbfe81 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1}]}
+03-04 19:04:23.380  2336  2373 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@afb83b2 animAttr=0x13 type=OPEN isEntrance=false
+03-04 19:04:23.380  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.382  2336  2373 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@99a28fe animAttr=0x12 type=OPEN isEntrance=true
+03-04 19:04:23.383  2336  2373 V WindowManagerShell:  animated by com.android.wm.shell.transition.DefaultTransitionHandler@679d9a6
+03-04 19:04:23.393  1872  3618 W UserManagerService: Requested status bar icon for non-badged user 0
+03-04 19:04:23.394  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.396  3237  3237 D GameMode: isFeatureSupported: true
+03-04 19:04:23.397  3237  3237 D GameMode: isFeatureSupported: true
+03-04 19:04:23.400  3237  3237 D GameMode: isFeatureSupported: true
+03-04 19:04:23.400  2517  2517 D GameModeDetector: notifyGameModeStatusValue, value=false
+03-04 19:04:23.400  2517  2517 D DaxService: sendGameModeIntent, state=false
+03-04 19:04:23.402  1872  1903 D ActivityManager: unfreezing ProcessRecord{f4185d4 15922:com.motorola.dolby.dolbyui/u0a162}, reason = unfreezeTemporarily, adj = 945, adjType = cch-empty, adjSource = null
+03-04 19:04:23.405  1872  1903 D ActivityManager: sync unfroze 15922 com.motorola.dolby.dolbyui for 3
+03-04 19:04:23.405  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.408  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.410 15922 15975 D MotoDolbyUI: getDeviceType, active device is 0x2
+03-04 19:04:23.411 15922 15975 D MotoDolbyUI: getDeviceType, active device is 0x2
+03-04 19:04:23.416  2517  2538 I AudioEffect: getParameter: param: 5, param2: -1
+03-04 19:04:23.417  1184  1184 I EffectsFactory: Effect_Command(): self = 0xb400007941268440, cmdCode = 8
+03-04 19:04:23.420  1274  1274 I BufferQueueProducer: [FramebufferSurface](this:0xb4000074669806d0,id:-1,api:1,p:1274,c:1274) queueBuffer: fps=0.76 dur=22383.08 max=21601.83 min=13.47
+03-04 19:04:23.420  1184  1184 D DlbDapEffectContext: DapEffectContext[0xb40000794d4ad300] getDapParameter() outval size = 12, ret = 0
+03-04 19:04:23.421  2517  2538 I AudioEffect: getParameter: param: 167772165, param2: -1
+03-04 19:04:23.422  1184  1184 I EffectsFactory: Effect_Command(): self = 0xb400007941268440, cmdCode = 8
+03-04 19:04:23.422  1184  1184 D DlbDapEffectContext: DapEffectContext[0xb40000794d4ad300] getDapParameter() outval size = 12, ret = 0
+03-04 19:04:23.423  2517  2538 D DolbyAudioEffectHelper: getDolbyStatus enabled=true profile=0
+03-04 19:04:23.423  2517  2538 D DolbyProvider: true, profile=0
+03-04 19:04:23.424  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.429  1274  2740 I BufferQueueDebug: [Surface(name=e67abc9 StatusBar)/@0xd1c6747 - animation-leash of insets_animation#38926](this:0xb400007436d1a820,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:23.431  1195  1343 D C2MtkComponentStore: setDmaBufUsage: usage 5, flags 0, heapName mtk_mm for decoder.
+03-04 19:04:23.431  1274  2740 I BufferQueueDebug: [Surface(name=c3c7c18 NavigationBar0)/@0x2816c56 - animation-leash of insets_animation#38927](this:0xb400007436d37020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:23.434  1274  2740 I SurfaceFlinger: setDesiredDisplayModeSpecs: calling_process=system_server
+03-04 19:04:23.438  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.451  1274  1274 I SurfaceFlinger: setDesiredDisplayModeSpecs: policy={defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-04 19:04:23.451  1274  1274 D SurfaceFlinger: setDesiredDisplayModeSpecs[30~120]: by process 1872 uid 1000 for display 0
+03-04 19:04:23.451  1274  1274 D RefreshRateSelector: constructAvailableRefreshRates: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr} 
+03-04 19:04:23.451  1274  1274 D RefreshRateSelector: primary render rates: {fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}} {fps=40.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} {fps=45.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=60.00 Hz, modePtr={id=2, vsyncRate=60.00 Hz, peakRefreshRate=60.00 Hz}} , isVrrDevice? 0
+03-04 19:04:23.451  1274  1274 D RefreshRateSelector: app request render rates: {fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}} {fps=40.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} {fps=45.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=60.00 Hz, modePtr={id=2, vsyncRate=60.00 Hz, peakRefreshRate=60.00 Hz}} {fps=90.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=120.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} , isVrrDevice? 0
+03-04 19:04:23.451  1274  1274 I RefreshRateSelector: constructAvailableRefreshRates: Found m90HzRefreshRateModeOpt at index 1
+03-04 19:04:23.451  1274  1274 I RefreshRateSelector: constructAvailableRefreshRates: Found m60HzRefreshRateModeOpt at index 2
+03-04 19:04:23.451  1274  1274 D RefreshRateSelector: Special render rates: 
+03-04 19:04:23.451  1274  1274 D RefreshRateSelector: [90:120:0]: mTouchBoostRefreshRateAvailable=0, mScrollBoostRefreshRateAvailable=0, mTouchOnBlankNotBoostRefreshRateAvailable=0
+03-04 19:04:23.451  1274  1274 I RefreshRateSelector: Display 0 policy changed
+03-04 19:04:23.451  1274  1274 I RefreshRateSelector: Previous: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 120.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-04 19:04:23.451  1274  1274 I RefreshRateSelector: Current:  DisplayManagerPolicy{defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-04 19:04:23.451  1274  1274 I RefreshRateSelector: 13 mode changes were performed under the previous policy
+03-04 19:04:23.451  1274  1274 D SurfaceFlinger: Setting desired display mode specs: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr} for display 0
+03-04 19:04:23.451  1274  1274 I SurfaceFlinger: Switching to Scheduler preferred mode 2 (60.00 Hz) for display 0
+03-04 19:04:23.451  1274  1274 D DisplayModeController: setDesiredMode 0 {mode={fps=60.00 Hz, modePtr={id=2, vsyncRate=60.00 Hz, peakRefreshRate=60.00 Hz}}, emitEvent=true, force=false}
+03-04 19:04:23.451  1274  1274 D Scheduler: MtkOverrideDuration: update vsync 60
+03-04 19:04:23.451  1274  1274 D Scheduler: MtkOverrideDuration: reset override duration
+03-04 19:04:23.452  1274  1274 I PowerHalWrapper: updateFps(): 60
+03-04 19:04:23.454  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=Surface(name=c3c7c18 NavigationBar0)/@0x2816c56 - animation-leash of insets_animation#38918, layerId=38918, parentId=0
+03-04 19:04:23.454  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=Surface(name=e67abc9 StatusBar)/@0xd1c6747 - animation-leash of insets_animation#38917, layerId=38917, parentId=0
+03-04 19:04:23.455  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 0(120.00 Hz:0) to 2(60.00 Hz:0) for display 0
+03-04 19:04:23.455  1193  1323 I hwcomposer: [HWC] (0) displaySetActiveConfig config:2  
+03-04 19:04:23.455  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges active mode changed to 2(60.00 Hz) for display 0. mBrightnessDimingCnt=0
+03-04 19:04:23.455  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.468 14648 15486 I bovz    : Closing streaming connection
+03-04 19:04:23.470  1274  1274 D SurfaceFlinger: backpressure when mode change
+03-04 19:04:23.472  2309  2309 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-04 19:04:23.473  2309  2309 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-04 19:04:23.473  2309  2309 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-04 19:04:23.473  2309  2309 I WifiHAL : feature_set=0x8488141a
+03-04 19:04:23.473 14648 15486 I bovz    : (REDACTED) Closed Connection: %s
+03-04 19:04:23.475  1274  1274 I PowerHalWrapper: updateFps(): 60
+03-04 19:04:23.475  1872  1872 D WiFiBlocklistController: Wifi onCapabilitiesChanged
+03-04 19:04:23.476  1872  1872 D WiFiBlocklistController: Default net onCapabilitiesChanged
+03-04 19:04:23.476  1872  1872 D WiFiBlocklistController: updateDefaultNet:172
+03-04 19:04:23.476  1872  1872 D WiFiBlocklistController: mayUpdateNotification: shouldShow=false,UidsBlocked=false, net info=net:172,ifName=wlan0,securityType=2,isDefault=true,ssid="Lookman_Firstfloor",notificationId=0
+03-04 19:04:23.476  1872  2223 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-04 19:04:23.477  1274  1274 I BufferQueueDebug: [Surface(name=e67abc9 StatusBar)/@0xd1c6747 - animation-leash of insets_animation#38917](this:0xb400007436b94020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:23.477  1274  1274 I BufferQueueDebug: [Surface(name=c3c7c18 NavigationBar0)/@0x2816c56 - animation-leash of insets_animation#38918](this:0xb400007436d02020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:23.478  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 2(60.00 Hz:0) to 2(60.00 Hz:0) for display 0
+03-04 19:04:23.478  1274  1274 I PowerHalWrapper: updateFps(): 60
+03-04 19:04:23.478  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.478  3603  6396 I ModemStats: [DataStallDetectService] onCapabilitiesChanged networkCapabilities=[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED LinkUpBandwidth>=12000Kbps LinkDnBandwidth>=30000Kbps TransportInfo: <SSID: <unknown ssid>, BSSID: 02:00:00:00:00:00, MAC: 02:00:00:00:00:00, IP: /192.168.1.15, Security type: 2, Supplicant state: COMPLETED, Wi-Fi standard: 11n, RSSI: -47, Link speed: 65Mbps, Tx Link speed: 65Mbps, Max Supported Tx Link speed: 72Mbps, Rx Link speed: 6Mbps, Max Supported Rx Link speed: 72Mbps, Frequency: 2412MHz, Net ID: -1, Metered hint: false, score: 100, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: -1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none><none>MLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>> SignalStrength: -47 UnderlyingNetworks: Null]
+03-04 19:04:23.478  3603  6396 I ModemStats: [DataStallDetectService] onCapabilitiesChanged NET_CAPABILITY_VALIDATED=true
+03-04 19:04:23.478  3603  6396 I ModemStats: [DataStallDetectService] onCapabilitiesChanged mDataStallManager.mDataStallInstance=null
+03-04 19:04:23.478  3603  6396 I ModemStats: [DataStallDetectService] onCapabilitiesChanged mDataStallSmart5gManager.mDataStallInstance=null
+03-04 19:04:23.479  1872  2254 I EnhancedConnectivity: [DataStallService] NetworkCallback  isDataStallNetwork=false isLabCard=false
+03-04 19:04:23.491  1195  1343 D C2MtkComponentStore: setDmaBufUsage: usage 5, flags 0, heapName mtk_mm for decoder.
+03-04 19:04:23.497  1274  1274 I BufferQueueProducer: [StatusBar#91](this:0xb4000074369aa820,id:-1,api:0,p:-1,c:1274) queueBuffer: fps=1.59 dur=5677.66 max=5578.08 min=8.07
+03-04 19:04:23.497 10102 10186 I BugleRcsEngine: handleMessage processing message:[NOTIFY_UPTIME_IGNORE_STATE_CHANGED] with [non-null]:RcsEngineImpl reference [CONTEXT log_prefix="RcsEngineImpl[DUAL_REG]:[ec660e41-7d0b]>Handler" thread_id=79 ]
+03-04 19:04:23.498  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.499 10102 10170 I BugleRcsEngine: Connected state: [1], networkType: [WIFI] [CONTEXT thread_id=73 ]
+03-04 19:04:23.501  1872  1894 I DisplayDeviceRepository: Display device changed render timings: "Built-in Screen", renderFrameRate=60.000004, presentationDeadlineNanos=28600000, appVsyncOffsetNanos=8400000
+03-04 19:04:23.507  1872  1923 D BrightnessThermalClamper: Thermal status observer already started
+03-04 19:04:23.513 10102 10186 I BugleRcsEngine: Rcs is enabled from user settings: true [CONTEXT log_prefix="ProvisioningEngineDataRetriever" thread_id=79 ]
+03-04 19:04:23.514  1872  2246 D AudioSystem: +setParameters(): screen_state=on 
+03-04 19:04:23.515  1184  1184 D AudioALSAHardware: +setParameters(): screen_state=on
+03-04 19:04:23.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 2, mode 1
+03-04 19:04:23.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 8, mode 1
+03-04 19:04:23.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 4, mode 1
+03-04 19:04:23.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 32768, mode 1
+03-04 19:04:23.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 65536, mode 1
+03-04 19:04:23.515  1184  1184 D AudioALSAHardware: -setParameters(): screen_state=on
+03-04 19:04:23.515  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.515  1184  1184 W BTAudioHw: adev_set_parameterserror paremeter : : ParamsMap=[key: 'screen_state' value: 'on'
+03-04 19:04:23.515  1184  1184 W BTAudioHw: ]
+03-04 19:04:23.521  9755 10687 D MCLOG   : [BrightnessTrigger] onDisplayChanged displayId = 0
+03-04 19:04:23.523  1872  1894 D DisplayManagerService: Ignore redundant display event 0/2 to 10399/12683
+03-04 19:04:23.523  1872  1894 D DisplayManagerService: Ignore redundant display event 0/2 to 10368/13994
+03-04 19:04:23.529  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.530  9755 10687 D MCLOG   : [BrightnessManager] displayId = 0 brightness = 0.1876922 nit = 89.16702 level = br1
+03-04 19:04:23.535  1872  1894 D DisplayManagerService: Ignore redundant display event 0/2 to 10333/31490
+03-04 19:04:23.544  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.559  1195  1343 D C2MtkComponentStore: setDmaBufUsage: usage 5, flags 0, heapName mtk_mm for decoder.
+03-04 19:04:23.561  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.576  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.593  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.609 10102 10107 W s.messaging:rcs: Reducing the number of considered missed Gc histogram windows from 483 to 100
+03-04 19:04:23.610  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.626  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.641  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.657  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.674  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.679  2336  2373 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#2568) android.os.BinderProxy@7bb1e4c@0
+03-04 19:04:23.681  1872  1891 V WindowManager: Finish Transition (#2568): created at 03-04 19:04:23.224 collect-started=0.227ms request-sent=16.73ms started=28.422ms ready=134.495ms sent=149.11ms finished=456.257ms
+03-04 19:04:23.682 14648 14648 D VRI[CustomizationPanelLauncher]: visibilityChanged oldVisibility=true newVisibility=false
+03-04 19:04:23.682 14600 14600 D VRI[CustomizationPanelLauncher]: visibilityChanged oldVisibility=true newVisibility=false
+03-04 19:04:23.683  2336  2373 V WindowManagerShell: Track 0 became idle
+03-04 19:04:23.684  2336  2373 V WindowManagerShell: All active transition animations finished
+03-04 19:04:23.684  1872  3931 W UserManagerService: Requested status bar icon for non-badged user 0
+03-04 19:04:23.686  1872  2636 W UserManagerService: Requested status bar icon for non-badged user 0
+03-04 19:04:23.691  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=Transition Root: Task=2080#38924, layerId=38924, parentId=0
+03-04 19:04:23.691  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.695 14600 14621 D Surface : Surface::disconnect
+03-04 19:04:23.697 14648 15469 D Surface : Surface::disconnect
+03-04 19:04:23.707 14648 14648 D BLASTBufferQueue: [VRI[CustomizationPanelLauncher]#130](f:0,a:1) destructor()
+03-04 19:04:23.707 14648 14648 D BufferQueueConsumer: [com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38701(BLAST Consumer)pid:14648](id:393800000082,api:0,p:-1,c:14648) disconnect
+03-04 19:04:23.708  1274  1274 I BufferQueueDebug: [Transition Root: Task=2080#38924](this:0xb400007436c61820,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:23.708  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.723  2336  2373 D WindowManagerShell: onKeepClearAreasChanged: restricted={}, unrestricted={}
+03-04 19:04:23.724  1274  1274 I BufferQueueProducer: [NavigationBar0#31053](this:0xb400007436c82820,id:-1,api:0,p:-1,c:1274) queueBuffer: fps=24.20 dur=2933.70 max=2319.46 min=7.65
+03-04 19:04:23.724  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.725 14600 14600 D BLASTBufferQueue: [VRI[CustomizationPanelLauncher]#131](f:0,a:1) destructor()
+03-04 19:04:23.725 14600 14600 D BufferQueueConsumer: [com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702(BLAST Consumer)pid:14600](id:39080000017e,api:0,p:-1,c:14600) disconnect
+03-04 19:04:23.735  1193  1573 W hwcomposer: [DRMDEV] paramIsSame(), id 9711, w 1080/1080, h 2400/2400, pitch 1088/1088, format 0x1/0x2, secure 0/0  
+03-04 19:04:23.740  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.749  5311 16386 D BufferPoolAccessor2.0: bufferpool2 0xb400007561a9e628 : 66(547072 size) total buffers - 1(4715 size) used buffers - 433/2306 (recycle/alloc) - 1892/2305 (fetch/transfer)
+03-04 19:04:23.757  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.760 17110 17110 D nativeloader: Configuring clns-7 for other apk /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64:/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.vms
+03-04 19:04:23.771 17110 17110 V GraphicsEnvironment: Currently set values for:
+03-04 19:04:23.771 17110 17110 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+03-04 19:04:23.771 17110 17110 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+03-04 19:04:23.771 17110 17110 V GraphicsEnvironment: Global.Settings values are invalid: number of packages: 0, number of values: 0
+03-04 19:04:23.771 17110 17110 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+03-04 19:04:23.783 14648 15792 I cn_CronetUrlRequestContext: destroyNativeStreamLocked android.net.connectivity.org.chromium.net.impl.CronetBidirectionalStream@5873542
+03-04 19:04:23.784 14648 14731 I boun    : onCompletion
+03-04 19:04:23.784 14648 14679 W bovz    : Not reconnecting... not supposed to be connected
+03-04 19:04:23.785 17110 17110 W FirebaseApp: Default FirebaseApp failed to initialize because no default options were found. This usually means that com.google.gms:google-services was not applied to your gradle project.
+03-04 19:04:23.785 17110 17110 I FirebaseInitProvider: FirebaseApp initialization unsuccessful
+03-04 19:04:23.786 17110 17110 D ReactNativeFirebaseApp: received application context.
+03-04 19:04:23.790  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.807  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.821 17110 17110 W SoLoader: Initializing SoLoader: 0
+03-04 19:04:23.822 17110 17110 W SoLoader: Recording new base apk path: /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk
+03-04 19:04:23.822 17110 17110 W SoLoader: Previously recorded 0 base apk paths.
+03-04 19:04:23.823  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.824 17110 17110 I SoLoader: Preparing SO source: DirectorySoSource[root = /vendor/lib64 flags = 2]
+03-04 19:04:23.824 17110 17110 I SoLoader: Preparing SO source: DirectorySoSource[root = /system/lib64 flags = 2]
+03-04 19:04:23.824 17110 17110 I SoLoader: Preparing SO source: DirectApkSoSource[root = [/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a]]
+03-04 19:04:23.840  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.856  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.873  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.890  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.906  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.923  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.939  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.956  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.973  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:23.982 15003  7687 I NearbySharing: Network state changed: NetworkState(isRestricted=false, isOnline=true, isCongested=false, isMetered=false, isWifiConnected=true)
+03-04 19:04:23.989  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.003 17110 17110 I SoLoader: Preparing SO source: ApplicationSoSource[DirectorySoSource[root = /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64 flags = 0]]
+03-04 19:04:24.003 17110 17110 I SoLoader: init finish: 4 SO sources prepared
+03-04 19:04:24.003 17110 17110 W SoLoader: SoLoader initialized: 8
+03-04 19:04:24.006  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.022  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.030  1240  1303 I libPerfCtl: xgfGetFPS pid:2336 fps:71
+03-04 19:04:24.030  1240  1303 I libPerfCtl: xgfGetFPS pid:14600 fps:-1
+03-04 19:04:24.030  1240  1303 I libPerfCtl: xgfGetFPS pid:14648 fps:-1
+03-04 19:04:24.039  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.056  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.072  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.089  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.090  5311 16386 D BufferPoolAccessor2.0: bufferpool2 0xb400007561a9e628 : 66(505109 size) total buffers - 1(592 size) used buffers - 435/2325 (recycle/alloc) - 1909/2324 (fetch/transfer)
+03-04 19:04:24.105  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.122  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.139  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.155  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.172  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.188  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.205  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.222  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.238 17110 17110 D nativeloader: Load /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libc++_shared.so using class loader ns clns-7 (caller=/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!classes19.dex): ok
+03-04 19:04:24.238  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.249  1193  1323 I hwcomposer: [HWCDisplay] [Display_0 (type:1)] fps:54.518970,dur:1008.82,max:66.17,min:8.16  
+03-04 19:04:24.255  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.271  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.276  1274  1274 I BufferQueueProducer: [VDS-studio.screen.sharing:0 SINK](this:0xb400007436a8fb98,id:-1,api:1,p:1274,c:1274) queueBuffer: fps=53.80 dur=1003.75 max=75.64 min=10.84
+03-04 19:04:24.288  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.292 16358 16384 I MediaCodec: [0xb4000075701bc000] dequeue 54 output frames in last 1007 ms, latest timeUs 182405299551, flags 0
+03-04 19:04:24.305  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.321  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.338  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.340 17110 17110 D nativeloader: Load /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so using class loader ns clns-7 (caller=/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!classes19.dex): dlopen failed: cannot locate symbol "_ZTVNSt6__ndk119basic_ostringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE" referenced by "/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so"...
+03-04 19:04:24.344 17110 17110 W SoLoader: libjsi.so not found on /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a flag: 5
+03-04 19:04:24.344 17110 17110 W SoLoader: java.lang.UnsatisfiedLinkError: dlopen failed: cannot locate symbol "_ZTVNSt6__ndk119basic_ostringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE" referenced by "/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so"...
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at java.lang.Runtime.load0(Runtime.java:948)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at java.lang.System.load(System.java:1729)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoFileLoaderImpl.load(SoFileLoaderImpl.java:64)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.InstrumentedSoFileLoader.load(InstrumentedSoFileLoader.java:36)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:81)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadDependency(SoLoader.java:920)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadDependencies(DirectApkSoSource.java:166)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:76)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:943)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryOnAndroid(SoLoader.java:859)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:842)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:812)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxInterop.<clinit>(ReactNativeFeatureFlagsCxxInterop.kt:28)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxAccessor.override(ReactNativeFeatureFlagsCxxAccessor.kt:725)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlags.override(ReactNativeFeatureFlags.kt:468)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:101)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:43)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative(ReactNativeApplicationEntryPoint.java:31)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.vms.MainApplication.onCreate(MainApplication.kt:23)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1386)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7686)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2531)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at android.os.Handler.dispatchMessage(Handler.java:112)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at android.os.Looper.loopOnce(Looper.java:268)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at android.os.Looper.loop(Looper.java:384)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at android.app.ActivityThread.main(ActivityThread.java:8936)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at java.lang.reflect.Method.invoke(Native Method)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+03-04 19:04:24.344 17110 17110 W SoLoader: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:907)
+03-04 19:04:24.345 17110 17110 W SoLoader: Running a recovery step for libreactnative.so due to com.facebook.soloader.SoLoaderDSONotFoundError: couldn't find DSO to load: libjsi.so
+03-04 19:04:24.345 17110 17110 W SoLoader: 	existing SO sources: 
+03-04 19:04:24.345 17110 17110 W SoLoader: 		SoSource 0: ApplicationSoSource[DirectorySoSource[root = /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64 flags = 0]]
+03-04 19:04:24.345 17110 17110 W SoLoader: 		SoSource 1: DirectApkSoSource[root = [/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a]]
+03-04 19:04:24.345 17110 17110 W SoLoader: 		SoSource 2: DirectorySoSource[root = /system/lib64 flags = 2]
+03-04 19:04:24.345 17110 17110 W SoLoader: 		SoSource 3: DirectorySoSource[root = /vendor/lib64 flags = 2]
+03-04 19:04:24.345 17110 17110 W SoLoader: 	Native lib dir: /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64
+03-04 19:04:24.346 17110 17110 W soloader.recovery.CheckBaseApkExists: Base apk exists: /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk
+03-04 19:04:24.348 17110 17110 D nativeloader: Load /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so using class loader ns clns-7 (caller=/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!classes19.dex): dlopen failed: cannot locate symbol "_ZTVNSt6__ndk119basic_ostringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE" referenced by "/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so"...
+03-04 19:04:24.350 17110 17110 W SoLoader: libjsi.so not found on /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a flag: 5
+03-04 19:04:24.350 17110 17110 W SoLoader: java.lang.UnsatisfiedLinkError: dlopen failed: cannot locate symbol "_ZTVNSt6__ndk119basic_ostringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE" referenced by "/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so"...
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at java.lang.Runtime.load0(Runtime.java:948)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at java.lang.System.load(System.java:1729)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoFileLoaderImpl.load(SoFileLoaderImpl.java:64)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.InstrumentedSoFileLoader.load(InstrumentedSoFileLoader.java:36)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:81)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadDependency(SoLoader.java:920)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadDependencies(DirectApkSoSource.java:166)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:76)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:943)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryOnAndroid(SoLoader.java:859)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:842)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:812)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxInterop.<clinit>(ReactNativeFeatureFlagsCxxInterop.kt:28)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxAccessor.override(ReactNativeFeatureFlagsCxxAccessor.kt:725)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlags.override(ReactNativeFeatureFlags.kt:468)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:101)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:43)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative(ReactNativeApplicationEntryPoint.java:31)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.vms.MainApplication.onCreate(MainApplication.kt:23)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1386)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7686)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2531)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at android.os.Handler.dispatchMessage(Handler.java:112)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at android.os.Looper.loopOnce(Looper.java:268)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at android.os.Looper.loop(Looper.java:384)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at android.app.ActivityThread.main(ActivityThread.java:8936)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at java.lang.reflect.Method.invoke(Native Method)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+03-04 19:04:24.350 17110 17110 W SoLoader: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:907)
+03-04 19:04:24.351 17110 17110 W SoLoader: Running a recovery step for libreactnative.so due to com.facebook.soloader.SoLoaderDSONotFoundError: couldn't find DSO to load: libjsi.so
+03-04 19:04:24.351 17110 17110 W SoLoader: 	existing SO sources: 
+03-04 19:04:24.351 17110 17110 W SoLoader: 		SoSource 0: ApplicationSoSource[DirectorySoSource[root = /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64 flags = 0]]
+03-04 19:04:24.351 17110 17110 W SoLoader: 		SoSource 1: DirectApkSoSource[root = [/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a]]
+03-04 19:04:24.351 17110 17110 W SoLoader: 		SoSource 2: DirectorySoSource[root = /system/lib64 flags = 2]
+03-04 19:04:24.351 17110 17110 W SoLoader: 		SoSource 3: DirectorySoSource[root = /vendor/lib64 flags = 2]
+03-04 19:04:24.351 17110 17110 W SoLoader: 	Native lib dir: /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64
+03-04 19:04:24.351 17110 17110 E SoLoader: Checking /data/app missing libraries.
+03-04 19:04:24.351 17110 17110 E SoLoader: Successfully recovered from /data/app disk failure.
+03-04 19:04:24.353 17110 17110 D nativeloader: Load /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so using class loader ns clns-7 (caller=/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!classes19.dex): dlopen failed: cannot locate symbol "_ZTVNSt6__ndk119basic_ostringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE" referenced by "/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so"...
+03-04 19:04:24.354  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.355 17110 17110 W SoLoader: libjsi.so not found on /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a flag: 5
+03-04 19:04:24.355 17110 17110 W SoLoader: java.lang.UnsatisfiedLinkError: dlopen failed: cannot locate symbol "_ZTVNSt6__ndk119basic_ostringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE" referenced by "/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so"...
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at java.lang.Runtime.load0(Runtime.java:948)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at java.lang.System.load(System.java:1729)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoFileLoaderImpl.load(SoFileLoaderImpl.java:64)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.InstrumentedSoFileLoader.load(InstrumentedSoFileLoader.java:36)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:81)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadDependency(SoLoader.java:920)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadDependencies(DirectApkSoSource.java:166)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:76)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:943)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryOnAndroid(SoLoader.java:859)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:842)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:812)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxInterop.<clinit>(ReactNativeFeatureFlagsCxxInterop.kt:28)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxAccessor.override(ReactNativeFeatureFlagsCxxAccessor.kt:725)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlags.override(ReactNativeFeatureFlags.kt:468)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:101)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:43)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative(ReactNativeApplicationEntryPoint.java:31)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.vms.MainApplication.onCreate(MainApplication.kt:23)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1386)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7686)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2531)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at android.os.Handler.dispatchMessage(Handler.java:112)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at android.os.Looper.loopOnce(Looper.java:268)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at android.os.Looper.loop(Looper.java:384)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at android.app.ActivityThread.main(ActivityThread.java:8936)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at java.lang.reflect.Method.invoke(Native Method)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+03-04 19:04:24.355 17110 17110 W SoLoader: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:907)
+03-04 19:04:24.355 17110 17110 W SoLoader: Running a recovery step for libreactnative.so due to com.facebook.soloader.SoLoaderDSONotFoundError: couldn't find DSO to load: libjsi.so
+03-04 19:04:24.355 17110 17110 W SoLoader: 	existing SO sources: 
+03-04 19:04:24.355 17110 17110 W SoLoader: 		SoSource 0: ApplicationSoSource[DirectorySoSource[root = /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64 flags = 0]]
+03-04 19:04:24.355 17110 17110 W SoLoader: 		SoSource 1: DirectApkSoSource[root = [/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a]]
+03-04 19:04:24.355 17110 17110 W SoLoader: 		SoSource 2: DirectorySoSource[root = /system/lib64 flags = 3]
+03-04 19:04:24.355 17110 17110 W SoLoader: 		SoSource 3: DirectorySoSource[root = /vendor/lib64 flags = 3]
+03-04 19:04:24.355 17110 17110 W SoLoader: 	Native lib dir: /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64
+03-04 19:04:24.355 17110 17110 E SoLoader: Checking /data/data missing libraries.
+03-04 19:04:24.355 17110 17110 E SoLoader: No libraries missing from unpacking so paths while recovering /data/data failure
+03-04 19:04:24.358 17110 17110 D nativeloader: Load /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so using class loader ns clns-7 (caller=/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!classes19.dex): dlopen failed: cannot locate symbol "_ZTVNSt6__ndk119basic_ostringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE" referenced by "/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so"...
+03-04 19:04:24.359 17110 17110 W SoLoader: libjsi.so not found on /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a flag: 5
+03-04 19:04:24.359 17110 17110 W SoLoader: java.lang.UnsatisfiedLinkError: dlopen failed: cannot locate symbol "_ZTVNSt6__ndk119basic_ostringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE" referenced by "/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a/libjsi.so"...
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at java.lang.Runtime.load0(Runtime.java:948)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at java.lang.System.load(System.java:1729)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoFileLoaderImpl.load(SoFileLoaderImpl.java:64)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.InstrumentedSoFileLoader.load(InstrumentedSoFileLoader.java:36)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:81)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadDependency(SoLoader.java:920)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadDependencies(DirectApkSoSource.java:166)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:76)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:943)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibraryOnAndroid(SoLoader.java:859)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:842)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:812)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxInterop.<clinit>(ReactNativeFeatureFlagsCxxInterop.kt:28)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxAccessor.override(ReactNativeFeatureFlagsCxxAccessor.kt:725)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlags.override(ReactNativeFeatureFlags.kt:468)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:101)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:43)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative(ReactNativeApplicationEntryPoint.java:31)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.vms.MainApplication.onCreate(MainApplication.kt:23)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1386)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7686)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2531)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at android.os.Handler.dispatchMessage(Handler.java:112)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at android.os.Looper.loopOnce(Looper.java:268)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at android.os.Looper.loop(Looper.java:384)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at android.app.ActivityThread.main(ActivityThread.java:8936)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at java.lang.reflect.Method.invoke(Native Method)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+03-04 19:04:24.359 17110 17110 W SoLoader: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:907)
+03-04 19:04:24.360 17110 17110 W SoLoader: Running a recovery step for libreactnative.so due to com.facebook.soloader.SoLoaderDSONotFoundError: couldn't find DSO to load: libjsi.so
+03-04 19:04:24.360 17110 17110 W SoLoader: 	existing SO sources: 
+03-04 19:04:24.360 17110 17110 W SoLoader: 		SoSource 0: ApplicationSoSource[DirectorySoSource[root = /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64 flags = 0]]
+03-04 19:04:24.360 17110 17110 W SoLoader: 		SoSource 1: DirectApkSoSource[root = [/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a]]
+03-04 19:04:24.360 17110 17110 W SoLoader: 		SoSource 2: DirectorySoSource[root = /system/lib64 flags = 3]
+03-04 19:04:24.360 17110 17110 W SoLoader: 		SoSource 3: DirectorySoSource[root = /vendor/lib64 flags = 3]
+03-04 19:04:24.360 17110 17110 W SoLoader: 	Native lib dir: /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64
+03-04 19:04:24.360 17110 17110 W SoLoader: Failed to recover
+03-04 19:04:24.360 17110 17110 D AndroidRuntime: Shutting down VM
+--------- beginning of crash
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: FATAL EXCEPTION: main
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: Process: com.vms, PID: 17110
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: com.facebook.soloader.SoLoaderDSONotFoundError: couldn't find DSO to load: libjsi.so
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	existing SO sources: 
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 		SoSource 0: ApplicationSoSource[DirectorySoSource[root = /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64 flags = 0]]
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 		SoSource 1: DirectApkSoSource[root = [/data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/base.apk!/lib/arm64-v8a]]
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 		SoSource 2: DirectorySoSource[root = /system/lib64 flags = 3]
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 		SoSource 3: DirectorySoSource[root = /vendor/lib64 flags = 3]
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	Native lib dir: /data/app/~~a5DQ1hv9te76PFdqmZsqkw==/com.vms-vxBv5Q15nCLOWZKkQFjoJQ==/lib/arm64
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1216)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.loadDependency(SoLoader.java:920)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.DirectApkSoSource.loadDependencies(DirectApkSoSource.java:166)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.DirectApkSoSource.loadLibrary(DirectApkSoSource.java:76)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.loadLibraryFromSoSource(SoLoader.java:1246)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:1210)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:1078)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:943)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.loadLibraryOnAndroid(SoLoader.java:859)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:842)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:812)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxInterop.<clinit>(ReactNativeFeatureFlagsCxxInterop.kt:28)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlagsCxxAccessor.override(ReactNativeFeatureFlagsCxxAccessor.kt:725)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.react.internal.featureflags.ReactNativeFeatureFlags.override(ReactNativeFeatureFlags.kt:468)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:101)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load(DefaultNewArchitectureEntryPoint.kt:43)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative(ReactNativeApplicationEntryPoint.java:31)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.vms.MainApplication.onCreate(MainApplication.kt:23)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1386)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7686)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2531)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:112)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:268)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:384)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8936)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+03-04 19:04:24.361 17110 17110 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:907)
+03-04 19:04:24.365  1872  3931 W ActivityTaskManager:   Force finishing activity com.vms/.MainActivity
+03-04 19:04:24.366  2336  2373 V WindowManagerShell: Transition requested (#2569): android.os.BinderProxy@ea1a457 TransitionRequestInfo { type = CLOSE, triggerTask = null, pipTask = null, remoteTransition = null, displayChange = null, flags = 16, debugId = 2569 }
+03-04 19:04:24.371  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.373 14648 14648 D VRI[CustomizationPanelLauncher]: visibilityChanged oldVisibility=false newVisibility=true
+03-04 19:04:24.373 14600 14600 D VRI[CustomizationPanelLauncher]: visibilityChanged oldVisibility=false newVisibility=true
+03-04 19:04:24.378  1872  1892 I ActivityManager: 10422 handleShowAppErrorUi: shouldThottle=true,showFirstCrash=false,repeating=true,shouldForceShowError=false
+03-04 19:04:24.379 14648 14648 D BufferQueueConsumer: [](id:393800000083,api:0,p:-1,c:14648) connect: controlledByApp=false
+03-04 19:04:24.379 14648 14648 D BLASTBufferQueue: [VRI[CustomizationPanelLauncher]#131](f:0,a:0) constructor()
+03-04 19:04:24.380 17110 17110 I Process : Sending signal. PID: 17110 SIG: 9
+03-04 19:04:24.380 14648 14648 D BLASTBufferQueue: [VRI[CustomizationPanelLauncher]#131](f:0,a:0) update width=1080 height=2400 format=-2 mTransformHint=0
+03-04 19:04:24.383  1274  1798 I BufferQueueDebug: [Surface(name=e67abc9 StatusBar)/@0xd1c6747 - animation-leash of insets_animation#38928](this:0xb400007436b94020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:24.387  1274  1798 I BufferQueueDebug: [Surface(name=c3c7c18 NavigationBar0)/@0x2816c56 - animation-leash of insets_animation#38929](this:0xb400007436c61820,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:24.389  1274  1274 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+03-04 19:04:24.389  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.391 14600 14600 D BufferQueueConsumer: [](id:390800000183,api:0,p:-1,c:14600) connect: controlledByApp=false
+03-04 19:04:24.392 14600 14600 D BLASTBufferQueue: [VRI[CustomizationPanelLauncher]#132](f:0,a:0) constructor()
+03-04 19:04:24.392 14600 14600 D BLASTBufferQueue: [VRI[CustomizationPanelLauncher]#132](f:0,a:0) update width=1080 height=2400 format=-2 mTransformHint=0
+03-04 19:04:24.393 14648 15469 D BLASTBufferQueue: [VRI[CustomizationPanelLauncher]#131](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=182405416366872(auto) mPendingTransactions.size=0 graphicBufferId=62912680952687 transform=0
+03-04 19:04:24.404  1274  1274 I BufferQueueProducer: [com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38701](this:0xb400007436a29820,id:-1,api:0,p:-1,c:1274) queueBuffer: fps=5.94 dur=7074.47 max=6435.52 min=8.05
+03-04 19:04:24.404  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.405  1872  1895 D SurfaceComposerClient: Transaction::apply InputWindowCommands.focusRequests timestamp=182405415307179, windowName=25c5751 com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher
+03-04 19:04:24.406  1872  1889 I ActivityManager: appDiedLocked: app=ProcessRecord{7fc88ec 17110:com.vms/u0a422} thread=android.os.BinderProxy@dab756d fromBinderDied=true isKilledByAm=false reason=null
+03-04 19:04:24.406  1872  1889 I ActivityManager: Process com.vms (pid 17110) has died: fg  TOP 
+03-04 19:04:24.407  1872  1905 I libprocessgroup: Removed cgroup /sys/fs/cgroup/uid_10422/pid_17110
+03-04 19:04:24.407  1422  1422 I adbd    : Remote process closed the socket (on MSG_PEEK)
+03-04 19:04:24.407  1872  1905 W libprocessgroup: RemoveCgroup: /dev/memcg/apps/uid_10422/pid_17110 does not exist.
+03-04 19:04:24.411  1156  1156 I Zygote  : Process 17110 exited due to signal 9 (Killed)
+03-04 19:04:24.412  1872  1889 D RestartModeController: markWaitRestartAppIsSuicided null processName=com.vms
+03-04 19:04:24.416 14648 14659 E FrameEvents: addRelease: Did not find frame.
+03-04 19:04:24.417 14600 14621 D BLASTBufferQueue: [VRI[CustomizationPanelLauncher]#132](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=182405440909256(auto) mPendingTransactions.size=0 graphicBufferId=62706522523448 transform=0
+03-04 19:04:24.418  1872  2333 I ScnModule: [GameDetection] packname: com.vms, apkSize: 426096136. 
+03-04 19:04:24.418  1872  2333 I mtkpower_client: [PowerHal_Wrap_notifyAppState] com.vms/com.vms pid=17110 activityId:17110 state:3
+03-04 19:04:24.418  1872  2333 I mtkpower_client: [Legacy][PowerHal_Wrap_notifyAppState] com.vms/com.vms pid=17110 state:17110
+03-04 19:04:24.419 14600 14600 I TopTaskTracker: onTaskMovedToFront: (moved taskInfo to front) taskId=1539, baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher }
+03-04 19:04:24.420  1240  1332 I libPowerHal: [perfNotifyAppState] pack:com.vms, act:com.vms, state:3, pid:17110, uid:10422, fps:-1
+03-04 19:04:24.420  1240  1332 I libPowerHal: [perfNotifyAppState] pack:com.vms, pid:17110, STATE_DEAD
+03-04 19:04:24.420  1240  1332 D RilUtility: notify_rild_crash_pid_set certPid:-1, crash:17110, scn:0x0
+03-04 19:04:24.420  1872  2230 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-04 19:04:24.421  1274  1274 I BufferQueueProducer: [com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702](this:0xb400007436afd820,id:-1,api:0,p:-1,c:1274) queueBuffer: fps=3.60 dur=6659.79 max=6444.26 min=8.07
+03-04 19:04:24.421  1274  1274 D SurfaceFlinger: Focus addInputWindowCommands timestamp=182405415307179, windowName=25c5751 com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher
+03-04 19:04:24.422  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=Surface(name=c3c7c18 NavigationBar0)/@0x2816c56 - animation-leash of insets_animation#38927, layerId=38927, parentId=0
+03-04 19:04:24.422  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=Surface(name=e67abc9 StatusBar)/@0xd1c6747 - animation-leash of insets_animation#38926, layerId=38926, parentId=0
+03-04 19:04:24.422  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.423  1872  2230 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-04 19:04:24.423  1872  2230 D InetDiagMessage: Destroyed live tcp sockets for uids={10422} in 8ms
+03-04 19:04:24.423  1872  1889 D ActivityTaskManager: handleAppDied: uid=10422,diedCount=1,lastDiedTime=182382769,forceStopUids=false
+03-04 19:04:24.424  1872  2230 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-04 19:04:24.425  1872  2230 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-04 19:04:24.425  1872  2230 D InetDiagMessage: Destroyed live tcp sockets for uids={20422} in 2ms
+03-04 19:04:24.426  1872  1892 D DisplayManagerService: Drop pending events for gone uid 10422
+03-04 19:04:24.426  3237  3925 D GameMode: isScreenUnlocked: true
+03-04 19:04:24.427  1872  1901 W MotoBatteryCareService: uid: 10294 pkgName:com.motorola.launcher3 come to foreground
+03-04 19:04:24.429 14600 14600 D StatsLog: LAUNCHER_ONRESUME
+03-04 19:04:24.429  2336  2373 D WindowManagerShell: setLauncherKeepClearAreaHeight: visible=true, height=193
+03-04 19:04:24.431 14648 14648 I brdx    : onResume
+03-04 19:04:24.433 14600 15465 E FrameEvents: addRelease: Did not find frame.
+03-04 19:04:24.433  1274  1798 I BufferQueueDebug: [Transition Root: Task=1#38930](this:0xb400007436d02020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:24.434  1274  1741 D SurfaceFlinger: updateWinowInfo=1, setFocusedWindow timestamp=182405415307179, windowName=25c5751 com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher
+03-04 19:04:24.435 14600 14615 D QuickstepModelDelegate: notifyAppTargetEvent action=1 launchLocation=workspace/0/[-1,-1]/[1,1]
+03-04 19:04:24.437  2336  2871 V WindowManagerShell: onTransitionReady(transaction=8040179036738)
+03-04 19:04:24.437  2336  2373 V WindowManagerShell: onTransitionReady (#2569) android.os.BinderProxy@ea1a457: {id=2569 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@bf58629} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP pTaskId=-1 leash=Surface(name=Task=1)/@0xe12d42d sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},{WCT{android.window.IWindowContainerToken$Stub$Proxy@320cdae} m=CLOSE f=NONE pTaskId=-1 leash=Surface(name=Task=2080)/@0x2783d62 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{f2cfd69 token=android.os.Binder@d1e8433})/@0xbb22ef3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+03-04 19:04:24.437  2336  2373 V WindowManagerShell: Playing animation for (#2569) android.os.BinderProxy@ea1a457@0
+03-04 19:04:24.437  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.transition.DefaultMixedHandler@147c61f
+03-04 19:04:24.437  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.keyguard.KeyguardTransitionHandler@4e6fd6c
+03-04 19:04:24.437  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.pip.PipTransition@7d85785
+03-04 19:04:24.437  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.activityembedding.ActivityEmbeddingController@7a5f9da
+03-04 19:04:24.437  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.recents.RecentsTransitionHandler@c67fe0b
+03-04 19:04:24.437  2336  2373 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+03-04 19:04:24.437  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.splitscreen.StageCoordinator@f30b4e8
+03-04 19:04:24.437  2336  2373 V WindowManagerShell:  try handler com.android.wm.shell.transition.RemoteTransitionHandler@24be701
+03-04 19:04:24.437  1274  1274 I BufferQueueDebug: [Surface(name=e67abc9 StatusBar)/@0xd1c6747 - animation-leash of insets_animation#38926](this:0xb400007436d1a820,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:24.438  1274  1274 I BufferQueueDebug: [Surface(name=c3c7c18 NavigationBar0)/@0x2816c56 - animation-leash of insets_animation#38927](this:0xb400007436d37020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:24.438  2336  2373 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=2569 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@bf58629} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP pTaskId=-1 leash=Surface(name=Task=1)/@0xe12d42d sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},{WCT{android.window.IWindowContainerToken$Stub$Proxy@320cdae} m=CLOSE f=NONE pTaskId=-1 leash=Surface(name=Task=2080)/@0x2783d62 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{f2cfd69 token=android.os.Binder@d1e8433})/@0xbb22ef3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+03-04 19:04:24.438  2336  2373 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.motorola.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} launchCookie=null},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@62a0b15, appThread = android.app.IApplicationThread$Stub$Proxy@6854e2a, debugName = QuickstepLaunchHome }}
+03-04 19:04:24.438  2336  2373 D RemoteTransitionHandler: Found filterPair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.motorola.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher} launchCookie=null},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@62a0b15, appThread = android.app.IApplicationThread$Stub$Proxy@6854e2a, debugName = QuickstepLaunchHome }}
+03-04 19:04:24.438  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.438  2336  2373 V WindowManagerShell:  Delegate animation for (#2569) to RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@62a0b15, appThread = android.app.IApplicationThread$Stub$Proxy@6854e2a, debugName = QuickstepLaunchHome }
+03-04 19:04:24.439  1274  1378 I BufferQueueDebug: [Surface(name=Task=1)/@0xd2e2817_transition-leash#38931](this:0xb400007436d1a820,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:24.442  1274  1378 I BufferQueueDebug: [Surface(name=Task=2080)/@0xc765ded_transition-leash#38932](this:0xb400007436d3e020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:24.443  1274  1799 I BufferQueueDebug: [Surface(name=WallpaperWindowToken{f2cfd69 token=android.os.Binder@d1e8433})/@0xee32eb3_transition-leash#38933](this:0xb400007436d41820,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:24.445 14600 15465 D LauncherAnimationRunner: onAnimationStart transit : 0
+03-04 19:04:24.445 14600 14600 D createWallpaperOpenAnimations: state : Normal
+03-04 19:04:24.446 14600 14600 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+03-04 19:04:24.446 14600 14600 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(WorkspaceRevealAnim.java:137)
+03-04 19:04:24.446 14600 14600 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(WorkspaceRevealAnim.java:67)
+03-04 19:04:24.446 14600 14600 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(QuickstepTransitionManager.java:1841)
+03-04 19:04:24.448  1872  3622 W PackageManager: Missing required system package: org.videolan.vlc, but found with extended search.
+03-04 19:04:24.448  1872  3622 W PackageManager: Missing required system package: org.telegram.messenger, but found with extended search.
+03-04 19:04:24.448  1872  3622 W PackageManager: Missing required system package: net.one97.paytm, but found with extended search.
+03-04 19:04:24.448  1872  3622 W PackageManager: Missing required system package: in.startv.hotstar, but found with extended search.
+03-04 19:04:24.448  1872  3622 W PackageManager: Missing required system package: in.jfs.jiofinance, but found with extended search.
+03-04 19:04:24.448  1872  3622 W PackageManager: Missing required system package: in.amazon.mShop.android.shopping, but found with extended search.
+03-04 19:04:24.448  1872  3622 W PackageManager: Missing required system package: com.whereismytrain.android, but found with extended search.
+03-04 19:04:24.448  1872  3622 W PackageManager: Missing required system package: com.whatsapp, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.vms, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.vlv.aravali.reels, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.udemy.android, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.tvt.superliveplus, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.soccer.score.star, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.phonepe.app, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.myairtelapp, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.moi, but found with extended search.
+03-04 19:04:24.449  1872  3622 W PackageManager: Missing required system package: com.miniclip.cricketleague, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.meesho.supply, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.koushikdutta.vysor, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.jrzheng.supervpnpayment, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.jio.media.jiobeats, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.instagram.android, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.infrasoft.uboi, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.google.android.apps.nbu.paisa.user, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.fundevs.app.mediaconverter, but found with extended search.
+03-04 19:04:24.450  1872  3622 W PackageManager: Missing required system package: com.flipkart.android, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.facebook.katana, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.ea.gp.fifamobile, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.cris.utsmobile, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.connect.enduser, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.bt.bms, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.application.zomato.district, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.application.zomato, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.amazon.avod.thirdpartyclient, but found with extended search.
+03-04 19:04:24.451  1872  3622 W PackageManager: Missing required system package: com.Ovilex.BusSimulator2023, but found with extended search.
+03-04 19:04:24.452  1872  3622 W PackageManager: Missing required system package: host.exp.exponent, but found with extended search.
+03-04 19:04:24.452  1872  3622 W PackageManager: Missing required system package: com.jio.myjio, but found with extended search.
+03-04 19:04:24.458  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.458  1872  1891 V WindowManager: Sent Transition (#2569) createdAt=03-04 19:04:24.365 via request=TransitionRequestInfo { type = CLOSE, triggerTask = null, pipTask = null, remoteTransition = null, displayChange = null, flags = 16, debugId = 2569 }
+03-04 19:04:24.460  1872  1891 V WindowManager:     startWCT=WindowContainerTransaction { changes = {} hops = [] errorCallbackToken=null taskFragmentOrganizer=null }
+03-04 19:04:24.460  1872  1891 V WindowManager:     info={id=2569 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[
+03-04 19:04:24.460  1872  1891 V WindowManager:         {WCT{RemoteToken{48f024f Task{5715d48 #1 type=undefined}}} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP pTaskId=-1 leash=Surface(name=Task=1)/@0x376a287 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},
+03-04 19:04:24.460  1872  1891 V WindowManager:         {WCT{RemoteToken{11939ee Task{3c6a1f9 #2080 type=standard A=10422:com.vms}}} m=CLOSE f=NONE pTaskId=-1 leash=Surface(name=Task=2080)/@0x1b339f0 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0 taskParent=-1},
+03-04 19:04:24.460  1872  1891 V WindowManager:         {null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{f2cfd69 token=android.os.Binder@d1e8433})/@0x19a72d sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}
+03-04 19:04:24.460  1872  1891 V WindowManager:     ]}
+03-04 19:04:24.462  2336  2373 V WindowManagerShell:  animated by com.android.wm.shell.transition.RemoteTransitionHandler@24be701
+03-04 19:04:24.463  1240  1277 I mtkpower@impl: [setMode] type:5, enabled:0
+03-04 19:04:24.463  1872  1901 W MotoBatteryCareService: uid: 10294 pkgName:com.motorola.launcher3 come to foreground
+03-04 19:04:24.463  1872  4163 D PowerManagerService: nativeSetPowerMode ret:true mode:5 enabled:false duration ms: 1
+03-04 19:04:24.466  1872  4163 D PowerManagerService: nativeReleaseSuspendBlocker name:PowerManagerService.WakeLocks duration ms: 2
+03-04 19:04:24.466  1193  1573 W hwcomposer: [DRMDEV] paramIsSame(), id 9711, w 1080/1080, h 2400/2400, pitch 1088/1088, format 0x2/0x1, secure 0/0  
+03-04 19:04:24.468  1872  2333 I PowerHalWrapper: amsBoostStop AMS_BOOST_PACK_SWITCH:false, AMS_BOOST_ACT_SWITCH:false, AMS_BOOST_PROCESS_CREATE:true, AMS_BOOST_PROCESS_CREATE_FOR_GAME:false, AMS_BOOST_HOT_LAUNCH:false 
+03-04 19:04:24.468   852   852 W lowmemorykiller: Failed to open /proc/17110/oom_score_adj; errno=2: process 17110 might have been killed
+03-04 19:04:24.468  1240  1276 I mtkpower@impl: [mtkPowerHint] hint:21, hold:6000, ext:30, ext_hold:30000
+03-04 19:04:24.469  1240  1332 I libPowerHal: [perfLockAcq] idx:4 hdl:52275 hint:21 pid:1240 duration:6000 lock_user:mtkpower@1.0-se => ret_hdl:52275
+03-04 19:04:24.469  2336  2445 D Surface : Surface::disconnect
+03-04 19:04:24.469  1240  1332 I libPowerHal: [perfLockRel] hdl:52274, idx:3
+03-04 19:04:24.470  1240  1332 I libPowerHal: [perfLockAcq] idx:5 hdl:52276 hint:30 pid:1240 duration:30000 lock_user:mtkpower@1.0-se => ret_hdl:52276
+03-04 19:04:24.471  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.472  1872  2191 I ImeTracker: com.motorola.launcher3:372303e: onRequestHide at ORIGIN_SERVER reason HIDE_SAME_WINDOW_FOCUSED_WITHOUT_EDITOR fromUser false
+03-04 19:04:24.472  1872  2191 I ImeTracker: com.motorola.launcher3:372303e: onCancelled at PHASE_SERVER_SHOULD_HIDE
+03-04 19:04:24.472  1872  4163 W UserManagerService: Requested status bar icon for non-badged user 0
+03-04 19:04:24.475  2336  2373 D WindowManagerShell: onKeepClearAreasChanged: restricted={Rect(0, 2097 - 1080, 2350)}, unrestricted={}
+03-04 19:04:24.480  1274  1798 I SurfaceFlinger: setDesiredDisplayModeSpecs: calling_process=system_server
+03-04 19:04:24.481  3632  3632 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2113 
+03-04 19:04:24.482  1274  1274 I SurfaceFlinger: setDesiredDisplayModeSpecs: policy={defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 120.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-04 19:04:24.482  1274  1274 D SurfaceFlinger: setDesiredDisplayModeSpecs[30~120]: by process 1872 uid 1000 for display 0
+03-04 19:04:24.482  1274  1274 D RefreshRateSelector: constructAvailableRefreshRates: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 120.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr} 
+03-04 19:04:24.482  1274  1274 D RefreshRateSelector: primary render rates: {fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}} {fps=40.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} {fps=45.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=60.00 Hz, modePtr={id=2, vsyncRate=60.00 Hz, peakRefreshRate=60.00 Hz}} {fps=90.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=120.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} , isVrrDevice? 0
+03-04 19:04:24.482  1274  1274 D RefreshRateSelector: app request render rates: {fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}} {fps=40.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} {fps=45.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=60.00 Hz, modePtr={id=2, vsyncRate=60.00 Hz, peakRefreshRate=60.00 Hz}} {fps=90.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}} {fps=120.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}} , isVrrDevice? 0
+03-04 19:04:24.482  1274  1274 I RefreshRateSelector: constructAvailableRefreshRates: Found m90HzRefreshRateModeOpt at index 1
+03-04 19:04:24.482  1274  1274 I RefreshRateSelector: constructAvailableRefreshRates: Found m60HzRefreshRateModeOpt at index 2
+03-04 19:04:24.482  1274  1274 I RefreshRateSelector: constructAvailableRefreshRates: Found m90HzRefreshRateModeOpt at index 1
+03-04 19:04:24.482  1274  1274 D RefreshRateSelector: Special render rates: 
+03-04 19:04:24.482  1274  1274 D RefreshRateSelector: found  TouchBoostRefreshRate: {fps=90.00 Hz, modePtr={id=1, vsyncRate=90.00 Hz, peakRefreshRate=90.00 Hz}}
+03-04 19:04:24.482  1274  1274 D RefreshRateSelector: found  ScrollBoostRefreshRate: {fps=120.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}}
+03-04 19:04:24.482  1274  1274 D RefreshRateSelector: [90:120:0]: mTouchBoostRefreshRateAvailable=1, mScrollBoostRefreshRateAvailable=1, mTouchOnBlankNotBoostRefreshRateAvailable=0
+03-04 19:04:24.482  1274  1274 I RefreshRateSelector: Display 0 policy changed
+03-04 19:04:24.482  1274  1274 I RefreshRateSelector: Previous: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 60.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-04 19:04:24.482  1274  1274 I RefreshRateSelector: Current:  DisplayManagerPolicy{defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 120.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr}
+03-04 19:04:24.482  1274  1274 I RefreshRateSelector: 1 mode changes were performed under the previous policy
+03-04 19:04:24.482  1274  1274 D SurfaceFlinger: Setting desired display mode specs: {defaultModeId=0, allowGroupSwitching=false, primaryRanges={physical=[30.00 Hz, 120.00 Hz], render=[30.00 Hz, 120.00 Hz]}, appRequestRanges={physical=[0.00 Hz, 120.00 Hz], render=[0.00 Hz, 120.00 Hz]} idleScreenConfig=nullptr} for display 0
+03-04 19:04:24.482  1274  1274 I SurfaceFlinger: Switching to Scheduler preferred mode 0 (120.00 Hz) for display 0
+03-04 19:04:24.482  1274  1274 D DisplayModeController: setDesiredMode 0 {mode={fps=120.00 Hz, modePtr={id=0, vsyncRate=120.00 Hz, peakRefreshRate=120.00 Hz}}, emitEvent=true, force=false}
+03-04 19:04:24.483  1274  1274 D Scheduler: MtkOverrideDuration: update vsync 120
+03-04 19:04:24.483  1274  1274 D Scheduler: MtkOverrideDuration: reset override duration
+03-04 19:04:24.483  1274  1274 I PowerHalWrapper: updateFps(): 120
+03-04 19:04:24.483  5311 16386 D BufferPoolAccessor2.0: bufferpool2 0xb400007561a9e628 : 66(459489 size) total buffers - 1(602 size) used buffers - 442/2349 (recycle/alloc) - 1926/2348 (fetch/transfer)
+03-04 19:04:24.484  3632  3632 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():103 repeatCheckTimes = 0, locked = false
+03-04 19:04:24.485  3632  3632 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1384 onStartInput(EditorInfo{EditorInfo{packageName=com.motorola.launcher3, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+03-04 19:04:24.486  3632  3632 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():103 repeatCheckTimes = 1, locked = false
+03-04 19:04:24.487  2336  2432 D BLASTBufferQueue: [VRI[vms]#2215](f:0,a:1) destructor()
+03-04 19:04:24.488  2336  2432 D BufferQueueConsumer: [Splash Screen com.vms#38923(BLAST Consumer)pid:2336](id:920000008aa,api:0,p:-1,c:2336) disconnect
+03-04 19:04:24.489  1872  3619 W PackageConfigPersister: App-specific configuration not found for packageName: com.motorola.launcher3 and userId: 0
+03-04 19:04:24.490  2336  2432 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda11@39e56f
+03-04 19:04:24.492  1872  3619 W InputManager-JNI: Input channel object '226374a Splash Screen com.vms (client)' was disposed without first being removed with the input manager!
+03-04 19:04:24.494  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=2
+03-04 19:04:24.495  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 2(60.00 Hz:0) to 0(120.00 Hz:0) for display 0
+03-04 19:04:24.495  1193  1323 I hwcomposer: [HWC] (0) displaySetActiveConfig config:0  
+03-04 19:04:24.495  1872  3622 W WindowManager: Failed looking up window session=Session{f3ec0d7 2336:u0a10322} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:6924 com.android.server.wm.Session.setOnBackInvokedCallbackInfo:1065 android.view.IWindowSession$Stub.onTransact:1258 
+03-04 19:04:24.495  1872  3622 W WindowManager: win is null client=android.os.BinderProxy@ac664b5
+03-04 19:04:24.495  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges active mode changed to 0(120.00 Hz) for display 0. mBrightnessDimingCnt=0
+03-04 19:04:24.495  1872  3622 I WindowManager: setOnBackInvokedCallback(): No window state for package:com.android.systemui
+03-04 19:04:24.495  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.506  1274  1274 I BufferQueueProducer: [FramebufferSurface](this:0xb4000074669806d0,id:-1,api:1,p:1274,c:1274) queueBuffer: fps=14.73 dur=1085.90 max=841.66 min=12.03
+03-04 19:04:24.510  1274  1274 I PowerHalWrapper: updateFps(): 120
+03-04 19:04:24.510  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=3
+03-04 19:04:24.511  1872  1894 I DisplayDeviceRepository: Display device changed render timings: "Built-in Screen", renderFrameRate=120.00001, presentationDeadlineNanos=22000000, appVsyncOffsetNanos=-8000000
+03-04 19:04:24.511  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=Splash Screen com.vms#38923, layerId=38923, parentId=0
+03-04 19:04:24.511  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 0(120.00 Hz:0) to 0(120.00 Hz:0) for display 0
+03-04 19:04:24.511  1274  1274 I PowerHalWrapper: updateFps(): 120
+03-04 19:04:24.511  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.512  1872  1894 D DisplayManagerService: Ignore redundant display event 0/2 to 10399/12683
+03-04 19:04:24.512  1872  1894 D DisplayManagerService: Ignore redundant display event 0/2 to 10368/13994
+03-04 19:04:24.513  1872  2246 D AudioSystem: +setParameters(): screen_state=on 
+03-04 19:04:24.513  1872  1894 D DisplayManagerService: Ignore redundant display event 0/2 to 10244/15719
+03-04 19:04:24.513  1872  1894 D DisplayManagerService: Ignore redundant display event 0/2 to 10333/31490
+03-04 19:04:24.514  1872  1923 D BrightnessThermalClamper: Thermal status observer already started
+03-04 19:04:24.514  1184  1184 D AudioALSAHardware: +setParameters(): screen_state=on
+03-04 19:04:24.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 2, mode 1
+03-04 19:04:24.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 8, mode 1
+03-04 19:04:24.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 4, mode 1
+03-04 19:04:24.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 32768, mode 1
+03-04 19:04:24.515  1184  1184 D AudioALSAStreamOut: +setScreenState(), flag 65536, mode 1
+03-04 19:04:24.515  1184  1184 D AudioALSAHardware: -setParameters(): screen_state=on
+03-04 19:04:24.516  1184 23939 W BTAudioHw: adev_set_parameterserror paremeter : : ParamsMap=[key: 'screen_state' value: 'on'
+03-04 19:04:24.516  1184 23939 W BTAudioHw: ]
+03-04 19:04:24.519  9755 10687 D MCLOG   : [BrightnessTrigger] onDisplayChanged displayId = 0
+03-04 19:04:24.523  9755 10687 D MCLOG   : [BrightnessManager] displayId = 0 brightness = 0.1876922 nit = 89.16702 level = br1
+03-04 19:04:24.525  2336  2373 D WindowManagerShell: onKeepClearAreasChanged: restricted={Rect(16, 2069 - 1064, 2315)}, unrestricted={}
+03-04 19:04:24.527  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=4
+03-04 19:04:24.527  1274  1274 I BufferQueueProducer: [StatusBar#91](this:0xb4000074369aa820,id:-1,api:0,p:-1,c:1274) queueBuffer: fps=9.70 dur=1030.45 max=869.32 min=13.92
+03-04 19:04:24.528  1274  1274 I BufferQueueDebug: [Splash Screen com.vms#38923](this:0xb400007436c5e020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:24.528  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.536  2336  2373 D WindowManagerShell: onKeepClearAreasChanged: restricted={Rect(11, 2077 - 1069, 2325)}, unrestricted={}
+03-04 19:04:24.543  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=5
+03-04 19:04:24.544  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.557  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=6
+03-04 19:04:24.558  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.565  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=7
+03-04 19:04:24.566  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.573  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=8
+03-04 19:04:24.574  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.582  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=9
+03-04 19:04:24.583  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.590  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=10
+03-04 19:04:24.591  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.598  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=11
+03-04 19:04:24.599  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.606  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=12
+03-04 19:04:24.607  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.615  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=13
+03-04 19:04:24.616  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.623  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=14
+03-04 19:04:24.624  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.631  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=15
+03-04 19:04:24.632  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.635  2336  2373 D WindowManagerShell: onKeepClearAreasChanged: restricted={Rect(0, 2096 - 1080, 2350)}, unrestricted={}
+03-04 19:04:24.640  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=16
+03-04 19:04:24.641  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.645  1195  1343 D C2MtkComponentStore: setDmaBufUsage: usage 5, flags 0, heapName mtk_mm for decoder.
+03-04 19:04:24.648  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=17
+03-04 19:04:24.649  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.650  2336  2373 D WindowManagerShell: onKeepClearAreasChanged: restricted={Rect(0, 2097 - 1080, 2350)}, unrestricted={}
+03-04 19:04:24.656  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=18
+03-04 19:04:24.657  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.662  1195  1343 D C2MtkComponentStore: setDmaBufUsage: usage 5, flags 0, heapName mtk_mm for decoder.
+03-04 19:04:24.664  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=19
+03-04 19:04:24.665  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.673  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=20
+03-04 19:04:24.674  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.681  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=21
+03-04 19:04:24.682  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.689  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=22
+03-04 19:04:24.690  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.690  2336  2373 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#2569) android.os.BinderProxy@ea1a457@0
+03-04 19:04:24.692  1872  1891 V WindowManager: Finish Transition (#2569): created at 03-04 19:04:24.365 collect-started=0.065ms request-sent=0.148ms started=12.031ms ready=62.797ms sent=70.495ms finished=326.948ms
+03-04 19:04:24.693  1274  1799 I SurfaceFlinger: onHandleDestroyed: name=b7620c0 ActivityRecordInputSink com.vms/.MainActivity#38925, layerId=38925, parentId=0
+03-04 19:04:24.694  1274  1799 I BufferQueueDebug: [Task=2080#38934](this:0xb400007436c5e020,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1274:/system/bin/surfaceflinger)
+03-04 19:04:24.697  2336  2373 V WindowManagerShell: Track 0 became idle
+03-04 19:04:24.697  2336  2373 V WindowManagerShell: All active transition animations finished
+03-04 19:04:24.698  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=23
+03-04 19:04:24.698  1872  3622 W UserManagerService: Requested status bar icon for non-badged user 0
+03-04 19:04:24.699  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=226374a Splash Screen com.vms#38922, layerId=38922, parentId=0
+03-04 19:04:24.699  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=Transition Root: Task=1#38930, layerId=38930, parentId=0
+03-04 19:04:24.699  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.699 14600 14600 I TopTaskTracker: onTaskRemoved: taskId=2080
+03-04 19:04:24.699 14600 14600 I TopTaskTracker: onTaskRemoved: taskId=2080
+03-04 19:04:24.699  1872  4136 W UserManagerService: Requested status bar icon for non-badged user 0
+03-04 19:04:24.706  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=24
+03-04 19:04:24.707  1274  1274 I BufferQueueDebug: [Transition Root: Task=1#38930](this:0xb400007436d02020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:24.707  1274  1274 I BufferQueueDebug: [226374a Splash Screen com.vms#38922](this:0xb400007436d09020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:24.707  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=Task=2080#38934, layerId=38934, parentId=0
+03-04 19:04:24.707  1274  1274 I SurfaceFlinger: onHandleDestroyed: name=ActivityRecord{ce2d243 u0 com.vms/.MainActivity#38921, layerId=38921, parentId=0
+03-04 19:04:24.707  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.716  1274  1274 E SurfaceFlinger: Out of order buffers detected for RequestedLayerState{com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher#38702 parentId=31340} producedId=132 frameNumber=232 -> producedId=132 frameNumber=25
+03-04 19:04:24.717  1274  1274 I BufferQueueDebug: [b7620c0 ActivityRecordInputSink com.vms/.MainActivity#38925](this:0xb400007436d17020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:24.717  1274  1274 I BufferQueueDebug: [Task=2080#38934](this:0xb400007436c5e020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:24.717  1274  1274 I BufferQueueDebug: [ActivityRecord{ce2d243 u0 com.vms/.MainActivity#38921](this:0xb400007436c97020,id:-1,api:0,p:-1,c:1274) onDestructor()
+03-04 19:04:24.717  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:24.790  5311 16386 D BufferPoolAccessor2.0: bufferpool2 0xb400007561a9e628 : 66(706855 size) total buffers - 1(13374 size) used buffers - 444/2368 (recycle/alloc) - 1943/2367 (fetch/transfer)
+03-04 19:04:24.870  1872  1894 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{ce2d243 u0 com.vms/.MainActivity t-1 f}}
+03-04 19:04:24.870  1872  2333 I PowerHalWrapper: amsBoostNotify pid:14600,activity:com.android.launcher3.CustomizationPanelLauncher, package:com.motorola.launcher3, mProcessCreatePackcom.vms 
+03-04 19:04:24.870  1872  2333 I PowerHalWrapper: state: 1 
+03-04 19:04:24.872  1872  2333 I mtkpower_client: [PowerHal_Wrap_notifyAppState] com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher pid=14600 activityId:232480258 state:1
+03-04 19:04:24.872  1872  2333 I mtkpower_client: [Legacy][PowerHal_Wrap_notifyAppState] com.motorola.launcher3/com.android.launcher3.CustomizationPanelLauncher pid=14600 state:232480258
+03-04 19:04:24.872  1240  1332 I libPowerHal: [perfNotifyAppState] pack:com.motorola.launcher3, act:com.android.launcher3.CustomizationPanelLauncher, state:1, pid:14600, uid:10294, fps:-1
+03-04 19:04:24.872  1240  1332 I libPowerHal: [perfNotifyAppState] foreground:com.motorola.launcher3, pid:14600, uid:10294
+03-04 19:04:24.872  3237  3925 D GameMode: isScreenUnlocked: true
+03-04 19:04:24.873  1240  1332 I UxUtility: notifyForegroundApp pack:com.motorola.launcher3, uid:10294
+03-04 19:04:24.873  1240  1332 I TouchUtility: notifyAppState error = NULL
+03-04 19:04:24.873  1240  1276 I mtkpower@impl: [notifyAppState] pc:0, com.vms => com.motorola.launcher3
+03-04 19:04:24.873  1872  2333 I PowerHalWrapper: amsBoostNotify AMS_BOOST_PROCESS_CREATE_BOOST:true 
+03-04 19:04:24.873  3237  3237 D GameMode: exiting game mode
+03-04 19:04:24.874  3237  3925 D GameMode: isScreenUnlocked: true
+03-04 19:04:24.876  3237  3237 D GameMode: isFeatureSupported: true
+03-04 19:04:24.877  3237  3237 D GameMode: isFeatureSupported: true
+03-04 19:04:24.877  2517  2517 D GameModeDetector: notifyGameModeStatusValue, value=false
+03-04 19:04:24.877  2517  2517 D DaxService: sendGameModeIntent, state=false
+03-04 19:04:24.879  3237  3237 D GameMode: isFeatureSupported: true
+03-04 19:04:24.883 15922 15975 D MotoDolbyUI: getDeviceType, active device is 0x2
+03-04 19:04:24.884 15922 15975 D MotoDolbyUI: getDeviceType, active device is 0x2
+03-04 19:04:24.888  2517  2538 I AudioEffect: getParameter: param: 5, param2: -1
+03-04 19:04:24.888  1184  1184 I EffectsFactory: Effect_Command(): self = 0xb400007941268440, cmdCode = 8
+03-04 19:04:24.889  1184  1184 D DlbDapEffectContext: DapEffectContext[0xb40000794d4ad300] getDapParameter() outval size = 12, ret = 0
+03-04 19:04:24.889  2517  2538 I AudioEffect: getParameter: param: 167772165, param2: -1
+03-04 19:04:24.889  1184  1184 I EffectsFactory: Effect_Command(): self = 0xb400007941268440, cmdCode = 8
+03-04 19:04:24.889  1184  1184 D DlbDapEffectContext: DapEffectContext[0xb40000794d4ad300] getDapParameter() outval size = 12, ret = 0
+03-04 19:04:24.890  2517  2538 D DolbyAudioEffectHelper: getDolbyStatus enabled=true profile=0
+03-04 19:04:24.890  2517  2538 D DolbyProvider: true, profile=0
+03-04 19:04:24.937  3800 16611 D AssistReceiver: call: lightWakeup | null | null
+03-04 19:04:25.004  1872  2150 D ActivityManager: freezing 30734 com.facebook.katana, reason = oom_cached
+03-04 19:04:25.008  1872  2230 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-04 19:04:25.009  1872  2230 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-04 19:04:25.009  1872  2230 D InetDiagMessage: Destroyed live tcp sockets for uids={10354} in 2ms
+03-04 19:04:25.030  1240  1303 I libPerfCtl: xgfGetFPS pid:2336 fps:62
+03-04 19:04:25.030  1240  1303 I libPerfCtl: xgfGetFPS pid:14600 fps:87
+03-04 19:04:25.030  1240  1303 I libPowerHal: [updateFPS] pid(14600) : -1 => 90
+03-04 19:04:25.030  1240  1332 I libPowerHal: [perfNotifyAppState] pack:com.motorola.launcher3, act:com.android.launcher3.CustomizationPanelLauncher, state:5, pid:14600, uid:10294, fps:90
+03-04 19:04:25.030  1240  1332 I UxUtility: notifyForegroundApp pack:com.motorola.launcher3, uid:10294
+03-04 19:04:25.030  1240  1332 I TouchUtility: notifyAppState error = NULL
+03-04 19:04:25.031  1240  1303 I libPerfCtl: xgfGetFPS pid:14648 fps:-1
+03-04 19:04:25.207  1274  1728 I Scheduler: applyPolicy: UpdateRefreshRate 120 to 30 of group 0: [touch=0:0 touchBoost=0 scroll=0:0 idle=1:1]
+03-04 19:04:25.207  1274  1728 D DisplayModeController: setDesiredMode 0 {mode={fps=30.00 Hz, modePtr={id=3, vsyncRate=30.00 Hz, peakRefreshRate=30.00 Hz}}, emitEvent=false, force=false}
+03-04 19:04:25.208  1274  1728 D Scheduler: MtkOverrideDuration: update vsync 30
+03-04 19:04:25.208  1274  1728 D Scheduler: MtkOverrideDuration: reset override duration
+03-04 19:04:25.208  1274  1728 I PowerHalWrapper: updateFps(): 30
+03-04 19:04:25.208  1193  1578 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-04 19:04:25.209  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 0(120.00 Hz:0) to 3(30.00 Hz:0) for display 0
+03-04 19:04:25.209  1193  1323 I hwcomposer: [HWC] (0) displaySetActiveConfig config:3  
+03-04 19:04:25.209  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges active mode changed to 3(30.00 Hz) for display 0. mBrightnessDimingCnt=0
+03-04 19:04:25.209  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:25.216  1193  1578 I hwcomposer: [DRMDEV] (0) failed to waitNextVsync: -1  
+03-04 19:04:25.223  1274  1274 I PowerHalWrapper: updateFps(): 30
+03-04 19:04:25.223  1274  1274 I SurfaceFlinger: initiateDisplayModeChanges changing active mode from 3(30.00 Hz:0) to 3(30.00 Hz:0) for display 0
+03-04 19:04:25.223  1274  1274 I PowerHalWrapper: updateFps(): 30
+03-04 19:04:25.223  1274  1274 E HWC2    : Invalid CT ID. displayId: 0
+03-04 19:04:25.334 16358 16384 I MediaCodec: [0xb4000075701bc000] dequeue 42 output frames in last 1041 ms, latest timeUs 182406344712, flags 0
+03-04 19:04:25.356  1557  1786 D ULogGuard: Monitoring: 11 threads, 0 requests, 0 time-bombs; 1 guards. ResetFlags = 0x7
+03-04 19:04:26.030  1240  1303 I libPerfCtl: xgfGetFPS pid:2336 fps:-1
+03-04 19:04:26.030  1240  1303 I libPerfCtl: xgfGetFPS pid:14600 fps:-1
+03-04 19:04:26.030  1240  1303 I libPowerHal: [updateFPS] pid(14600) : 90 => -1
+03-04 19:04:26.030  1240  1332 I libPowerHal: [perfNotifyAppState] pack:com.motorola.launcher3, act:com.android.launcher3.CustomizationPanelLauncher, state:5, pid:14600, uid:10294, fps:-1
+03-04 19:04:26.030  1240  1332 I UxUtility: notifyForegroundApp pack:com.motorola.launcher3, uid:10294
+03-04 19:04:26.030  1240  1332 I TouchUtility: notifyAppState error = NULL
+03-04 19:04:26.031  1240  1303 I libPerfCtl: xgfGetFPS pid:14648 fps:-1
+03-04 19:04:26.242  1240  1332 I mtkpower@impl: [powerd_req] TIMER_MSG_PERF_LOCK_TIMEOUT hdl:52273
+03-04 19:04:26.242  1240  1332 I libPowerHal: [perfLockRel] hdl:52273, idx:2
+03-04 19:04:26.242  1240  1332 I libPowerHal: [unsetGPUFreq] current min:23, max:0; scn_gpu_min:23, scn_gpu_max:-1; scn_gpu_min(HL):-1, scn_gpu_max(HL):-1
+03-04 19:04:26.242  1240  1332 I libPowerHal: LAUNCH: set gpu opp level: 36
+03-04 19:04:26.242  1240  1332 I libPowerHal: LAUNCH: set gpu opp level max: 0
+03-04 19:04:26.242  1240  1332 I libPowerHal: [setGPUFreq] Soft min/max = (36, 0); Hard min/max = (36, 0)
+03-04 19:04:26.242  1240  1332 I libPowerHal: [setGPUFreq] final min/max = (36, 0)
+03-04 19:04:26.242  1240  1332 I libPowerHal: LAUNCH: set gpu opp level: 36
+03-04 19:04:26.242  1240  1332 I libPowerHal: LAUNCH: set gpu opp level max: 0
+03-04 19:04:26.243  1240  1332 I libPowerHal: set_data_partition_boost: value:0, scn:0xb4000075a0189880
+03-04 19:04:26.243  1240  1332 I libPowerHal: set_f2fs_current_flush_merge:0
+03-04 19:04:26.243  1240  1332 I libPowerHal: [PD] LAUNCH update cmd:2c14000 param:0
+03-04 19:04:26.488  2309  2309 D android.hardware.wifi@1.0-service-lazy: WifiRequest::create vendor command to iface 37, vendor_id=0x1a11, subcmd=0x0002, res=0
+03-04 19:04:26.488  2309  2309 D WifiHAL : In GetFeatureSetCommand::handleResponse for 5
+03-04 19:04:26.488  2309  2309 D WifiHAL : vendor_id = 0x0, subcmd = 0x0
+03-04 19:04:26.488  2309  2309 I WifiHAL : feature_set=0x8488141a
+03-04 19:04:26.490  1872  2223 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-04 19:04:27.030  1240  1303 I libPerfCtl: xgfGetFPS pid:2336 fps:-1
+03-04 19:04:27.030  1240  1303 I libPerfCtl: xgfGetFPS pid:14600 fps:-1
+03-04 19:04:27.030  1240  1303 I libPerfCtl: xgfGetFPS pid:14648 fps:-1
+03-04 19:04:27.192 15719 16997 W chromium: [WARNING:components/sync/engine/syncer_proto_util.cc:430] Error posting from syncer: Response Code (bogus on error): -1 Content-Length (bogus on error): -1 Server Status: CONNECTION_UNAVAILABLE
+03-04 19:04:27.193 15719 16997 E chromium: [ERROR:components/sync/engine/get_updates_processor.cc:270] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_NAME_NOT_RESOLVED)
+03-04 19:04:27.496  1872  1872 I EnhancedConnectivity: [DataStallService] isPoorSignal = false
+03-04 19:04:28.030  1240  1303 I libPerfCtl: xgfGetFPS pid:2336 fps:-1
+03-04 19:04:28.030  1240  1303 I libPerfCtl: xgfGetFPS pid:14600 fps:-1
+03-04 19:04:28.030  1240  1303 I libPerfCtl: xgfGetFPS pid:14648 fps:-1
+03-04 19:04:28.161 15003 15548 I NearbyDiscovery: (REDACTED) BloomFilterAdvManager: Detected bloom filter but too far away, ignoring. %sm, %s
