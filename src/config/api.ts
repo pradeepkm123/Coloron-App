@@ -1,17 +1,19 @@
 /**
  * Global API Configuration
- * Replace the BASE_URL with your local machine's LAN IP address.
  * 
- * To find your IP:
- * Windows: ipconfig (look for IPv4 Address)
- * Mac/Linux: ifconfig or ip addr
+ * Cloud Production Backend on Render: https://coloron-app.onrender.com
+ * Accessible from Wi-Fi, 5G, 4G, and any network globally.
  */
 
-// Host machine's LAN IP address (accessible by mobile devices on same Wi-Fi and emulators)
-export const BACKEND_IP = '192.168.1.12'; // Local backend IP
-export const BACKEND_PORT = '5000';
-export const BASE_URL = `http://${BACKEND_IP}:${BACKEND_PORT}`;
+export const RENDER_BACKEND_URL = 'https://coloron-app.onrender.com';
+
+// Primary Production Backend URL
+export const BASE_URL = RENDER_BACKEND_URL;
 export const API_URL = `${BASE_URL}/api`;
+
+// Local backend fallback (for local debugging if ever needed)
+export const BACKEND_IP = 'coloron-app.onrender.com';
+export const BACKEND_PORT = '443';
 
 // Google Web Client ID for OAuth (verify with Google Console)
 export const GOOGLE_WEB_CLIENT_ID = '104567894523123-yourgooglewebclientid.apps.googleusercontent.com';
