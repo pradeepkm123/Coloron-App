@@ -19,7 +19,8 @@ type SystemMainRouteProp = RouteProp<RootStackParamList, 'SystemMain'>;
 const SystemMain: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<SystemMainRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const renderMenuItem = (title: string, onPress: () => void) => (
         <TouchableOpacity style={styles.menuItem} onPress={onPress}>

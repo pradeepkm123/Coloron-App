@@ -40,6 +40,8 @@ import IntercomModal from '../components/IntercomModal';
 import LivePlayer from '../components/LivePlayer';
 import * as NvrSdk from '../native/NvrSdk';
 import { deviceSessionManager } from '../services/DeviceSessionManager';
+import connectionManager, { ConnectionEvent, DeviceStatusEvent, ConnectionState } from '../services/ConnectionManager';
+
 import NvrVideoView from '../native/NvrVideoView';
 import { authStorage } from '../utils/authStorage';
 import { api } from '../utils/api';
@@ -48,7 +50,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { subscribeDeviceAlarms, alarmEmitter } from '../services/AlarmService';
 import { useEventStore } from '../store/useEventStore';
 import { normalizeAiEvent } from '../utils/eventMapper';
-import AiEventBanner from '../components/AiEventBanner';
+
 import PinchZoomView, { PinchZoomRef } from '../components/PinchZoomView';
 
 
@@ -108,12 +110,14 @@ export default function LiveView() {
     const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [connState, setConnState] = useState<ConnectionState>('CONNECTED');
     const [currentUserId, setCurrentUserId] = useState<number | null>(null);
     const currentUserIdRef = useRef<number | null>(null);
     const setCurrentUserIdWithRef = (id: number | null) => {
         setCurrentUserId(id);
         currentUserIdRef.current = id;
     };
+
     const [currentUser, setCurrentUser] = useState<any>(null);
 
     // Grid State: channelId or null. No handles needed in JS!
@@ -303,7 +307,52 @@ export default function LiveView() {
 
     useEffect(() => {
         authStorage.getUser().then(setCurrentUser);
+        connectionManager.init();
     }, []);
+
+    useEffect(() => {
+        const handleConnChange = (evt: ConnectionEvent) => {
+            console.log('[LiveView] Connection state changed:', evt.state);
+            setConnState(evt.state);
+            if (evt.state === 'CONNECTED' && selectedDevice) {
+                deviceSessionManager.ensureSession(String(selectedDevice.id)).then((uid) => {
+                    if (uid >= 0) {
+                        setCurrentUserIdWithRef(uid);
+                        setIsLoggedIn(true);
+                    }
+                });
+            }
+        };
+
+        const handleDeviceStatus = (evt: DeviceStatusEvent) => {
+            if (selectedDevice && String(evt.deviceId) === String(selectedDevice.id)) {
+                if (evt.status === 'Online' && evt.userId >= 0) {
+                    setCurrentUserIdWithRef(evt.userId);
+                    setIsLoggedIn(true);
+                } else if (evt.status === 'Reconnecting') {
+                    setConnState('RECONNECTING');
+                }
+            }
+        };
+
+        connectionManager.on('connectionStateChanged', handleConnChange);
+        connectionManager.on('deviceStatusChanged', handleDeviceStatus);
+
+        return () => {
+            connectionManager.off('connectionStateChanged', handleConnChange);
+            connectionManager.off('deviceStatusChanged', handleDeviceStatus);
+        };
+    }, [selectedDevice]);
+
+    useEffect(() => {
+        if (selectedDevice) {
+            connectionManager.registerActiveDevice(String(selectedDevice.id));
+            return () => {
+                connectionManager.unregisterActiveDevice(String(selectedDevice.id));
+            };
+        }
+    }, [selectedDevice]);
+
 
     useEffect(() => {
         // --- 🔔 INITIALIZE NOTIFICATION CHANNELS ---
@@ -615,13 +664,16 @@ export default function LiveView() {
             setIsLoggedIn(true);
             setIsLoggingIn(false);
 
-            // Fetch channels ONLY once per login session
+            // Trigger channel synchronization on LiveView open
             let channels = device.channels || [];
-            if (!channelsFetchedRef.current || channels.length === 0) {
-                console.log(`[LiveView] Initial SDK Channel Fetch for User: ${userId}`);
-                const fresh = await NvrSdk.getChannels(userId);
-                if (fresh) channels = fresh;
-                channelsFetchedRef.current = true;
+            try {
+                console.log(`[LiveView] Triggering channel synchronization for device: ${device.id}`);
+                const synced = await deviceSessionManager.syncDeviceChannels(String(device.id));
+                if (synced && synced.channels) {
+                    channels = synced.channels;
+                }
+            } catch (err: any) {
+                console.warn('[LiveView] Channel sync failed, using cached channels:', err.message);
             }
 
             // Always show all channels if connectedChannels is empty or too small
@@ -686,9 +738,11 @@ export default function LiveView() {
             setIsTransitioning(false);
 
             // --- 🎯 REAL-TIME AI ARMING ---
-            // Trigger subscription immediately so we don't wait for the background loop
-            await NvrSdk.enableAlarms(userId, -1).catch(() => { }); // Set -1 for all channels support in native if possible or bulk
-            subscribeDeviceAlarms(updatedDevice);
+            // Trigger subscription immediately so we don't wait for the background loop (TVT only)
+            if (device.protocol !== 'ONVIF') {
+                await NvrSdk.enableAlarms(userId, -1).catch(() => { }); // Set -1 for all channels support in native if possible or bulk
+                subscribeDeviceAlarms(updatedDevice);
+            }
         } catch (e) {
             console.error('Login Failed', e);
             Alert.alert('Login Failed', 'Could not connect to device.');
@@ -1009,16 +1063,20 @@ export default function LiveView() {
         setCurrentGrid(type);
 
         if (selectedDevice) {
-            const maxCh = selectedDevice.channels?.length || 16;
+            // Use the actual list of channel IDs that were added to this device
+            const channelIds: number[] = selectedDevice.channels && selectedDevice.channels.length > 0
+                ? selectedDevice.channels.map((c: any) =>
+                    typeof c.id === 'string' ? parseInt(c.id) : c.id
+                  )
+                : Array.from({ length: selectedDevice.channelCount || 16 }, (_, i) => i);
+
+
             const size = getGridSize(type);
-            const newCells = [...gridCells];
+            const newCells = Array(36).fill(null);
 
-            const currentChId = gridCells[activeCellIndex] !== null ? gridCells[activeCellIndex] : 0;
-            const startChId = typeof currentChId === 'number' ? currentChId : 0;
-
-            // Auto-populate grid based on new layout
+            // Always start from Channel 0, fill in order up to available channel count
             for (let i = 0; i < size; i++) {
-                newCells[i] = (startChId + i) % maxCh;
+                newCells[i] = i < channelIds.length ? channelIds[i] : null;
             }
 
             setGridCells(newCells);
@@ -1334,41 +1392,76 @@ export default function LiveView() {
                 finalAction = NvrSdk.PTZ_ACTION.LEFT;
         }
 
-        const handle = handlesRef.current[indexToKey(activeCellIndex)];
-        console.log(
-            `PTZ Action: ${finalAction} (Original: ${action}) on Ch ${chId} with speed ${ptzSpeed}`,
-        );
-        NvrSdk.ptzControl(
-            currentUserId,
-            typeof chId === 'string' ? parseInt(chId, 10) : chId,
-            finalAction,
-            ptzSpeed,
-        ).catch(e => console.log('PTZ Error', e));
+        let targetUserId = currentUserId;
+        if (targetUserId === null && selectedDevice) {
+            targetUserId = deviceSessionManager.getUserId(String(selectedDevice.id));
+        }
+
+        if (targetUserId === null || targetUserId === undefined) return;
+        const uid: number = targetUserId;
+
+        const targetCh = typeof chId === 'string' ? parseInt(chId, 10) : chId;
+        console.log(`PTZ Action: ${finalAction} (Original: ${action}) on Ch ${targetCh} with speed ${ptzSpeed}`);
+
+        NvrSdk.ptzControl(uid, targetCh, finalAction, ptzSpeed)
+            .catch(async (e) => {
+                console.warn('PTZ Command error, attempting session recovery:', e);
+                if (selectedDevice) {
+                    const newUid = await deviceSessionManager.ensureSession(String(selectedDevice.id));
+                    if (newUid >= 0) {
+                        setCurrentUserIdWithRef(newUid);
+                        NvrSdk.ptzControl(newUid, targetCh, finalAction, ptzSpeed).catch(() => {});
+                    }
+                }
+            });
     };
 
     const handlePreset = async (command: number, index: number) => {
-        if (currentUserId === null) return;
+        let targetUserId = currentUserId;
+        if (targetUserId === null && selectedDevice) {
+            targetUserId = deviceSessionManager.getUserId(String(selectedDevice.id));
+        }
+        if (targetUserId === null || targetUserId === undefined) return;
+        const uid: number = targetUserId;
+
         const chId = gridCells[activeCellIndex];
         if (chId === null) return;
+        const targetCh = typeof chId === 'string' ? parseInt(chId, 10) : chId;
 
-        const handle = handlesRef.current[indexToKey(activeCellIndex)];
-        console.log(
-            `PTZ Preset: Cmd ${command}, Index ${index} on Ch ${chId}`,
-        );
+        console.log(`PTZ Preset: Cmd ${command}, Index ${index} on Ch ${targetCh}`);
         try {
-            await NvrSdk.ptzPreset(currentUserId, typeof chId === 'string' ? parseInt(chId, 10) : chId, command, index);
+            await NvrSdk.ptzPreset(uid, targetCh, command, index);
         } catch (e) {
-            console.error('Preset command failed', e);
-            throw e;
+            console.warn('Preset command failed, attempting session recovery:', e);
+            if (selectedDevice) {
+                const newUid = await deviceSessionManager.ensureSession(String(selectedDevice.id));
+                if (newUid >= 0) {
+                    setCurrentUserIdWithRef(newUid);
+                    await NvrSdk.ptzPreset(newUid, targetCh, command, index);
+                } else {
+                    throw e;
+                }
+            } else {
+                throw e;
+            }
         }
     };
 
     const handleStopPtz = () => {
-        if (currentUserId === null) return;
+        let targetUserId = currentUserId;
+        if (targetUserId === null && selectedDevice) {
+            targetUserId = deviceSessionManager.getUserId(String(selectedDevice.id));
+        }
+        if (targetUserId === null || targetUserId === undefined) return;
+        const uid: number = targetUserId;
+
         const chId = gridCells[activeCellIndex];
         if (chId === null) return;
-        NvrSdk.ptzControl(currentUserId, typeof chId === 'string' ? parseInt(chId, 10) : chId, NvrSdk.PTZ_ACTION.STOP, 0);
+        const targetCh = typeof chId === 'string' ? parseInt(chId, 10) : chId;
+        NvrSdk.ptzControl(uid, targetCh, NvrSdk.PTZ_ACTION.STOP, 0).catch(() => {});
     };
+
+
 
     const handleStartTalk = async () => {
         if (!currentUserId) return;
@@ -1625,12 +1718,11 @@ export default function LiveView() {
                             if (
                                 isLoggedIn &&
                                 chId !== null &&
-                                (index - startIdx) < loadingCellCount &&
                                 currentUserId !== null &&
                                 selectedDevice &&
-                                !isOffline &&
-                                true
+                                !isOffline
                             ) {
+
                                 return (
                                     <View style={{ flex: 1 }}>
                                         <PinchZoomView
@@ -1649,6 +1741,8 @@ export default function LiveView() {
                                                 streamType={isHD ? 0 : 1}
                                                 deviceType={selectedDevice?.type || 'NVR'}
                                                 index={index}
+                                                protocol={selectedDevice?.protocol}
+                                                streamUrl={chObj?.streamUrl || selectedDevice?.channels?.[0]?.streamUrl}
                                                 aspectRatio={currentGrid === '1x1' ? '1:1' : '16:9'}
                                                 muted={!isAudioOn || activeCellIndex !== index}
                                                 osdVisible={appLocalSettings?.osd}
@@ -1695,7 +1789,6 @@ export default function LiveView() {
                                                     padding: 6,
                                                     flexDirection: 'row',
                                                     alignItems: 'center',
-                                                    gap: 4,
                                                     borderWidth: 1,
                                                     borderColor: 'rgba(255,150,0,0.5)',
                                                 }}
@@ -1709,17 +1802,6 @@ export default function LiveView() {
                                                     size={currentGrid === '1x1' ? 20 : 14}
                                                     color="#FF9800"
                                                 />
-                                                {currentGrid === '1x1' && (
-                                                    <Text
-                                                        style={{
-                                                            color: '#FF9800',
-                                                            fontSize: 10,
-                                                            fontWeight: 'bold',
-                                                        }}
-                                                    >
-                                                        CH{(chId ?? 0) + 1}
-                                                    </Text>
-                                                )}
                                             </View>
                                         )}
 
@@ -1737,11 +1819,19 @@ export default function LiveView() {
                                                 {(() => {
                                                     const chObj = selectedDevice?.channels?.find(
                                                         (c: any) =>
-                                                            (typeof c.id === 'string' ? parseInt(c.id) : c.id) ===
-                                                            chId,
+                                                            (typeof c.id === 'string' ? parseInt(c.id) : c.id) === chId ||
+                                                            (typeof c.channelNo === 'number' ? c.channelNo - 1 : (typeof c.channelNo === 'string' ? parseInt(c.channelNo) - 1 : -1)) === chId,
                                                     );
-                                                    const chName = chObj?.name || '';
-                                                    const hasPtz = chObj?.ptz === true || chObj?.ptzSupport === true || chName.toLowerCase().includes('ptz') || chName.toLowerCase().includes('dome') || chName.toLowerCase().includes('speed');
+                                                    const chName = chObj?.name || chObj?.channelName || '';
+                                                    const chModel = chObj?.model || '';
+                                                    const chCamId = chObj?.cameraId || '';
+                                                    const combinedPtzStr = (chName + ' ' + chModel + ' ' + chCamId).toLowerCase();
+                                                    const hasPtz = chObj?.ptz === true || chObj?.ptzSupport === true || chObj?.ptzSupported === true ||
+                                                        chObj?.cameraType === 'PTZ' ||
+                                                        combinedPtzStr.includes('ptz') || combinedPtzStr.includes('dome') || combinedPtzStr.includes('speed') ||
+                                                        combinedPtzStr.includes('sd') || combinedPtzStr.includes('spd') || combinedPtzStr.includes('ipd') ||
+                                                        combinedPtzStr.includes('zoom') || combinedPtzStr.includes('ball') || combinedPtzStr.includes('pan') ||
+                                                        combinedPtzStr.includes('tilt') || combinedPtzStr.includes('tracking') || combinedPtzStr.includes('autotracking');
                                                     const hasLight =
                                                         chName.toLowerCase().includes('bulb') ||
                                                         chName.toLowerCase().includes('light');
@@ -1992,17 +2082,48 @@ export default function LiveView() {
                                         )}
                                     </View>
                                 );
+                            } else if (chId !== null && (isLoggingIn || !isLoggedIn || currentUserId === null)) {
+                                // Initial Loading State (while connecting to device)
+                                return (
+                                    <View style={styles.placeholder}>
+                                        <ActivityIndicator size="large" color="#A83232" />
+                                    </View>
+                                );
                             } else {
                                 // Offline or Empty Cell Placeholder
                                 return (
                                     <View style={styles.placeholder}>
-                                        <Icon name="video-off-outline" size={30} color="#555" />
-                                        <Text style={{ color: '#666', fontSize: 10, marginTop: 4 }}>
-                                            {chId !== null ? 'Offline / No Data' : 'Empty'}
+                                        <View style={{
+                                            width: 44,
+                                            height: 44,
+                                            borderRadius: 22,
+                                            backgroundColor: chId !== null ? 'rgba(168, 50, 50, 0.15)' : 'rgba(80,80,80,0.15)',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            borderWidth: 1,
+                                            borderColor: chId !== null ? 'rgba(168, 50, 50, 0.4)' : 'rgba(80,80,80,0.3)',
+                                        }}>
+                                            <Icon
+                                                name={chId !== null ? 'camera-off' : 'video-off-outline'}
+                                                size={22}
+                                                color={chId !== null ? '#A83232' : '#555'}
+                                            />
+                                        </View>
+                                        <Text style={{
+                                            color: chId !== null ? '#A83232' : '#555',
+                                            fontSize: 9,
+                                            marginTop: 6,
+                                            fontWeight: '600',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: 0.5,
+                                            textAlign: 'center',
+                                        }}>
+                                            {chId !== null ? 'Camera Offline' : 'No Data'}
                                         </Text>
                                     </View>
                                 );
                             }
+
                         })()}
                     </TouchableOpacity>
                 </View>
@@ -2164,26 +2285,6 @@ export default function LiveView() {
 
     return (
         <View key={deviceId} style={styles.container}>
-            {/* SuperLivePlus-style AI Event Banner */}
-            <AiEventBanner
-                onPressEvent={(event) => {
-                    // Tap on event to focus the channel
-                    if (event.channelId >= 0) {
-                        // Find index of this channel in current grid
-                        const idx = gridCells.findIndex(cid => cid === event.channelId);
-                        if (idx >= 0) {
-                            setActiveCellIndex(idx);
-                            setShowCellFeatures(true);
-                        } else {
-                            // If channel not in grid, swap active cell for it
-                            const newCells = [...gridCells];
-                            newCells[activeCellIndex] = event.channelId;
-                            setGridCells(newCells);
-                            setShowCellFeatures(true);
-                        }
-                    }
-                }}
-            />
 
             <View style={styles.header}>
                 <TouchableOpacity
@@ -2204,6 +2305,21 @@ export default function LiveView() {
                     </TouchableOpacity>
                 </View>
             </View>
+
+
+            {connState === 'RECONNECTING' && (
+                <View style={styles.connectionBannerWarning}>
+                    <ActivityIndicator size="small" color="#FFF" style={{ marginRight: 8 }} />
+                    <Text style={styles.connectionBannerText}>Network Changed • Reconnecting devices...</Text>
+                </View>
+            )}
+            {connState === 'OFFLINE' && (
+                <TouchableOpacity style={styles.connectionBannerError} onPress={() => connectionManager.manualRetry()}>
+                    <Icon name="wifi-off" size={16} color="#FFF" style={{ marginRight: 8 }} />
+                    <Text style={styles.connectionBannerText}>Network Offline • Tap to Retry</Text>
+                </TouchableOpacity>
+            )}
+
 
             <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                 <View style={styles.mainContent}>
@@ -2350,35 +2466,44 @@ export default function LiveView() {
                                 <Text style={styles.controlLabel}>Grid</Text>
                             </TouchableOpacity>
                             {(() => {
-                                const chId = gridCells[activeCellIndex];
-                                const chObj = selectedDevice?.channels?.find(
-                                    (c: any) =>
-                                        (typeof c.id === 'string' ? parseInt(c.id) : c.id) ===
-                                        chId,
-                                );
-                                const chName = chObj?.name || '';
-                                const hasPtz = chObj?.ptz === true || chObj?.ptzSupport === true || chName.toLowerCase().includes('ptz') || chName.toLowerCase().includes('dome') || chName.toLowerCase().includes('speed');
-                                return hasPtz ? (
-                                    <TouchableOpacity
-                                        style={styles.controlBtnWrapper}
-                                        onPress={() => setPtzOpen(!ptzOpen)}
-                                    >
-                                        <View
-                                            style={[
-                                                styles.controlBtn,
-                                                ptzOpen && { backgroundColor: THEME.primary },
-                                            ]}
-                                        >
-                                            <Icon
-                                                name="axis-arrow"
-                                                size={24}
-                                                color={ptzOpen ? '#FFF' : THEME.primary}
-                                            />
-                                        </View>
-                                        <Text style={styles.controlLabel}>PTZ</Text>
-                                    </TouchableOpacity>
-                                ) : null;
-                            })()}
+                                 const chId = gridCells[activeCellIndex];
+                                 const chObj = selectedDevice?.channels?.find(
+                                     (c: any) =>
+                                         (typeof c.id === 'string' ? parseInt(c.id) : c.id) ===
+                                         (typeof c.id === 'string' ? parseInt(c.id) : c.id) === chId ||
+                                         (typeof c.channelNo === 'number' ? c.channelNo - 1 : c.channelNo) === chId,
+                                 );
+                                 const chName = chObj?.name || chObj?.channelName || '';
+                                 const chModel = chObj?.model || '';
+                                 const chCamId = chObj?.cameraId || '';
+                                 const combinedPtzStr = (chName + ' ' + chModel + ' ' + chCamId).toLowerCase();
+                                 const hasPtz = chObj?.ptz === true || chObj?.ptzSupport === true || chObj?.ptzSupported === true ||
+                                     chObj?.cameraType === 'PTZ' ||
+                                     combinedPtzStr.includes('ptz') || combinedPtzStr.includes('dome') || combinedPtzStr.includes('speed') ||
+                                     combinedPtzStr.includes('sd') || combinedPtzStr.includes('spd') || combinedPtzStr.includes('ipd') ||
+                                     combinedPtzStr.includes('zoom') || combinedPtzStr.includes('ball') || combinedPtzStr.includes('pan') ||
+                                     combinedPtzStr.includes('tilt') || combinedPtzStr.includes('tracking') || combinedPtzStr.includes('autotracking');
+                                 return hasPtz ? (
+                                     <TouchableOpacity
+                                         style={styles.controlBtnWrapper}
+                                         onPress={() => setPtzOpen(!ptzOpen)}
+                                     >
+                                         <View
+                                             style={[
+                                                 styles.controlBtn,
+                                                 ptzOpen && { backgroundColor: THEME.primary },
+                                             ]}
+                                         >
+                                             <Icon
+                                                 name="axis-arrow"
+                                                 size={24}
+                                                 color={ptzOpen ? '#FFF' : THEME.primary}
+                                             />
+                                         </View>
+                                         <Text style={styles.controlLabel}>PTZ</Text>
+                                     </TouchableOpacity>
+                                 ) : null;
+                             })()}
                             <TouchableOpacity
                                 style={styles.controlBtnWrapper}
                                 onPress={() => setCameraListOpen(true)}
@@ -2913,5 +3038,27 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         flex: 1,
     },
+    connectionBannerWarning: {
+        backgroundColor: '#D97706',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+    },
+    connectionBannerError: {
+        backgroundColor: '#DC2626',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+    },
+    connectionBannerText: {
+        color: '#FFFFFF',
+        fontSize: 12,
+        fontWeight: '600',
+    },
 });
+
 

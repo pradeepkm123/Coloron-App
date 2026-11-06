@@ -73,7 +73,7 @@ const LanSearch: React.FC = () => {
             } else if (rawModelStr === '3') {
                 modelStr = 'Digital Video Recorder (DVR)';
             } else if (!isNaN(Number(rawModelStr))) {
-                modelStr = `TVT Device (Type ${rawModelStr})`;
+                modelStr = `Secura Device (Type ${rawModelStr})`;
             } else {
                 modelStr = rawModelStr;
             }
@@ -198,7 +198,7 @@ const LanSearch: React.FC = () => {
                 });
             }).catch(e => console.warn(e));
 
-            await new Promise<void>(resolve => setTimeout(resolve, 3000));
+            await new Promise<void>(resolve => setTimeout(resolve, 11000));
         } catch (error) {
             console.error('[LanSearch] Discovery error:', error);
         } finally {
@@ -218,7 +218,7 @@ const LanSearch: React.FC = () => {
             protocol: device.protocol || 'TVT',
             serial: device.serial,
             model: device.model,
-            deviceName: device.deviceName || device.model || 'TVT Device',
+            deviceName: device.deviceName || device.model || 'Secura Device',
         };
 
         const routes = navigation.getState()?.routes;
@@ -248,9 +248,6 @@ const LanSearch: React.FC = () => {
                         <View style={styles.deviceTitleRow}>
                             <Text style={styles.deviceName} numberOfLines={1}>{displayName}</Text>
                             <View style={styles.badgeContainer}>
-                                <View style={[styles.protocolBadge, item.protocol === 'ONVIF' && styles.onvifBadge]}>
-                                    <Text style={[styles.protocolText, item.protocol === 'ONVIF' && { color: '#1971C2' }]}>{item.protocol}</Text>
-                                </View>
                                 <View style={[styles.statusBadge, isInactive ? styles.inactiveBadge : styles.onlineBadge]}>
                                     <View style={[styles.statusDot, isInactive ? styles.inactiveDot : styles.onlineDot]} />
                                     <Text style={[styles.statusText, isInactive ? { color: '#868E96' } : { color: '#0CA678' }]}>{item.status || 'Online'}</Text>
@@ -271,25 +268,21 @@ const LanSearch: React.FC = () => {
                                 </View>
                             </View>
                             <View style={styles.metaRow}>
-                                <View style={styles.metaColumn}>
+                                <View style={[styles.metaColumn, { flex: 2 }]}>
                                     <Icon name="barcode" size={14} color="#666" style={styles.metaIcon} />
                                     <Text style={styles.metaLabel}>SN/MAC: </Text>
                                     <Text style={styles.metaValue} numberOfLines={1}>{item.serial || 'N/A'}</Text>
-                                </View>
-                                <View style={styles.metaColumn}>
-                                    <Icon name="format-list-numbered" size={14} color="#666" style={styles.metaIcon} />
-                                    <Text style={styles.metaLabel}>Channels: </Text>
-                                    <Text style={styles.metaValue}>{item.channelCount ? `${item.channelCount} CH` : '1 CH'}</Text>
                                 </View>
                             </View>
                             <View style={[styles.metaRow, { marginBottom: 0, marginTop: 2 }]}>
                                 <View style={[styles.metaColumn, { flex: 2, marginRight: 0 }]}>
                                     <Icon name="cube-outline" size={14} color="#666" style={styles.metaIcon} />
-                                    <Text style={styles.metaLabel}>Model: </Text>
-                                    <Text style={styles.metaValue} numberOfLines={1}>{item.model}</Text>
+                                    <Text style={styles.metaLabel}>Device Name: </Text>
+                                    <Text style={styles.metaValue} numberOfLines={1}>{displayName}</Text>
                                 </View>
                             </View>
                         </View>
+
                     </View>
                     <Icon name="chevron-right" size={24} color="#CED4DA" style={{ marginLeft: 8 }} />
                 </View>

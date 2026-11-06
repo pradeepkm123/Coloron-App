@@ -8,8 +8,8 @@ set CMAKE_BUILD_PARALLEL_LEVEL=1
 
 echo.
 echo Running gradle build in the android folder...
-cd android
-call gradlew.bat assembleRelease
+cd "%~dp0android"
+call gradlew.bat assembleRelease --no-daemon
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
@@ -25,6 +25,6 @@ echo ===================================================
 echo   BUILD SUCCESSFUL!
 echo ===================================================
 echo Output APK is located at:
-echo e:\prd\app\VMS\android\app\build\outputs\apk\release\app-release.apk
+echo %~dp0android\app\build\outputs\apk\release\app-release.apk
 echo.
 pause

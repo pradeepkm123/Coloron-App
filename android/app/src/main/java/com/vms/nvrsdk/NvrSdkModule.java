@@ -40,6 +40,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import android.os.Handler;
 import android.os.Looper;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
+import com.google.mlkit.vision.barcode.BarcodeScanner;
+import com.google.mlkit.vision.barcode.common.Barcode;
+import com.google.mlkit.vision.common.InputImage;
 
 public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.interfance.NVRSDKCallback {
     private final java.util.concurrent.CopyOnWriteArrayList<WritableMap> discoveredDevices = new java.util.concurrent.CopyOnWriteArrayList<>();
@@ -770,7 +774,7 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                         return;
                     }
                     NET_SDK_DEVICEINFO info = NET_SDK_DEVICEINFO.deserialize(devBytes, 0);
-                    int count = info.videoInputNum;
+                    int count = info.videoInputNum; // NVR capacity e.g. 16 or 32
 
                     byte[] statusBytes = null;
                     try {
@@ -784,103 +788,196 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                         android.util.Log.e("NvrSdk", "Failed to GetCHDeviceStatus: " + e.getMessage());
                     }
 
-                    WritableArray arr = Arguments.createArray();
-                    for (int i = 0; i < count; i++) {
-                        WritableMap ch = Arguments.createMap();
-                        ch.putInt("id", i); // 0-based channel index
-
-                        String channelName = "Camera " + (i + 1);
-                        try {
-                            // Try to get actual channel name from config
-                            // 769 = DD_CONFIG_ITEM_CHNN_CONFIG
-                            java.lang.Integer actualSize = 0;
-                            byte[] cfgBytes = null;
-                            synchronized (TVTManager.sdkLock) {
-                                cfgBytes = sdk.GetDVRConfig(userId, 769, i, 2048, actualSize, true);
+                    // Retrieve configured IPC devices to extract IP, Model and Camera ID
+                    java.util.List<SDKDefs.NET_SDK_IPC_DEVICE_INFO> ipcList = new java.util.ArrayList<>();
+                    try {
+                        int ipcCount = 0;
+                        synchronized (TVTManager.sdkLock) {
+                            ipcCount = sdk.GetDeviceIPCCount(userId);
+                        }
+                        byte[] ipcBytes = null;
+                        synchronized (TVTManager.sdkLock) {
+                            ipcBytes = sdk.GetDeviceIPCInfo(userId);
+                        }
+                        int ipcStructSize = SDKDefs.NET_SDK_IPC_DEVICE_INFO.GetStructSize();
+                        if (ipcBytes != null && ipcBytes.length >= ipcCount * ipcStructSize) {
+                            for (int j = 0; j < ipcCount; j++) {
+                                SDKDefs.NET_SDK_IPC_DEVICE_INFO ipcInfo = SDKDefs.NET_SDK_IPC_DEVICE_INFO.deserialize(ipcBytes, j * ipcStructSize);
+                                if (ipcInfo != null) {
+                                    ipcList.add(ipcInfo);
+                                }
                             }
-                            if (cfgBytes != null) {
-                                SDKDefs.DD_CHANNEL_CONFIG chCfg = SDKDefs.DD_CHANNEL_CONFIG.deserialize(cfgBytes, 0);
-                                if (chCfg != null && chCfg.name != null) {
-                                    // Extract name and handle non-ASCII chars
-                                    String fetchedName = new String(chCfg.name, "UTF-8").split("\0")[0].trim();
+                        }
+                        android.util.Log.d("NvrSdk", "Discovered " + ipcList.size() + " configured IPCs in NVR");
+                    } catch (Exception e) {
+                        android.util.Log.e("NvrSdk", "Failed to get IPC info list: " + e.getMessage());
+                    }
+
+                    int structSize = SDKDefs.NET_SDK_CH_DEVICE_STATUS.GetStructSize();
+                    WritableArray arr = Arguments.createArray();
+
+                    int configuredCount = 0;
+                    int onlineCount = 0;
+                    java.util.List<Integer> configuredChannelNums = new java.util.ArrayList<>();
+
+                    for (int i = 0; i < count; i++) {
+                        SDKDefs.NET_SDK_CH_DEVICE_STATUS chStatus = null;
+                        if (statusBytes != null && statusBytes.length >= (i + 1) * structSize) {
+                            try {
+                                chStatus = SDKDefs.NET_SDK_CH_DEVICE_STATUS.deserialize(statusBytes, i * structSize);
+                            } catch (Exception e) {
+                                android.util.Log.e("NvrSdk", "Error deserializing channel status for ch " + i + ": " + e.getMessage());
+                            }
+                        }
+
+                        boolean isOnline = false;
+                        // For NVR/DVR, check if chlType != 0. If it is a single-channel IPC (videoInputNum == 1), it is always configured.
+                        boolean isConfigured = (count == 1);
+                        String channelName = "Camera " + (i + 1);
+
+                        if (chStatus != null) {
+                            isOnline = (chStatus.status == 1);
+                            if (count > 1) {
+                                isConfigured = (chStatus.chlType != 0);
+                            }
+                            if (chStatus.name != null) {
+                                try {
+                                    String fetchedName = new String(chStatus.name, "UTF-8").split("\0")[0].trim();
                                     if (!fetchedName.isEmpty()) {
                                         channelName = fetchedName;
-                                        android.util.Log.d("NvrSdk",
-                                                "Fetched name for channel " + i + ": " + channelName);
                                     }
+                                } catch (Exception e) {}
+                            }
+                        }
+
+                        // Try to get IPC device details if matched with channel index
+                        String cameraId = "";
+                        String ipAddress = "";
+                        String model = "";
+
+                        for (SDKDefs.NET_SDK_IPC_DEVICE_INFO ipc : ipcList) {
+                            if (ipc.channel == i) {
+                                isConfigured = true; // Double check configured
+                                try {
+                                    if (ipc.szID != null) {
+                                        cameraId = new String(ipc.szID, "UTF-8").split("\0")[0].trim();
+                                    }
+                                    if (ipc.szServer != null) {
+                                        ipAddress = new String(ipc.szServer, "UTF-8").split("\0")[0].trim();
+                                    }
+                                    if (ipc.productModel != null) {
+                                        model = new String(ipc.productModel, "UTF-8").split("\0")[0].trim();
+                                    }
+                                } catch (Exception e) {}
+                                break;
+                            }
+                        }
+
+                        if (isConfigured) {
+                            configuredCount++;
+                            if (isOnline) {
+                                onlineCount++;
+                            }
+                            configuredChannelNums.add(i + 1);
+                        }
+
+                        // Check PTZ support using SDK PTZ APIs and model metadata
+                        boolean hasPtzSupport = false;
+
+                        // 1. Try GetPTZConfig
+                        try {
+                            synchronized (TVTManager.sdkLock) {
+                                byte[] ptzCfgBytes = sdk.GetPTZConfig(userId, i, 0, 0);
+                                if (ptzCfgBytes != null && ptzCfgBytes.length > 0) {
+                                    hasPtzSupport = true;
                                 }
                             }
-                        } catch (Exception e) {
-                            android.util.Log.e("NvrSdk",
-                                    "Failed to fetch channel name for ch " + i + ": " + e.getMessage());
-                        }
+                        } catch (Exception e) {}
 
-                        boolean isOnline = true;
-                        if (statusBytes != null && i < statusBytes.length) {
-                            // In TVT SDK, status != 0 usually means online/active
-                            isOnline = (statusBytes[i] != 0);
-                        }
-
-                        boolean hasPtzSupport = false;
-                        try {
-                            java.lang.Integer ptzSize = 0;
-                            byte[] ptzBytes = null;
-                            synchronized (TVTManager.sdkLock) {
-                                // 774 is DD_CONFIG_ITEM_PTZ_CONFIG
-                                ptzBytes = sdk.GetDVRConfig(userId, 774, i, 2048, ptzSize, true);
+                        // 2. Try Item 774 (DD_CONFIG_ITEM_PTZ_CONFIG)
+                        if (!hasPtzSupport) {
+                            try {
+                                java.lang.Integer ptzSize = 0;
+                                byte[] ptzBytes = null;
+                                synchronized (TVTManager.sdkLock) {
+                                    ptzBytes = sdk.GetDVRConfig(userId, 774, i, 2048, ptzSize, true);
+                                }
+                                if (ptzBytes != null && ptzBytes.length > 0) {
+                                    hasPtzSupport = true;
+                                }
+                            } catch (Exception e) {
+                                android.util.Log.e("NvrSdk", "Failed to check PTZ config for channel " + i + ": " + e.getMessage());
                             }
-                            if (ptzBytes != null) {
-                                SDKDefs.DD_PTZ_CONFIG ptzCfg = SDKDefs.DD_PTZ_CONFIG.deserialize(ptzBytes, 0);
-                                if (ptzCfg != null) {
-                                    String protocolName = "";
-                                    try {
-                                        java.lang.reflect.Field protocolField = ptzCfg.getClass().getField("ptzProtocol");
-                                        if (protocolField != null) {
-                                            Object val = protocolField.get(ptzCfg);
-                                            if (val instanceof byte[]) {
-                                                protocolName = new String((byte[]) val, "UTF-8").split("\0")[0].trim();
-                                            } else if (val instanceof String) {
-                                                protocolName = ((String) val).trim();
-                                            }
-                                        }
-                                    } catch (Exception re) {
-                                        for (java.lang.reflect.Field field : ptzCfg.getClass().getDeclaredFields()) {
-                                            if (field.getName().toLowerCase().contains("protocol")) {
-                                                try {
-                                                    Object val = field.get(ptzCfg);
-                                                    if (val instanceof byte[]) {
-                                                        protocolName = new String((byte[]) val, "UTF-8").split("\0")[0].trim();
-                                                    } else if (val instanceof String) {
-                                                        protocolName = ((String) val).trim();
-                                                    }
-                                                } catch (Exception fe) {}
-                                                break;
-                                            }
+                        }
+
+                        // 3. Try GetSupportPtzList
+                        if (!hasPtzSupport) {
+                            try {
+                                synchronized (TVTManager.sdkLock) {
+                                    byte[] ptzListBytes = sdk.GetSupportPtzList(userId);
+                                    if (ptzListBytes != null && ptzListBytes.length > 0) {
+                                        if (i < ptzListBytes.length && ptzListBytes[i] != 0) {
+                                            hasPtzSupport = true;
                                         }
                                     }
+                                }
+                            } catch (Exception e) {}
+                        }
 
-                                    if (!protocolName.isEmpty() && !protocolName.equalsIgnoreCase("NONE")) {
+                        // 4. Try GetPTZCameraType
+                        if (!hasPtzSupport) {
+                            try {
+                                synchronized (TVTManager.sdkLock) {
+                                    int ptzCamType = sdk.GetPTZCameraType(userId);
+                                    if (ptzCamType > 0) {
                                         hasPtzSupport = true;
                                     }
-                                    android.util.Log.d("NvrSdk", "Channel " + i + " PTZ Protocol: " + protocolName + ", hasPtzSupport=" + hasPtzSupport);
                                 }
-                            }
-                        } catch (Exception e) {
-                            android.util.Log.e("NvrSdk", "Failed to check PTZ config for channel " + i + ": " + e.getMessage());
+                            } catch (Exception e) {}
                         }
 
-                        if (!hasPtzSupport && channelName != null) {
-                            String nameLower = channelName.toLowerCase();
-                            if (nameLower.contains("ptz") || nameLower.contains("dome") || nameLower.contains("speed")) {
+                        // 5. String inspection on Name, Model, and Camera ID
+                        if (!hasPtzSupport) {
+                            String combinedStr = ((channelName != null ? channelName : "") + " " + (model != null ? model : "") + " " + (cameraId != null ? cameraId : "")).toLowerCase();
+                            if (combinedStr.contains("ptz") || combinedStr.contains("dome") || combinedStr.contains("speed") ||
+                                combinedStr.contains("sd") || combinedStr.contains("spd") || combinedStr.contains("ipd") ||
+                                combinedStr.contains("zoom") || combinedStr.contains("ball") || combinedStr.contains("pan") ||
+                                combinedStr.contains("tilt") || combinedStr.contains("tracking") || combinedStr.contains("autotracking") ||
+                                combinedStr.contains("td-96") || combinedStr.contains("td-97") || combinedStr.contains("td-98") ||
+                                combinedStr.contains("sd1") || combinedStr.contains("sd2") || combinedStr.contains("sd3") ||
+                                combinedStr.contains("sd4") || combinedStr.contains("sd5") || combinedStr.contains("sd6") || combinedStr.contains("sd8")) {
                                 hasPtzSupport = true;
                             }
                         }
 
+                        WritableMap ch = Arguments.createMap();
+                        ch.putInt("id", i); // 0-based channel index (id)
+                        ch.putInt("channelNo", i + 1); // 1-based channel index
                         ch.putString("name", channelName);
                         ch.putBoolean("online", isOnline);
+                        ch.putBoolean("isOnline", isOnline);
+                        ch.putBoolean("isConfigured", isConfigured);
                         ch.putBoolean("ptz", hasPtzSupport);
+                        ch.putBoolean("ptzSupport", hasPtzSupport);
+                        ch.putBoolean("ptzSupported", hasPtzSupport);
+                        ch.putString("cameraType", hasPtzSupport ? "PTZ" : "IPC");
+                        ch.putString("cameraId", cameraId);
+                        ch.putString("ipAddress", ipAddress);
+                        ch.putString("model", model);
                         arr.pushMap(ch);
                     }
+
+                    android.util.Log.d("NvrSdk", "[ChannelSync] Max capacity: " + count);
+                    android.util.Log.d("NvrSdk", "[ChannelSync] Configured channels: " + configuredCount);
+                    android.util.Log.d("NvrSdk", "[ChannelSync] Online channels: " + onlineCount);
+
+                    StringBuilder sb = new StringBuilder();
+                    for (int idx = 0; idx < configuredChannelNums.size(); idx++) {
+                        if (idx > 0) sb.append(",");
+                        sb.append(configuredChannelNums.get(idx));
+                    }
+                    android.util.Log.d("NvrSdk", "[ChannelSync] Channel numbers: " + sb.toString());
+
                     promise.resolve(arr);
 
                 } catch (Exception e) {
@@ -1303,7 +1400,7 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                     android.util.Log.i("NvrSdk", "   Offset Struct: [" + startOff[0] + "," + startOff[1] + ","
                             + startOff[2] + "," + startOff[3] + ":" + startOff[4] + ":" + startOff[5] + "]");
 
-                    // STEP 2: Try CACHED config first for speed
+                    // STEP 2: Fast-path attempt using OFFSET time format + MAIN stream (standard TVT NVR behavior)
                     PlaybackConfig cached = playbackCache.get(userId);
                     long handle = -1;
                     int successChannel = -1;
@@ -1311,14 +1408,14 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                     if (cached != null) {
                         int realChannel = channelId + cached.offset;
                         int[] channels = new int[] { realChannel };
-                        int[] sStruct = startRaw;
-                        int[] eStruct = endRaw;
-                        if (cached.timeType == 1) {
+                        int[] sStruct = startOff;
+                        int[] eStruct = endOff;
+                        if (cached.timeType == 0) {
+                            sStruct = startRaw;
+                            eStruct = endRaw;
+                        } else if (cached.timeType == 1) {
                             sStruct = startMixed;
                             eStruct = endMixed;
-                        } else if (cached.timeType == 2) {
-                            sStruct = startOff;
-                            eStruct = endOff;
                         }
 
                         android.util.Log.i("NvrSdk", " Using CACHED config: Offset=" + cached.offset + " TimeType="
@@ -1341,10 +1438,26 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                         } catch (Exception e) {
                             android.util.Log.w("NvrSdk", "Cached config failed: " + e.getMessage());
                         }
+                    } else {
+                        // FAST PATH FOR FIRST ATTEMPT: Try OFFSET format + MAIN stream on requested channelId immediately
+                        try {
+                            int[] channels = new int[] { channelId };
+                            synchronized (TVTManager.sdkLock) {
+                                handle = sdk.PlayBackByTimeEx(userId, channels, MAIN_STREAM, startOff, endOff, false);
+                                if (handle <= 0 && handle >= -100) {
+                                    handle = sdk.PlayBackByTime(userId, channels, MAIN_STREAM, startOff, endOff);
+                                }
+                            }
+                            if (handle > 0 || handle < -100) {
+                                successChannel = channelId;
+                                playbackCache.put(userId, new PlaybackConfig(0, 2, MAIN_STREAM, true));
+                                android.util.Log.i(TAG, "FAST PATH SUCCESS! Handle=" + handle);
+                            }
+                        } catch (Exception ignored) {}
                     }
 
                     if (handle == -1 || (handle >= -100 && handle < 0)) {
-                        // STEP 3: Fallback to Multi-Loop Search
+                        // STEP 3: Fallback to Multi-Loop Search if fast-path missed
                         int[] channelOffsets = { 0, 32, 64, 100 };
 
                         searchLoop: for (int offset : channelOffsets) {
@@ -1369,11 +1482,6 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                                     tType = "OFFSET";
                                 }
 
-                                android.util.Log.d("NvrSdk",
-                                        "   Trying Ch=" + realChannel + " with " + tType + " time...");
-
-                                // Force trial of both stream types (prioritizing 'st' if specified) since NVR
-                                // playback works on main stream (0)
                                 int[] streamsToTry = st == 1 ? new int[] { 1, 0 }
                                         : (st == 0 ? new int[] { 0, 1 } : new int[] { 0, 1 });
                                 for (int stream : streamsToTry) {
@@ -1392,7 +1500,6 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                                     }
                                 }
 
-                                // Try PlayBackByTimeEx
                                 try {
                                     synchronized (TVTManager.sdkLock) {
                                         handle = sdk.PlayBackByTimeEx(userId, channels, 0, sStruct, eStruct, false);
@@ -1410,12 +1517,9 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                         }
                     }
 
-                    // Fallback: Sleep 1000ms and Retry Search Loop
+                    // Fallback: Immediate Retry without 1000ms delay
                     if (handle == -1 || (handle >= -100 && handle < 0)) {
-                        android.util.Log.w("NvrSdk", "First playback attempt failed. Waiting 1000ms and retrying search...");
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException ignored) {}
+                        android.util.Log.w("NvrSdk", "First playback attempt failed. Fast-retrying search...");
 
                         int[] channelOffsets = { 0, 32, 64, 100 };
                         searchLoop2: for (int offset : channelOffsets) {
@@ -1439,9 +1543,6 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                                     eStruct = endOff;
                                     tType = "OFFSET";
                                 }
-
-                                android.util.Log.d("NvrSdk",
-                                        "   [RETRY] Trying Ch=" + realChannel + " with " + tType + " time...");
 
                                 int[] streamsToTry = st == 1 ? new int[] { 1, 0 }
                                         : (st == 0 ? new int[] { 0, 1 } : new int[] { 0, 1 });
@@ -1507,11 +1608,19 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                         return;
                     }
 
-                    // DEFER PlayBackControl to the View (PlaybackSurfaceView)
-                    // This ensures we don't start decoding before the surface is ready.
-                    // sdk.PlayBackControl(handle, 15, 0); // CMD_START_DECODE
-                    // sdk.PlayBackControl(handle, 3, 0); // RESUME
-                    // sdk.SetPlayerBufNumber(handle, 1);
+                    // PRE-TRIGGER STREAM & KEYFRAME IMMEDIATELY
+                    // Send decoder commands right now on background worker thread so socket stream begins immediately
+                    try {
+                        synchronized (TVTManager.sdkLock) {
+                            sdk.SetPlayerBufNumber(handle, 0);
+                            sdk.PlayBackControl(handle, 3, 0);  // RESUME
+                            sdk.PlayBackControl(handle, 15, 0); // START_DECODE
+                            sdk.PlayBackControl(handle, 6, 0);  // NORMAL_SPEED
+                            sdk.MakeKeyFrame(userId, handle);   // Request keyframe immediately
+                        }
+                    } catch (Exception e) {
+                        android.util.Log.w(TAG, "Pre-trigger playback commands warning: " + e.getMessage());
+                    }
 
                     // STEP 6: Return handle and success
                     // Surface will bind this handle and video should appear
@@ -1744,8 +1853,9 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
                         if (sdk != null) {
                             long count;
                             synchronized (TVTManager.sdkLock) {
-                                count = sdk.SearchDevice(deviceType, devices, 20);
+                                count = sdk.SearchDevice(10, devices, 64);
                             }
+                            Log.i(TAG, "SearchDevice completed with count: " + count);
                             for (int i = 0; i < count && i < 64; i++) {
                                 if (devices[i] != null && devices[i].ipAddress != null
                                         && !devices[i].ipAddress.isEmpty()) {
@@ -2922,6 +3032,46 @@ public class NvrSdkModule extends ReactContextBaseJavaModule implements com.sdk.
             });
         } catch (Exception e) {
             promise.reject("SCAN_ERROR", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void scanQRFromImage(String path, Promise promise) {
+        try {
+            String safePath = convertToSafePath(path);
+            Uri uri;
+            if (safePath.startsWith("content://") || safePath.startsWith("file://")) {
+                uri = Uri.parse(safePath);
+            } else {
+                File f = new File(safePath);
+                if (f.exists()) {
+                    uri = Uri.fromFile(f);
+                } else {
+                    uri = Uri.parse(safePath);
+                }
+            }
+            InputImage image = InputImage.fromFilePath(reactContext, uri);
+            BarcodeScanner scanner = BarcodeScanning.getClient();
+            scanner.process(image)
+                .addOnSuccessListener(barcodes -> {
+                    if (barcodes != null && !barcodes.isEmpty()) {
+                        for (Barcode barcode : barcodes) {
+                            String rawValue = barcode.getRawValue();
+                            if (rawValue != null && !rawValue.trim().isEmpty()) {
+                                if (promise != null) promise.resolve(rawValue);
+                                return;
+                            }
+                        }
+                    }
+                    if (promise != null) promise.resolve(null);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "scanQRFromImage error: " + e.getMessage(), e);
+                    if (promise != null) promise.resolve(null);
+                });
+        } catch (Exception e) {
+            Log.e(TAG, "scanQRFromImage exception: " + e.getMessage(), e);
+            if (promise != null) promise.resolve(null);
         }
     }
 

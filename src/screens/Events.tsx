@@ -517,6 +517,10 @@ const Events = () => {
                     keyExtractor={item => item.id}
                     contentContainerStyle={styles.listContainer}
                     showsVerticalScrollIndicator={false}
+                    removeClippedSubviews={true}
+                    maxToRenderPerBatch={10}
+                    windowSize={5}
+                    initialNumToRender={8}
                     ListEmptyComponent={
                         <View style={styles.emptyBox}>
                             <View style={styles.emptyIconContainer}>

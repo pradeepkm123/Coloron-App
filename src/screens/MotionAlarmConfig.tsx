@@ -25,7 +25,8 @@ const { width } = Dimensions.get('window');
 const MotionAlarmConfig: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<MotionAlarmConfigRouteProp>();
-    const { deviceId, deviceName, channelName } = route.params;
+    const { deviceId, deviceName, channelName } = route.params || {};
+
 
     const [schedule, setSchedule] = useState('24x7');
     const [push, setPush] = useState(true);

@@ -3,6 +3,7 @@ import { deviceStorage, Device } from '../utils/deviceStorage';
 import { secureStore } from '../utils/secureStore';
 import { tvtAlarmNotificationService } from './TvtAlarmNotificationService';
 import NetInfo from "@react-native-community/netinfo";
+import { api } from '../utils/api';
 
 interface ActiveSession {
   userId: number;
@@ -136,13 +137,38 @@ class DeviceSessionManager {
         const netInfo = await NetInfo.fetch();
         const isWifi = netInfo.type === 'wifi';
 
+        // Dedicated ONVIF device handling (bypasses proprietary TVT LoginEx)
+        if (device.protocol === 'ONVIF') {
+          console.log(`[DeviceSession] Handling ONVIF session for ${device.name} (${device.ip})`);
+          let isReachable = true;
+          try {
+            const webPort = Number(device.port || 80);
+            const portOk = await NvrSdk.checkConnect(device.ip, webPort, 2000);
+            const rtspOk = await NvrSdk.checkConnect(device.ip, 554, 2000);
+            isReachable = portOk || rtspOk;
+          } catch (e) {
+            isReachable = true;
+          }
+
+          const onvifVirtualUserId = 950000 + (Math.abs(String(deviceId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % 10000);
+          this.sessions.set(deviceId, {
+            userId: onvifVirtualUserId,
+            lastActive: Date.now(),
+            device,
+            alarmMonitorStarted: false,
+          });
+
+          this.updateDeviceOnlineStatus(deviceId, isReachable ? 'Online' : 'Offline', onvifVirtualUserId);
+          return onvifVirtualUserId;
+        }
+
         // Setup login parameters
         const loginParams = {
           host: isP2P ? 'c2020.autonat.com' : device.ip,
-          port: isP2P ? 7968 : Number(device.port || (device.protocol === 'ONVIF' ? 80 : 6036)),
+          port: isP2P ? 7968 : Number(device.port || 6036),
           username,
           password: securePassword,
-          loginType: isP2P ? 2 : (device.protocol === 'ONVIF' ? 3 : 0),
+          loginType: isP2P ? 2 : 0,
           sn: device.deviceId || device.sn || '',
           isWifi,
         };
@@ -177,6 +203,11 @@ class DeviceSessionManager {
           // Execute queued settings syncs if any
           this.flushPendingSyncs(deviceId, loginRes.userId);
 
+          // Auto synchronize NVR channels after successful login
+          this.syncDeviceChannels(deviceId).catch((err) => {
+            console.warn(`[DeviceSession] Auto channel sync failed for ${deviceId}:`, err.message);
+          });
+
           return loginRes.userId;
         } else {
           throw new Error("SDK login call returned invalid userId");
@@ -201,8 +232,121 @@ class DeviceSessionManager {
    */
   async reconnectDevice(deviceId: string): Promise<number> {
     console.log(`[DeviceSession] Reconnecting device: ${deviceId}`);
-    this.logoutDevice(deviceId);
-    return await this.ensureSession(deviceId);
+    await this.logoutDevice(deviceId);
+    return await this.loginDevice(deviceId);
+  }
+
+
+  /**
+   * Synchronize channels of the device with the NVR (Source of Truth)
+   */
+  async syncDeviceChannels(deviceId: string): Promise<Device | undefined> {
+    console.log(`[ChannelSync] Starting sync for device ${deviceId}`);
+    try {
+      const devices = await deviceStorage.getDevices();
+      const device = devices.find(d => String(d.id) === String(deviceId));
+      if (!device) {
+        throw new Error(`Device profile not found`);
+      }
+
+      if (device.protocol === 'ONVIF') {
+        console.log(`[ChannelSync] Skipping NVR SDK channel sync for ONVIF camera: ${device.name}`);
+        return device;
+      }
+
+      const userId = await this.ensureSession(deviceId);
+      if (userId === -1) {
+        throw new Error(`Device offline or login failed`);
+      }
+
+      const rawChannels = await NvrSdk.getChannels(userId);
+      console.log(`[ChannelSync] getChannels native call returned ${rawChannels?.length || 0} channels`);
+
+      const session = this.sessions.get(deviceId);
+
+      const maxChannelCount = rawChannels.length || device.maxChannelCount || device.channelCount || 16;
+
+      // Filter to keep only configured channels
+      const configuredChannels = rawChannels
+        .filter((ch: any) => ch.isConfigured !== false)
+        .map((ch: any) => {
+          const chName = (ch.name || ch.channelName || '').toLowerCase();
+          const chModel = (ch.model || '').toLowerCase();
+          const chCamId = (ch.cameraId || '').toLowerCase();
+          const combinedPtzStr = `${chName} ${chModel} ${chCamId}`;
+          const hasPtz = ch.ptz === true || ch.ptzSupport === true || ch.ptzSupported === true ||
+            ch.cameraType === 'PTZ' ||
+            combinedPtzStr.includes('ptz') || combinedPtzStr.includes('dome') || combinedPtzStr.includes('speed') ||
+            combinedPtzStr.includes('sd') || combinedPtzStr.includes('spd') || combinedPtzStr.includes('ipd') ||
+            combinedPtzStr.includes('zoom') || combinedPtzStr.includes('ball') || combinedPtzStr.includes('pan') ||
+            combinedPtzStr.includes('tilt') || combinedPtzStr.includes('tracking') || combinedPtzStr.includes('autotracking');
+
+          return {
+            id: typeof ch.id === 'number' ? ch.id : (ch.channelNo ? ch.channelNo - 1 : 0),
+            name: ch.name || `CH ${ch.channelNo}`,
+            online: !!ch.online,
+            enabled: true,
+            channelNo: typeof ch.channelNo === 'number' ? ch.channelNo : (typeof ch.id === 'number' ? ch.id + 1 : 1),
+            channelName: ch.name || `Camera ${typeof ch.id === 'number' ? ch.id + 1 : 1}`,
+            isConfigured: true,
+            isOnline: !!ch.online,
+            cameraId: ch.cameraId || '',
+            ipAddress: ch.ipAddress || '',
+            model: ch.model || '',
+            ptz: hasPtz,
+            ptzSupport: hasPtz,
+            ptzSupported: hasPtz,
+            cameraType: hasPtz ? 'PTZ' : (ch.cameraType || 'IPC'),
+          };
+        });
+
+      console.log(`[ChannelSync] Device: ${device.name}`);
+      console.log(`[ChannelSync] Max capacity: ${maxChannelCount}`);
+      console.log(`[ChannelSync] Previous configured count: ${device.channels?.length || 0}`);
+      console.log(`[ChannelSync] Latest configured count: ${configuredChannels.length}`);
+      console.log(`[ChannelSync] Online count: ${configuredChannels.filter(c => c.isOnline).length}`);
+      console.log(`[ChannelSync] Final channels: ${configuredChannels.map(c => c.channelNo).join(',')}`);
+
+      // Update local storage
+      const updatedDevice = {
+        ...device,
+        channels: configuredChannels,
+        addedChannelCount: configuredChannels.length,
+        onlineChannelCount: configuredChannels.filter(c => c.isOnline).length,
+        maxChannelCount: maxChannelCount,
+        channelCount: maxChannelCount, // legacy
+        lastChannelSyncAt: new Date().toISOString(),
+      };
+
+      if (session) {
+        session.device = updatedDevice;
+      }
+
+      await deviceStorage.updateDevice(updatedDevice);
+
+      // Sync to cloud backend
+      try {
+        console.log(`[ChannelSync] Syncing channels to backend for device ${deviceId}`);
+        const response = await api.syncDeviceChannels(deviceId, {
+          maxChannelCount: maxChannelCount,
+          channels: configuredChannels,
+        });
+        if (response && response.device) {
+          await deviceStorage.updateDevice(response.device);
+          if (session) {
+            session.device = response.device;
+          }
+          return response.device;
+        }
+      } catch (cloudErr: any) {
+        console.warn(`[ChannelSync] Cloud sync failed (offline backup will be used):`, cloudErr.message);
+      }
+
+      return updatedDevice;
+    } catch (err: any) {
+      console.error(`[ChannelSync] Sync failed for device ${deviceId}:`, err.message);
+      return undefined;
+    }
   }
 
   /**

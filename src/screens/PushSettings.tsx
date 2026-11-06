@@ -46,7 +46,7 @@ const PushSettings: React.FC = () => {
                 <View style={styles.deviceInfo}>
                     <Text style={styles.deviceName}>{device.name}</Text>
                     <Text style={styles.deviceMeta}>IP: {device.ip}  |  Port: {device.port}</Text>
-                    <Text style={styles.deviceMeta}>Type: {device.type}  |  Ch: {device.channelCount || 16}  |  Proto: TVT</Text>
+                    <Text style={styles.deviceMeta}>Type: {device.type}  |  Ch: {device.channelCount || 16}  |  Proto: Secura</Text>
                 </View>
                 <TouchableOpacity onPress={() => {/* Toggle Favorite Logic */ }}>
                     <Icon name={device.favorite ? "heart" : "heart-outline"} size={24} color="#A83232" />

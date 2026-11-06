@@ -1456,6 +1456,10 @@ const Notifications: React.FC = () => {
                         renderItem={renderItem}
                         keyExtractor={item => item.id}
                         contentContainerStyle={styles.listContainer}
+                        removeClippedSubviews={true}
+                        maxToRenderPerBatch={10}
+                        windowSize={5}
+                        initialNumToRender={8}
                         ListEmptyComponent={
                             <View style={styles.emptyContainer}>
                                 <Icon name="bell-off-outline" size={64} color="#EEE" />

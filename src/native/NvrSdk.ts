@@ -588,6 +588,17 @@ export const scanFile = async (path: string): Promise<void> => {
   } catch (e) { }
 };
 
+export const scanQRFromImage = async (path: string): Promise<string | null> => {
+  try {
+    if (!NvrSdkModule || !NvrSdkModule.scanQRFromImage) return null;
+    const result = await NvrSdkModule.scanQRFromImage(path);
+    return typeof result === 'string' && result.trim() ? result.trim() : null;
+  } catch (e) {
+    console.warn('[NvrSdk] scanQRFromImage failed:', e);
+    return null;
+  }
+};
+
 export const checkFileExists = async (path: string): Promise<boolean> => {
   try {
     return await NvrSdkModule.checkFileExists(path);
@@ -925,6 +936,7 @@ export default {
   captureSnapshotWithHandle,
   saveMediaToPublic,
   scanFile,
+  scanQRFromImage,
   checkFileExists,
   getFileSize,
   listLocalFiles,

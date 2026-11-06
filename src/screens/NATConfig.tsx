@@ -42,7 +42,8 @@ const NAT_SERVER_OPTIONS = [
 const NATConfig: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<NATConfigRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);

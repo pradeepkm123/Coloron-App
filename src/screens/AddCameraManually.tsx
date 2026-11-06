@@ -19,6 +19,7 @@ import * as NvrSdk from '../native/NvrSdk';
 import { deviceStorage, Device } from '../utils/deviceStorage';
 import { secureStore } from '../utils/secureStore';
 import { authStorage } from '../utils/authStorage';
+import { verifyAndDiscoverOnvif, generateRtspUrls } from '../services/OnvifService';
 
 type AddCameraManuallyRouteProp = RouteProp<RootStackParamList, 'AddCameraManually'>;
 
@@ -27,7 +28,7 @@ const AddCameraManually: React.FC = () => {
     const route = useRoute<AddCameraManuallyRouteProp>();
 
     const [deviceType, setDeviceType] = useState<'IP/Domain Name' | 'NVR' | 'Serial Number'>('IP/Domain Name');
-    const [protocol, setProtocol] = useState<'TVT Private' | 'ONVIF'>('TVT Private');
+    const [protocol, setProtocol] = useState<'Secura Private' | 'ONVIF'>('Secura Private');
     const [deviceName, setDeviceName] = useState('');
     const [ip, setIp] = useState('');
     const [port, setPort] = useState('6036');
@@ -43,8 +44,8 @@ const AddCameraManually: React.FC = () => {
                 const dev = params.scannedDevice;
                 setIp(dev.ip || '');
                 setPort(dev.port ? dev.port.toString() : (dev.protocol === 'ONVIF' ? '8899' : '6036'));
-                setProtocol(dev.protocol === 'ONVIF' ? 'ONVIF' : 'TVT Private');
-                setDeviceName(dev.deviceName || dev.model || 'TVT Device');
+                setProtocol(dev.protocol === 'ONVIF' ? 'ONVIF' : 'Secura Private');
+                setDeviceName(dev.deviceName || dev.model || 'Secura Device');
                 if (dev.serial) {
                     if (dev.ip) {
                         setDeviceType('IP/Domain Name');
@@ -69,7 +70,7 @@ const AddCameraManually: React.FC = () => {
         }
     };
 
-    const handleProtocolChange = (prot: 'TVT Private' | 'ONVIF') => {
+    const handleProtocolChange = (prot: 'Secura Private' | 'ONVIF') => {
         setProtocol(prot);
         if (prot === 'ONVIF') {
             setPort('8899'); // Common ONVIF port for TVT
@@ -106,15 +107,40 @@ const AddCameraManually: React.FC = () => {
                 finalHost = 'c2020.autonat.com';
             }
 
-            console.log(`[Add] Verifying ${finalHost}:${port} (Type: ${loginType}, SN: ${finalSn}) with SDK...`);
-            const loginRes = await NvrSdk.login({
-                host: finalHost,
-                port: parseInt(port),
-                username,
-                password,
-                loginType: loginType,
-                sn: finalSn,
-            });
+            let loginRes: any = null;
+
+            if (protocol === 'ONVIF') {
+                console.log(`[Add] Verifying ONVIF Camera at ${finalHost}:${port}...`);
+                const onvifInfo = await verifyAndDiscoverOnvif(finalHost, parseInt(port) || 80, username, password);
+                if (!onvifInfo.success) {
+                    throw new Error(onvifInfo.error || `Could not connect to ONVIF camera at ${finalHost}:${port}`);
+                }
+
+                loginRes = {
+                    userId: 999902,
+                    channelCount: 1,
+                    deviceInfo: {
+                        serialNumber: onvifInfo.serialNumber,
+                        deviceName: deviceName || onvifInfo.model,
+                        model: onvifInfo.model,
+                        manufacturer: onvifInfo.manufacturer,
+                        videoInputNum: 1,
+                        audioInputNum: 1,
+                        audioSupport: true,
+                        streamUrl: onvifInfo.primaryStreamUrl,
+                    }
+                };
+            } else {
+                console.log(`[Add] Verifying ${finalHost}:${port} (Type: ${loginType}, SN: ${finalSn}) with SDK...`);
+                loginRes = await NvrSdk.login({
+                    host: finalHost,
+                    port: parseInt(port),
+                    username,
+                    password,
+                    loginType: loginType,
+                    sn: finalSn,
+                });
+            }
 
             if (loginRes && loginRes.userId >= 0) {
                 const isNvr = loginRes.channelCount > 1 || deviceType === 'NVR';
@@ -123,28 +149,40 @@ const AddCameraManually: React.FC = () => {
                 const realSN = loginRes.deviceInfo?.serialNumber || finalSn;
                 const hostClean = deviceType !== 'IP/Domain Name' ? 'p2p' : ip.trim().replace(/\./g, '_');
                 const portStr = port || '6036';
-                const deviceId = realSN ? `TVT_${realSN}` : `TVT_${hostClean}_${portStr}`;
+                const deviceId = realSN ? `${protocol === 'ONVIF' ? 'ONVIF' : 'TVT'}_${realSN}` : `${protocol === 'ONVIF' ? 'ONVIF' : 'TVT'}_${hostClean}_${portStr}`;
 
                 let channels: any[] = [];
-                try {
-                    const allChannels = await NvrSdk.getChannels(loginRes.userId);
-                    if (allChannels && allChannels.length > 0) {
-                        channels = allChannels.map(ch => {
-                            const hasPtz = ch.ptz ?? (ch.name?.toLowerCase().includes('ptz') || ch.name?.toLowerCase().includes('dome') || ch.name?.toLowerCase().includes('speed') || false);
-                            return {
-                                id: ch.id,
-                                name: ch.name?.trim() || `CH ${ch.id + 1}`,
-                                online: ch.online ?? true,
-                                channelNo: ch.id + 1,
-                                streamType: 1, // Default sub stream
-                                ptz: hasPtz,
-                                ptzSupport: hasPtz,
-                                audioSupport: true,
-                            };
-                        });
+                if (protocol === 'ONVIF') {
+                    const primaryUrl = loginRes.deviceInfo?.streamUrl || generateRtspUrls(ip.trim(), 554, username.trim(), password)[0];
+                    channels = [{
+                        id: 0,
+                        name: deviceName || 'Camera 1',
+                        online: true,
+                        channelNo: 1,
+                        streamUrl: primaryUrl,
+                        ptz: true,
+                    }];
+                } else {
+                    try {
+                        const allChannels = await NvrSdk.getChannels(loginRes.userId);
+                        if (allChannels && allChannels.length > 0) {
+                            channels = allChannels.map(ch => {
+                                const hasPtz = ch.ptz ?? (ch.name?.toLowerCase().includes('ptz') || ch.name?.toLowerCase().includes('dome') || ch.name?.toLowerCase().includes('speed') || false);
+                                return {
+                                    id: ch.id,
+                                    name: ch.name?.trim() || `CH ${ch.id + 1}`,
+                                    online: ch.online ?? true,
+                                    channelNo: ch.id + 1,
+                                    streamType: 1, // Default sub stream
+                                    ptz: hasPtz,
+                                    ptzSupport: hasPtz,
+                                    audioSupport: true,
+                                };
+                            });
+                        }
+                    } catch (chErr) {
+                        console.log('Channel fetch failed, default to empty/placeholders');
                     }
-                } catch (chErr) {
-                    console.log('Channel fetch failed, default to empty/placeholders');
                 }
 
                 if (channels.length === 0) {
@@ -194,7 +232,7 @@ const AddCameraManually: React.FC = () => {
                     nvrPassword: '*****',
                     connectMode: mode,
                     channels: channels,
-                    model: loginRes.deviceInfo?.model || 'TVT Device',
+                    model: loginRes.deviceInfo?.model || 'Secura Device',
                     version: loginRes.deviceInfo?.version,
                     audioSupport: (loginRes.deviceInfo?.audioInputNum && loginRes.deviceInfo.audioInputNum > 0) || !!loginRes.deviceInfo?.audioSupport,
                 };
@@ -278,14 +316,14 @@ const AddCameraManually: React.FC = () => {
 
                     {/* Protocol */}
                     <View style={styles.protocolContainer}>
-                        {renderSegmentedControl(['TVT Private', 'ONVIF'], protocol, handleProtocolChange)}
+                        {renderSegmentedControl(['Secura Private', 'ONVIF'], protocol, handleProtocolChange)}
                     </View>
 
                     {/* Info Alert */}
                     <View style={styles.infoAlert}>
                         <Icon name="information-outline" size={18} color="#C43B3B" style={styles.infoIcon} />
                         <Text style={styles.infoText}>
-                            {protocol === 'TVT Private' ? 'Uses TVT Private Protocol (TCP/UDP)' : 'Uses Standard ONVIF Protocol'}
+                            {protocol === 'Secura Private' ? 'Uses Secura Private Protocol (TCP/UDP)' : 'Uses Standard ONVIF Protocol'}
                         </Text>
                     </View>
 
@@ -340,7 +378,7 @@ const AddCameraManually: React.FC = () => {
                         <Icon name="cog-outline" size={24} color="#666" style={styles.inputIcon} />
                         <Text style={styles.inputPlaceholder}>Brand*</Text>
                         <View style={{ flex: 1 }} />
-                        <Text style={styles.brandValueText}>TVT</Text>
+                        <Text style={styles.brandValueText}>Secura</Text>
                     </View>
                     <View style={styles.divider} />
 

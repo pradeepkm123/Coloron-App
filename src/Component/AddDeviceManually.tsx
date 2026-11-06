@@ -23,6 +23,7 @@ import { deviceStorage, Device } from '../utils/deviceStorage';
 import { secureStore } from '../utils/secureStore';
 import * as NvrSdk from '../native/NvrSdk';
 import { authStorage } from '../utils/authStorage';
+import { verifyAndDiscoverOnvif, generateRtspUrls } from '../services/OnvifService';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
@@ -41,7 +42,7 @@ interface AddDeviceManuallyProps {
     };
 }
 
-type DeviceType = 'IP/Domain Name' | 'NVR' | 'Serial Number';
+type DeviceType = 'IP/Domain Name' | 'Serial Number';
 type DeviceCategory = 'NVR' | 'DVR' | 'XVR' | 'IPC';
 
 const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose, initialSN, initialDevice }) => {
@@ -57,6 +58,7 @@ const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose,
     const [port, setPort] = useState('6036');
     const [username, setUsername] = useState('admin');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [serialNumber, setSerialNumber] = useState('');
     const [protocol, setProtocol] = useState<'TVT' | 'ONVIF'>('TVT');
 
@@ -106,7 +108,7 @@ const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose,
                     setDeviceName(initialDevice.model);
                 } else {
                     const lastOctet = initialDevice.ip ? initialDevice.ip.split('.').pop() : '';
-                    setDeviceName(lastOctet ? `Device_${lastOctet}` : 'TVT Device');
+                    setDeviceName(lastOctet ? `Device_${lastOctet}` : 'Secura Device');
                 }
 
                 if (initialDevice.ip) {
@@ -182,7 +184,18 @@ const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose,
 
             let channels: any[] | undefined = undefined;
             let activeChannels: number[] = [];
-            if (verified && loginRes) {
+            if (protocol === 'ONVIF') {
+                const primaryUrl = loginRes?.deviceInfo?.streamUrl || generateRtspUrls(ipAddress.trim(), 554, username.trim(), password)[0];
+                channels = [{
+                    id: 0,
+                    name: deviceName.trim() || 'Camera 1',
+                    online: true,
+                    channelNo: 1,
+                    streamUrl: primaryUrl,
+                    ptz: true,
+                }];
+                activeChannels = [1];
+            } else if (verified && loginRes) {
                 try {
                     console.log(`Enumerate channels for user ${loginRes.userId}, total: ${videoInputNum}`);
                     const allChannels = await NvrSdk.getChannels(loginRes.userId);
@@ -366,7 +379,30 @@ const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose,
             // 2. SDK Login & Detailed Validation
             let lastErr: any = null;
 
-            if (isP2P) {
+            if (protocol === 'ONVIF') {
+                console.log(`[AddDevice] Verifying ONVIF camera at ${cleanHost}:${cleanPort}...`);
+                const onvifInfo = await verifyAndDiscoverOnvif(cleanHost, cleanPort, cleanUser, password);
+                if (!onvifInfo.success) {
+                    throw new Error(onvifInfo.error || `Could not connect to ONVIF camera at ${cleanHost}:${cleanPort}`);
+                }
+
+                loginRes = {
+                    userId: 999901,
+                    actualPort: cleanPort,
+                    actualType: 0,
+                    deviceInfo: {
+                        serialNumber: onvifInfo.serialNumber,
+                        deviceName: deviceName.trim() || onvifInfo.model,
+                        model: onvifInfo.model,
+                        manufacturer: onvifInfo.manufacturer,
+                        videoInputNum: 1,
+                        audioInputNum: 1,
+                        audioSupport: true,
+                        streamUrl: onvifInfo.primaryStreamUrl,
+                        candidateUrls: onvifInfo.candidateUrls
+                    }
+                };
+            } else if (isP2P) {
                 try {
                     console.log(`[AddDevice] Attempting Dedicated SN Login for ${serialNumber.trim()} (Wifi: ${isWifi})...`);
                     const snResult = await NvrSdk.loginBySN(serialNumber.trim(), username.trim(), password, 2, isWifi);
@@ -519,15 +555,20 @@ const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose,
             <View style={styles.iconContainer}>
                 <Icon name={icon} size={22} color="#666" />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, secure && { flexDirection: 'row', alignItems: 'center' }]}>
                 <TextInput
-                    style={styles.input}
-                    placeholder={`${label}*`}
+                    style={[styles.input, secure && { flex: 1 }]}
+                    placeholder={placeholder || `${label}*`}
                     placeholderTextColor="#999"
                     value={value}
                     onChangeText={onChangeText}
-                    secureTextEntry={secure}
+                    secureTextEntry={secure && !showPassword}
                 />
+                {secure && (
+                    <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={{ paddingHorizontal: 10 }}>
+                        <Icon name={showPassword ? 'eye-outline' : 'eye-off-outline'} size={22} color="#666" />
+                    </TouchableOpacity>
+                )}
             </View>
         </View>
     );
@@ -551,37 +592,10 @@ const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose,
 
                         {renderInput('Device Name', 'cellphone', deviceName, setDeviceName)}
 
-                        {/* ── Step 1: Device Category ── */}
-                        <Text style={styles.sectionLabel}>Device Category</Text>
-                        <View style={styles.categoryContainer}>
-                            {([
-                                { key: 'NVR', icon: 'server-network', label: 'NVR' },
-                                { key: 'DVR', icon: 'record-rec', label: 'DVR' },
-                                { key: 'XVR', icon: 'video-box', label: 'XVR' },
-                                { key: 'IPC', icon: 'cctv', label: 'IP Cam' },
-                            ] as { key: DeviceCategory; icon: string; label: string }[]).map((cat) => (
-                                <TouchableOpacity
-                                    key={cat.key}
-                                    style={[styles.categoryBtn, deviceCategory === cat.key && styles.activeCategoryBtn]}
-                                    onPress={() => handleCategorySelect(cat.key)}
-                                >
-                                    <Icon
-                                        name={cat.icon}
-                                        size={20}
-                                        color={deviceCategory === cat.key ? '#FFF' : '#A83232'}
-                                        style={{ marginBottom: 4 }}
-                                    />
-                                    <Text style={[styles.categoryBtnText, deviceCategory === cat.key && styles.activeCategoryBtnText]}>
-                                        {cat.label}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-
                         {/* ── Step 2: Connection Method ── */}
                         <Text style={styles.sectionLabel}>Connection Method</Text>
                         <View style={styles.tabContainer}>
-                            {(['IP/Domain Name', 'NVR', 'Serial Number'] as DeviceType[]).map((tab) => (
+                            {(['IP/Domain Name', 'Serial Number'] as DeviceType[]).map((tab) => (
                                 <TouchableOpacity
                                     key={tab}
                                     style={[styles.tab, activeTab === tab && styles.activeTab]}
@@ -595,27 +609,7 @@ const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose,
                         <View style={styles.fieldsContainer}>
                             {activeTab !== 'Serial Number' && (
                                 <>
-                                    <View style={styles.protocolSelection}>
-                                        <TouchableOpacity
-                                            style={[styles.protocolBtn, protocol === 'TVT' && styles.activeProtocolBtn]}
-                                            onPress={() => { setProtocol('TVT'); setPort('6036'); }}
-                                        >
-                                            <Text style={[styles.protocolBtnText, protocol === 'TVT' && styles.activeProtocolBtnText]}>TVT Private</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                            style={[styles.protocolBtn, protocol === 'ONVIF' && styles.activeProtocolBtn]}
-                                            onPress={() => { setProtocol('ONVIF'); setPort('80'); }}
-                                        >
-                                            <Text style={[styles.protocolBtnText, protocol === 'ONVIF' && styles.activeProtocolBtnText]}>ONVIF</Text>
-                                        </TouchableOpacity>
-                                    </View>
 
-                                    <View style={styles.protocolNote}>
-                                        <Icon name="information-outline" size={16} color="#A83232" style={{ marginRight: 6 }} />
-                                        <Text style={styles.protocolText}>
-                                            {protocol === 'TVT' ? 'Uses TVT Private Protocol (TCP/UDP)' : 'Standard ONVIF Protocol (HTTP/RTSP)'}
-                                        </Text>
-                                    </View>
 
                                     {renderInput('IP Address', 'webcam', ipAddress, setIpAddress)}
 
@@ -632,7 +626,7 @@ const AddDeviceManually: React.FC<AddDeviceManuallyProps> = ({ visible, onClose,
                                     <View style={styles.inputWrapper}>
                                         <View style={styles.iconContainer}><Icon name="cog-outline" size={22} color="#666" /></View>
                                         <View style={styles.inputContainer}><Text style={{ color: '#999' }}>Brand*</Text></View>
-                                        <View style={[styles.inputContainer, { alignItems: 'flex-end' }]}><Text style={{ color: '#333', fontWeight: 'bold' }}>TVT</Text></View>
+                                        <View style={[styles.inputContainer, { alignItems: 'flex-end' }]}><Text style={{ color: '#333', fontWeight: 'bold' }}>Secura</Text></View>
                                     </View>
                                 </>
                             )}

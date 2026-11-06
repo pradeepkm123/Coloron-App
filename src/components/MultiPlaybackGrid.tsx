@@ -99,7 +99,7 @@ const MultiPlaybackGrid: React.FC<MultiPlaybackGridProps> = ({
             return (
                 <View key={`empty-${index}`} style={[styles.cell, { width: width as any, height: height as any }]}>
                     <View style={styles.emptyContainer}>
-                        <Icon name="video-outline" size={24} color="#333" />
+                        <Icon name="video-off-outline" size={20} color="#333" />
                     </View>
                 </View>
             );
@@ -153,13 +153,19 @@ const MultiPlaybackGrid: React.FC<MultiPlaybackGridProps> = ({
                         <View style={styles.infoContainer}>
                             {handleData && handleData.status === 'NO_DATA' ? (
                                 <View style={styles.statusBox}>
-                                    <Icon name="video-off-outline" size={24} color="#666" />
-                                    <Text style={styles.infoText}>No Data</Text>
+                                    <View style={styles.offlineCircle}>
+                                        <Icon name="video-off-outline" size={20} color="#FF9800" />
+                                    </View>
+                                    <Text style={[styles.infoText, { color: '#FF9800' }]}>No Data</Text>
+                                    <Text style={styles.subInfoText}>CH {channelId + 1}</Text>
                                 </View>
                             ) : handleData && handleData.status === 'ERROR' ? (
                                 <View style={styles.statusBox}>
-                                    <Icon name="alert-circle-outline" size={24} color="#A83232" />
-                                    <Text style={[styles.infoText, { color: '#A83232' }]}>Error</Text>
+                                    <View style={[styles.offlineCircle, { backgroundColor: 'rgba(168,50,50,0.15)', borderColor: 'rgba(168,50,50,0.4)' }]}>
+                                        <Icon name="camera-off" size={20} color="#A83232" />
+                                    </View>
+                                    <Text style={[styles.infoText, { color: '#A83232' }]}>Offline</Text>
+                                    <Text style={styles.subInfoText}>CH {channelId + 1}</Text>
                                 </View>
                             ) : (
                                 <View style={styles.loadingBox}>
@@ -408,6 +414,21 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textTransform: 'uppercase',
         letterSpacing: 0.5,
+    },
+    subInfoText: {
+        color: '#444',
+        marginTop: 2,
+        fontSize: 8,
+    },
+    offlineCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255, 152, 0, 0.1)',
+        borderWidth: 1,
+        borderColor: 'rgba(255, 152, 0, 0.35)',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     loadingText: {
         color: '#444',

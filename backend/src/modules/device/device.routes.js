@@ -8,5 +8,6 @@ router.post('/', protect, deviceController.addOrUpdateDevice);
 router.delete('/:id', protect, deviceController.deleteDevice);
 router.get('/:id(*)/settings', protect, deviceController.getDeviceSettings);
 router.put('/:id(*)/settings', protect, deviceController.updateDeviceSettings);
+router.put('/:id(*)/channels/sync', protect, deviceController.syncDeviceChannels);
 
 module.exports = router;

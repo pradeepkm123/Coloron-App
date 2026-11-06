@@ -21,7 +21,8 @@ type RebootRouteProp = RouteProp<RootStackParamList, 'Reboot'>;
 const Reboot: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<RebootRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [modalVisible, setModalVisible] = useState(false);
     const [password, setPassword] = useState('');

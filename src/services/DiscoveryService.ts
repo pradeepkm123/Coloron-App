@@ -121,7 +121,7 @@ export const discoverCameras = (
                                             ip: targetIp,
                                             port: port,
                                             serial: targetIp,
-                                            model: port === 80 ? 'TVT Device' : `IP Camera (${port})`,
+                                            model: port === 80 ? 'Secura Device' : `IP Camera (${port})`,
                                             manufacturer: 'Generic',
                                             type: 'HTTP'
                                         };
@@ -136,7 +136,7 @@ export const discoverCameras = (
                                                         ip: targetIp,
                                                         port: 80,
                                                         serial: targetIp,
-                                                        model: 'TVT Device',
+                                                        model: 'Secura Device',
                                                         manufacturer: 'Generic',
                                                         type: 'HTTP'
                                                     };

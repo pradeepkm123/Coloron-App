@@ -22,7 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import GradientBackground from '../Component/GradientBackground';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { scanFile } from '../native/NvrSdk';
+import { scanFile, scanQRFromImage } from '../native/NvrSdk';
 
 const { width, height } = Dimensions.get('window');
 const SCAN_SIZE = width * 0.7; // 70% of screen width
@@ -133,9 +133,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ onClose, onScanSuccess }) => {
             const uri = result.assets[0].uri;
             if (!uri) return;
 
-            // Remove 'file://' prefix for native scan if needed
-            const cleanUri = uri.startsWith('file://') ? uri.replace('file://', '') : uri;
-            const code = await scanFile(cleanUri);
+            const code = await scanQRFromImage(uri);
 
             if (code) {
                 processScannedCode(code);

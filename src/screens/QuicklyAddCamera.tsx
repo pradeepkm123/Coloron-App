@@ -20,6 +20,7 @@ import { deviceStorage, Device } from '../utils/deviceStorage';
 import { authStorage } from '../utils/authStorage';
 import * as NvrSdk from '../native/NvrSdk';
 import { discoverCameras, DiscoveredDevice } from '../services/DiscoveryService';
+import { generateRtspUrls } from '../services/OnvifService';
 import GradientBackground from '../Component/GradientBackground';
 
 type QuicklyAddCameraRouteProp = RouteProp<RootStackParamList, 'QuicklyAddCamera'>;
@@ -41,7 +42,8 @@ interface DiscoveredDeviceInfo {
 const QuicklyAddCamera: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<QuicklyAddCameraRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [scanning, setScanning] = useState(false);
     const [devices, setDevices] = useState<DiscoveredDeviceInfo[]>([]);
@@ -145,10 +147,14 @@ const QuicklyAddCamera: React.FC = () => {
             const identifier = await authStorage.getUserIdentifier();
 
             for (const d of selected) {
+                const isOnvif = d.protocol === 'ONVIF';
+                const rtspUrl = isOnvif ? generateRtspUrls(d.ip, 554, 'admin', '')[0] : undefined;
+
                 const newDevice: Device = {
                     id: `dev_${d.serial || Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
                     name: d.model || 'IP Camera',
                     type: 'IPC',
+                    deviceCategory: 'IPC',
                     ip: d.ip,
                     port: d.port.toString(),
                     status: 'Online',
@@ -156,10 +162,18 @@ const QuicklyAddCamera: React.FC = () => {
                     sn: d.serial,
                     deviceId: d.serial,
                     userEmail: identifier,
-                    protocol: d.protocol as any || 'TVT',
+                    protocol: isOnvif ? 'ONVIF' : 'TVT',
                     model: d.model,
                     version: d.version || '1.0.0',
                     connectMode: 'IP',
+                    channels: isOnvif ? [{
+                        id: 0,
+                        name: d.model || 'Camera 1',
+                        online: true,
+                        channelNo: 1,
+                        streamUrl: rtspUrl,
+                        ptz: true,
+                    }] : undefined,
 
                     // Detailed hardware (best effort from scan info)
                     audioSupport: d.audioSupport !== undefined ? d.audioSupport : false,

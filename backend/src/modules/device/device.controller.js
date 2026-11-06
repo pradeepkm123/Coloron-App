@@ -129,3 +129,48 @@ exports.updateDeviceSettings = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+exports.syncDeviceChannels = async (req, res) => {
+    try {
+        const { id: deviceId } = req.params;
+        const email = req.user.email;
+        const { maxChannelCount, channels } = req.body;
+
+        const device = await Device.findOne({ id: deviceId, userEmail: email });
+        if (!device) return res.status(404).json({ message: 'Device not found' });
+
+        const oldChannels = device.channels || [];
+        const newChannels = channels || [];
+
+        const oldChannelNumbers = new Set(oldChannels.map(ch => ch.channelNo));
+        const newChannelNumbers = new Set(newChannels.map(ch => ch.channelNo));
+
+        const addedChannels = newChannels.filter(ch => !oldChannelNumbers.has(ch.channelNo));
+        const removedChannels = oldChannels.filter(ch => !newChannelNumbers.has(ch.channelNo));
+
+        console.log(`[ChannelSync] Device: ${device.name}`);
+        console.log(`[ChannelSync] Max capacity: ${maxChannelCount}`);
+        console.log(`[ChannelSync] Previous configured count: ${oldChannels.length}`);
+        console.log(`[ChannelSync] Latest configured count: ${newChannels.length}`);
+        console.log(`[ChannelSync] Added channels: ${addedChannels.map(ch => 'CH' + ch.channelNo).join(', ') || 'None'}`);
+        console.log(`[ChannelSync] Removed channels: ${removedChannels.map(ch => 'CH' + ch.channelNo).join(', ') || 'None'}`);
+        console.log(`[ChannelSync] Online count: ${newChannels.filter(ch => ch.isOnline).length}`);
+        console.log(`[ChannelSync] Final channels: ${newChannels.map(ch => ch.channelNo).join(',')}`);
+
+        // Update the channel fields
+        device.channels = newChannels;
+        device.addedChannelCount = newChannels.length;
+        device.onlineChannelCount = newChannels.filter(ch => ch.isOnline).length;
+        device.maxChannelCount = maxChannelCount || device.maxChannelCount;
+        device.lastChannelSyncAt = new Date();
+        
+        // Also update legacy channelCount just in case for backward compatibility
+        device.channelCount = maxChannelCount || device.channelCount;
+
+        await device.save();
+        res.json({ message: 'Channels synchronized successfully', device });
+    } catch (err) {
+        console.error('[DeviceController] Sync channels error:', err);
+        res.status(500).json({ message: err.message });
+    }
+};

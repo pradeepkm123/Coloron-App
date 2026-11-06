@@ -7,8 +7,8 @@
  * Mac/Linux: ifconfig or ip addr
  */
 
-// Use 10.0.2.2 for Android Emulator to refer to host machine (your PC)
-export const BACKEND_IP = '52.66.98.128'; // <--- CHANGE THIS TO YOUR PC IP OR 10.0.2.2 FOR EMULATOR
+// Host machine's LAN IP address (accessible by mobile devices on same Wi-Fi and emulators)
+export const BACKEND_IP = '192.168.1.12'; // Local backend IP
 export const BACKEND_PORT = '5000';
 export const BASE_URL = `http://${BACKEND_IP}:${BACKEND_PORT}`;
 export const API_URL = `${BASE_URL}/api`;

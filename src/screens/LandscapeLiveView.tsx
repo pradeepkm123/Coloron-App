@@ -708,6 +708,8 @@ const LandscapeLiveView: React.FC = () => {
             channelId={activeChannel}
             streamType={gridStreamTypes[index]}
             deviceType={currentDeviceParams.type}
+            protocol={currentDeviceParams.protocol}
+            streamUrl={currentDeviceParams.channels?.[activeChannel]?.streamUrl || currentDeviceParams.channels?.[0]?.streamUrl}
             index={0}
             aspectRatio="16:9"
             muted={isMuted || !isCellFocused}
@@ -767,6 +769,8 @@ const LandscapeLiveView: React.FC = () => {
             channelId={chId}
             streamType={gridStreamTypes[index]}
             deviceType={currentDeviceParams.type}
+            protocol={currentDeviceParams.protocol}
+            streamUrl={currentDeviceParams.channels?.[chId]?.streamUrl || currentDeviceParams.channels?.[0]?.streamUrl}
             index={index}
             aspectRatio="16:9"
             muted={isMuted || !isCellFocused}
@@ -1131,8 +1135,20 @@ const LandscapeLiveView: React.FC = () => {
                       </TouchableOpacity>
                     );
                   }
-                  const chObj = dev.channels.find((c: any) => (typeof c.id === 'string' ? parseInt(c.id) : c.id) === activeChannel);
-                  const hasPtz = chObj?.ptz === true || chObj?.ptzSupport === true || chObj?.name?.toLowerCase().includes('ptz') || chObj?.name?.toLowerCase().includes('dome') || chObj?.name?.toLowerCase().includes('speed');
+                  const chObj = dev.channels?.find((c: any) =>
+                      (typeof c.id === 'string' ? parseInt(c.id) : c.id) === activeChannel ||
+                      (typeof c.channelNo === 'number' ? c.channelNo - 1 : c.channelNo) === activeChannel
+                  );
+                  const chName = chObj?.name || chObj?.channelName || '';
+                  const chModel = chObj?.model || '';
+                  const chCamId = chObj?.cameraId || '';
+                  const combinedPtzStr = (chName + ' ' + chModel + ' ' + chCamId).toLowerCase();
+                  const hasPtz = chObj?.ptz === true || chObj?.ptzSupport === true || chObj?.ptzSupported === true ||
+                    chObj?.cameraType === 'PTZ' ||
+                    combinedPtzStr.includes('ptz') || combinedPtzStr.includes('dome') || combinedPtzStr.includes('speed') ||
+                    combinedPtzStr.includes('sd') || combinedPtzStr.includes('spd') || combinedPtzStr.includes('ipd') ||
+                    combinedPtzStr.includes('zoom') || combinedPtzStr.includes('ball') || combinedPtzStr.includes('pan') ||
+                    combinedPtzStr.includes('tilt') || combinedPtzStr.includes('tracking') || combinedPtzStr.includes('autotracking');
                   return hasPtz ? (
                     <TouchableOpacity style={styles.bottomIcon}>
                       <MaterialCommunityIcons

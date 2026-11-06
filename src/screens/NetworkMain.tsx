@@ -19,7 +19,8 @@ type NetworkMainRouteProp = RouteProp<RootStackParamList, 'NetworkMain'>;
 const NetworkMain: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<NetworkMainRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const renderSectionHeader = (title: string) => (
         <View style={styles.sectionHeader}>

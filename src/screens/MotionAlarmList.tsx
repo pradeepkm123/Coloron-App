@@ -33,7 +33,8 @@ interface MotionAlarmItem {
 const MotionAlarmList: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<MotionAlarmListRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const channels: MotionAlarmItem[] = [
         { id: '1', channelName: 'DATA ENTRY', schedule: '24x7', record: 'DATA ENTRY', snapshot: 'DATA ENTRY', push: 'ON', alarmOut: 'OFF', presetName: 'OFF', buzzer: 'OFF', popupVideo: 'OFF', email: 'OFF' },

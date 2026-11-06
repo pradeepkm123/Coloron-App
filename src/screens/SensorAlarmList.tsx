@@ -37,7 +37,8 @@ interface SensorAlarmItem {
 const SensorAlarmList: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<SensorAlarmListRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const sensors: SensorAlarmItem[] = [
         { id: '1', sensorName: 'Sensor1', schedule: '24x7', type: 'NO', enable: 'ON', record: 'OFF', snapshot: 'OFF', push: 'ON', alarmOut: 'OFF', presetName: 'OFF', buzzer: 'OFF', popupVideo: 'OFF', popupMsg: 'ON', email: 'OFF', duration: '30 Secs' },

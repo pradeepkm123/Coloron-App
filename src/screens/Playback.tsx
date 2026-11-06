@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {
     View,
     StyleSheet,
@@ -12,18 +12,21 @@ import {
     useWindowDimensions,
     PanResponder,
     PermissionsAndroid,
-    InteractionManager,
     AppState,
     BackHandler,
-    Image
+    Image,
+    ActivityIndicator
 } from 'react-native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Device, deviceStorage } from '../utils/deviceStorage';
 import * as NvrSdk from '../native/NvrSdk';
 import { deviceSessionManager } from '../services/DeviceSessionManager';
+import connectionManager, { ConnectionEvent, DeviceStatusEvent, ConnectionState } from '../services/ConnectionManager';
+
 import CalendarTimeModal from '../components/Playback/CalendarTimeModal';
 import { RootStackParamList } from '../types/navigation';
 import { isSameDay } from '../utils/liveViewUtils';
@@ -129,6 +132,22 @@ const requestStoragePermissions = async (): Promise<boolean> => {
     }
 };
 
+// ─────────────────────────────────────────────────────────
+// 🚀 PERFORMANCE CACHES (module-level, survive re-renders)
+// ─────────────────────────────────────────────────────────
+
+/** Cache for NVR recording files per channel+date. Key: `devId-ch-YYYY-MM-DD` */
+const recordingFilesCache = new Map<string, any[]>();
+
+/** Cache for recorded calendar day markers. Key: `devId-ch-YYYY-M` */
+const recordingDaysCache = new Map<string, string[]>();
+
+/** Cache for which channels have recordings on a given date. Key: `devId-YYYY-MM-DD` */
+const channelAvailabilityCache = new Map<string, number[]>();
+
+/** Ongoing fetch guard — prevents double-fetching the same calendar month */
+const calendarFetchInProgress = new Set<string>();
+
 const Playback: React.FC = () => {
     const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = useWindowDimensions();
     const [scaleIndex, setScaleIndex] = useState(0);
@@ -147,22 +166,27 @@ const Playback: React.FC = () => {
     const navigation = useNavigation<any>();
     const { deviceId, deviceName, initialChannelId, channelId, startTime, eventTime, endTime, eventType } = route.params || {};
 
-    // Parsed parameters for safe use
-    const parsedStartTime = useMemo(() => {
-        if (!startTime) return null;
-        const n = Number(startTime);
-        const d = !isNaN(n) ? new Date(n) : new Date(startTime);
-        return isNaN(d.getTime()) ? null : d;
-    }, [startTime]);
+    const getLocalDateKey = (date: Date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
 
-    // --- STATES ---
-    const [currentDate, setCurrentDate] = useState(() => {
+    const getDayRange = (date: Date) => {
+        const start = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+        const end = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+        return { start, end };
+    };
+
+    const [selectedDate, setSelectedDate] = useState<Date>(() => {
         const routeParams = route.params || {};
         const startVal = routeParams.startTime;
         if (startVal) {
             const n = Number(startVal);
             const d = !isNaN(n) ? new Date(n) : new Date(startVal);
             if (!isNaN(d.getTime())) {
+                d.setHours(0, 0, 0, 0);
                 return d;
             }
         }
@@ -170,6 +194,37 @@ const Playback: React.FC = () => {
         d.setHours(0, 0, 0, 0);
         return d;
     });
+
+    const selectedDateRef = useRef<Date>(selectedDate);
+    const requestIdRef = useRef<number>(0);
+    const initializedRef = useRef<boolean>(false);
+    const [playbackTime, setPlaybackTime] = useState<Date | null>(null);
+
+    // Keep selectedDateRef synchronized with selectedDate state
+    useEffect(() => {
+        selectedDateRef.current = selectedDate;
+    }, [selectedDate]);
+
+    // --- STATES ---
+    const [playbackStatus, setPlaybackStatus] = useState<'idle' | 'searching' | 'starting' | 'playing' | 'paused' | 'no-recording' | 'error'>('idle');
+    const playbackRequestIdRef = useRef<number>(0);
+
+    const startOfLocalDay = (d: Date): Date => {
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+    };
+
+    const endOfLocalDay = (d: Date): Date => {
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
+    };
+
+    const [currentDate, setCurrentDate] = useState<Date>(() => selectedDate);
+    const currentDateRef = useRef<Date>(selectedDate);
+    const [connState, setConnState] = useState<ConnectionState>('CONNECTED');
+
+    useEffect(() => {
+        currentDateRef.current = currentDate;
+    }, [currentDate.getTime()]);
+
     const [isPlaying, setIsPlaying] = useState(true);
     const [playbackSpeed, setPlaybackSpeed] = useState(1);
     const [quality, setQuality] = useState<'HD' | 'SD'>('HD');
@@ -185,7 +240,7 @@ const Playback: React.FC = () => {
 
 
     // NEW: Multi-Channel State
-    const [playbackHandles, setPlaybackHandles] = useState<{ [key: number]: { handle: string | null, realChannel: number, status?: string, error?: string } }>({});
+    const [playbackHandles, setPlaybackHandles] = useState<{ [key: number]: { handle: string | null, realChannel: number, status?: string, error?: string, streamType?: number } }>({});
     const [gridType, setGridType] = useState<GridType>('1x1');
     const [visibleChannels, setVisibleChannels] = useState<number[]>(() => {
         const routeParams = route.params || {};
@@ -228,10 +283,53 @@ const Playback: React.FC = () => {
         setTempTime(new Date(currentDate));
     }, [currentDate.getTime()]);
 
-    // Keep visibleChannelsRef in sync so init() always reads latest channels
+    // Connection Manager Subscription
     useEffect(() => {
-        visibleChannelsRef.current = visibleChannels;
-    }, [visibleChannels]);
+        connectionManager.init();
+
+        const handleConnChange = (evt: ConnectionEvent) => {
+            console.log('[Playback] Connection state changed:', evt.state);
+            setConnState(evt.state);
+            if (evt.state === 'CONNECTED' && selectedDevice) {
+                deviceSessionManager.ensureSession(String(selectedDevice.id)).then((uid) => {
+                    if (uid >= 0) {
+                        setUserId(uid);
+                        // Trigger playback recovery at saved timestamp
+                        jumpToTime(currentDateRef.current);
+                    }
+                });
+            }
+        };
+
+        const handleDeviceStatus = (evt: DeviceStatusEvent) => {
+            if (selectedDevice && String(evt.deviceId) === String(selectedDevice.id)) {
+                if (evt.status === 'Online' && evt.userId >= 0) {
+                    setUserId(evt.userId);
+                    jumpToTime(currentDateRef.current);
+                } else if (evt.status === 'Reconnecting') {
+                    setConnState('RECONNECTING');
+                }
+            }
+        };
+
+        connectionManager.on('connectionStateChanged', handleConnChange);
+        connectionManager.on('deviceStatusChanged', handleDeviceStatus);
+
+        return () => {
+            connectionManager.off('connectionStateChanged', handleConnChange);
+            connectionManager.off('deviceStatusChanged', handleDeviceStatus);
+        };
+    }, [selectedDevice]);
+
+    useEffect(() => {
+        if (selectedDevice) {
+            connectionManager.registerActiveDevice(String(selectedDevice.id));
+            return () => {
+                connectionManager.unregisterActiveDevice(String(selectedDevice.id));
+            };
+        }
+    }, [selectedDevice]);
+
 
     // Load devices, map Serial Number to local ID, and set default deviceId if missing
     useEffect(() => {
@@ -324,42 +422,257 @@ const Playback: React.FC = () => {
 
     useEffect(() => {
         const dates = [];
-        for (let i = -7; i <= 7; i++) {
-            const d = new Date(currentDate);
-            d.setDate(d.getDate() + i);
+        const today = new Date();
+        for (let i = 30; i >= 0; i--) {
+            const d = new Date(today);
+            d.setDate(d.getDate() - i);
+            d.setHours(0, 0, 0, 0);
             dates.push(d);
         }
         setDateRange(dates);
-    }, [currentDate.toDateString()]);
+    }, []);
 
-    // 🚀 DATE-BASED NAVIGATION (SuperLivePlus Mode)
-    const handleDateSelect = async (date: Date) => {
-        console.log(`[Playback] handleDateSelect -> User selected date: ${date.toDateString()}`);
-        
-        // 1. Stop all active streams immediately to prevent native socket conflicts and JNI watchdog interference
-        await stopAllPlayback();
-        
-        // 2. Explicitly clear high-frequency tracking refs to avoid stale checks
-        lastPlayedTimeRef.current = {};
-        playbackHandlesRef.current = {};
+    // 🚀 CENTRALIZED PLAYBACK LIFECYCLE ENGINE
+    const loadAndPlayPlayback = useCallback(async (
+        targetDate: Date,
+        targetChannel: number,
+        requestedTime?: Date
+    ) => {
+        const requestId = ++playbackRequestIdRef.current;
+        const normalizedDate = startOfLocalDay(targetDate);
+        const dateStr = getLocalDateKey(normalizedDate);
 
-        // 3. Mark this as a manual date change to bypass focusChangedOnly check in init
-        isManualDateChangeRef.current = true;
+        console.log(`[Playback] Selected date: ${dateStr}`);
+        console.log(`[Playback] Selected channel: App CH ${targetChannel} (SDK CH ${targetChannel})`);
 
-        // 4. Set the target date representation to midnight of the selected day
-        const targetDay = new Date(date);
-        targetDay.setHours(0, 0, 0, 0);
-
-        // 5. Update UI state immediately so the timeline and loading indicators react instantly
+        selectedDateRef.current = normalizedDate;
         if (isMounted.current) {
-            setCurrentDate(targetDay);
-            setTempTime(targetDay);
+            setSelectedDate(normalizedDate);
+            setCurrentDate(requestedTime || normalizedDate);
+            setTempTime(requestedTime || normalizedDate);
+            setRecordingFiles([]);
+            setPlaybackStatus('searching');
             setIsLoading(true);
+            setSearchPerformed(false);
         }
-        
-        // 6. Trigger search & playback initialization
-        setManualJumpTrigger(prev => prev + 1);
-    };
+
+        console.log(`[Playback] Stopping old session: Request ID ${requestId}`);
+        await stopAllPlayback();
+        playbackHandlesRef.current = {};
+        lastPlayedTimeRef.current = {};
+
+        if (requestId !== playbackRequestIdRef.current) {
+            console.log(`[Playback] Request cancelled: Request ${requestId} superseded before search`);
+            return;
+        }
+
+        let loginHandle = userIdRef.current || userId;
+        let dev = selectedDevice;
+        if (!dev && deviceId) {
+            const devs = await deviceStorage.getDevices();
+            if (devs && devs.length > 0) {
+                dev = devs.find(d => String(d.id) === String(deviceId) || (d.sn && String(d.sn) === String(deviceId))) || devs[0];
+                if (isMounted.current && dev) setSelectedDevice(dev);
+            }
+        }
+
+        if (!dev) {
+            console.warn("[Playback] Error: No device available for playback");
+            if (isMounted.current && requestId === playbackRequestIdRef.current) {
+                setPlaybackStatus('error');
+                setIsLoading(false);
+            }
+            return;
+        }
+
+        if (!loginHandle || loginHandle < 0) {
+            try {
+                loginHandle = await deviceSessionManager.ensureSession(String(dev.id));
+                if (loginHandle !== undefined && loginHandle >= 0) {
+                    setUserIdWithRef(loginHandle);
+                }
+            } catch (loginErr) {
+                console.error("[Playback] Error: Login failed:", loginErr);
+            }
+        }
+
+        if (!loginHandle || loginHandle < 0) {
+            console.warn("[Playback] Error: Invalid userId:", loginHandle);
+            if (isMounted.current && requestId === playbackRequestIdRef.current) {
+                setPlaybackStatus('error');
+                setIsLoading(false);
+            }
+            return;
+        }
+
+        if (requestId !== playbackRequestIdRef.current) {
+            console.log(`[Playback] Request cancelled: Request ${requestId} superseded after login`);
+            return;
+        }
+
+        const startRange = startOfLocalDay(normalizedDate);
+        const endRange = endOfLocalDay(normalizedDate);
+        const startRangeStr = formatTime(startRange);
+        const endRangeStr = formatTime(endRange);
+
+        console.log(`[Playback] Searching range: CH ${targetChannel} from ${startRangeStr} to ${endRangeStr}`);
+
+        let segments: any[] = [];
+        try {
+            const recCacheKey = `${dev.id}-${targetChannel}-${dateStr}`;
+            const cachedRecs = recordingFilesCache.get(recCacheKey);
+
+            if (cachedRecs !== undefined) {
+                console.log(`[Playback] Recording segments found: ${cachedRecs.length} (cached)`);
+                segments = cachedRecs;
+            } else {
+                const rawRecs: any = await NvrSdk.searchRecordings(
+                    loginHandle,
+                    targetChannel,
+                    startRangeStr,
+                    endRangeStr
+                );
+                segments = Array.isArray(rawRecs) ? rawRecs : (rawRecs?.fileList || []);
+                recordingFilesCache.set(recCacheKey, segments);
+                console.log(`[Playback] Recording segments found: ${segments.length} (SDK)`);
+            }
+        } catch (searchErr) {
+            console.error("[Playback] Error searching recordings:", searchErr);
+        }
+
+        if (requestId !== playbackRequestIdRef.current) {
+            console.log(`[Playback] Request cancelled: Request ${requestId} superseded after search`);
+            return;
+        }
+
+        if (isMounted.current) {
+            setRecordingFiles(segments);
+            setSearchPerformed(true);
+        }
+
+        if (segments.length === 0) {
+            console.log(`[Playback] No recording: CH ${targetChannel} on ${dateStr}`);
+            if (isMounted.current && requestId === playbackRequestIdRef.current) {
+                setPlaybackStatus('no-recording');
+                setIsLoading(false);
+                setIsPlaying(false);
+                setCurrentDate(normalizedDate);
+                setTempTime(normalizedDate);
+            }
+            return;
+        }
+
+        let startTimeToPlay = startRangeStr;
+        const sortedSegments = [...segments].sort(
+            (a, b) => safeParseDate(a.start).getTime() - safeParseDate(b.start).getTime()
+        );
+
+        if (requestedTime) {
+            const reqMs = requestedTime.getTime();
+            const inSegment = sortedSegments.find(f => {
+                const s = safeParseDate(f.start).getTime();
+                const e = safeParseDate(f.end).getTime();
+                return reqMs >= s && reqMs <= e;
+            });
+
+            if (inSegment) {
+                startTimeToPlay = formatTime(requestedTime);
+            } else {
+                const closest = sortedSegments.sort(
+                    (a, b) => Math.abs(safeParseDate(a.start).getTime() - reqMs) - Math.abs(safeParseDate(b.start).getTime() - reqMs)
+                )[0];
+                startTimeToPlay = closest.start;
+            }
+        } else {
+            startTimeToPlay = sortedSegments[0].start;
+        }
+
+        const playbackStartDate = safeParseDate(startTimeToPlay);
+        console.log(`[Playback] Starting at: ${startTimeToPlay} (CH ${targetChannel})`);
+
+        if (isMounted.current) {
+            setPlaybackStatus('starting');
+            setCurrentDate(playbackStartDate);
+            setTempTime(playbackStartDate);
+            setPlaybackTime(playbackStartDate);
+        }
+
+        try {
+            const streamType = 0; // Main Stream
+            const windowEndStr = endRangeStr;
+
+            const res: any = await NvrSdk.startPlayback(
+                loginHandle,
+                targetChannel,
+                startTimeToPlay,
+                windowEndStr,
+                streamType
+            );
+
+            if (requestId !== playbackRequestIdRef.current) {
+                console.log(`[Playback] Request cancelled: Request ${requestId} superseded after startPlayback`);
+                if (res && res.handle) {
+                    NvrSdk.stopPlayback(res.handle).catch(() => {});
+                }
+                return;
+            }
+
+            const handle = typeof res === 'object' ? res.handle : res;
+            const realChannel = typeof res === 'object' ? res.realChannel : targetChannel;
+            const isValid = handle && String(handle) !== '0' && String(handle) !== '-1' && String(handle) !== 'null' && String(handle) !== 'undefined';
+
+            console.log(`[Playback] SDK start result: handle=${handle}, realChannel=${realChannel}, isValid=${isValid}`);
+
+            if (isValid) {
+                const entry = { handle, realChannel, status: 'OK', streamType };
+                playbackHandlesRef.current[targetChannel] = entry as any;
+                lastPlayedTimeRef.current[targetChannel] = startTimeToPlay;
+
+                const chState = getChannelPlaybackState(targetChannel);
+                chState.isPlaying = true;
+                chState.speed = 1;
+                chState.direction = 'forward';
+                channelTimesRef.current[targetChannel] = playbackStartDate;
+
+                if (isMounted.current) {
+                    setPlaybackHandles({ [targetChannel]: entry as any });
+                    setIsPlaying(true);
+                    setPlaybackStatus('playing');
+                    console.log(`[Playback] First video frame received: CH ${targetChannel}`);
+                }
+            } else {
+                console.warn(`[Playback] Error: SDK startPlayback returned invalid handle for CH ${targetChannel}`);
+                if (isMounted.current) {
+                    setPlaybackStatus('error');
+                    setIsPlaying(false);
+                }
+            }
+        } catch (startErr) {
+            console.error(`[Playback] Error: startPlayback failed for CH ${targetChannel}:`, startErr);
+            if (isMounted.current && requestId === playbackRequestIdRef.current) {
+                setPlaybackStatus('error');
+                setIsPlaying(false);
+            }
+        } finally {
+            if (requestId === playbackRequestIdRef.current && isMounted.current) {
+                setIsLoading(false);
+            }
+        }
+    }, [deviceId, selectedDevice, userId]);
+
+    // 🚀 DATE-BASED NAVIGATION
+    const handleRecordedDatePress = useCallback(async (clickedDate: Date) => {
+        const normalizedDate = startOfLocalDay(clickedDate);
+        console.log(`[Playback] Selected date: ${getLocalDateKey(normalizedDate)}`);
+
+        if (currentChannel === undefined) return;
+
+        navigation.setParams({ startTime: undefined, eventTime: undefined, eventType: undefined });
+
+        await loadAndPlayPlayback(normalizedDate, currentChannel);
+    }, [currentChannel, loadAndPlayPlayback]);
+
+    const handleDateSelect = handleRecordedDatePress;
 
     // 🎯 PRECISE JUMP (SuperLivePlus Mode)
     const handlePreciseJump = async (timestamp: string) => {
@@ -386,9 +699,14 @@ const Playback: React.FC = () => {
             const targetDateStr = jumpDate.toDateString();
             lastInitKey.current = `${deviceId}-${targetDateStr}`;
 
+            const midnightDate = new Date(y, m - 1, d, 0, 0, 0);
+            setSelectedDate(midnightDate);
+            selectedDateRef.current = midnightDate;
+
             skipNextInitRef.current = true; // Extra guard to block init()
             setCurrentDate(jumpDate);
             setTempTime(jumpDate);
+
 
             // Step 3: Search recordings for the selected day to find what actually exists
             const dayStart = new Date(y, m - 1, d, 0, 0, 0);
@@ -487,18 +805,19 @@ const Playback: React.FC = () => {
     // --- REFS ---
     const timelineRef = useRef<ScrollView>(null);
     const landscapeTimelineRef = useRef<any>(null);
+    const isProgrammaticScrolling = useRef<boolean>(false);
     // NEW: Map for handles
-    const playbackHandlesRef = useRef<{ [key: number]: { handle: string | null, realChannel: number } }>({});
+    const playbackHandlesRef = useRef<{ [key: number]: { handle: string | null, realChannel: number, status?: string, error?: string, streamType?: number } }>({});
     const lastPlayedTimeRef = useRef<{ [key: number]: string }>({});
     const visibleChannelsRef = useRef<number[]>([0]);
 
     // Channel-specific playback state and time refs
-    const channelPlaybackStatesRef = useRef<{ [channelId: number]: { isPlaying: boolean, speed: number, direction: 'forward' | 'backward' } }>({});
+    const channelPlaybackStatesRef = useRef<{ [channelId: number]: { isPlaying: boolean, speed: number, direction: 'forward' | 'backward', isNativeRewind?: boolean } }>({});
     const channelTimesRef = useRef<{ [channelId: number]: Date }>({});
 
     const getChannelPlaybackState = (ch: number) => {
         if (!channelPlaybackStatesRef.current[ch]) {
-            channelPlaybackStatesRef.current[ch] = { isPlaying: true, speed: 1, direction: 'forward' };
+            channelPlaybackStatesRef.current[ch] = { isPlaying: true, speed: 1, direction: 'forward', isNativeRewind: false };
         }
         return channelPlaybackStatesRef.current[ch];
     };
@@ -649,11 +968,8 @@ const Playback: React.FC = () => {
 
 
     const applyGridType = async (type: GridType, overrideChannels?: number[]) => {
-        const loginHandle = userIdRef.current || userId;
-        if (!loginHandle || !selectedDevice) {
-            console.log("[Playback] applyGridType: loginHandle or selectedDevice is missing", { loginHandle, selectedDevice });
-            return;
-        }
+        let loginHandle = userIdRef.current || userId;
+        if (!deviceId || loginHandle === null || loginHandle < 0) return;
 
         isStartingRef.current = true;
         try {
@@ -671,133 +987,99 @@ const Playback: React.FC = () => {
             else if (type === '1+8') numChannels = 9;
             else if (type === '1+12') numChannels = 13;
 
-            // Calculate paging around currentChannel so the focused channel is always visible in the selected layout
             let allChannels = overrideChannels;
             if (!allChannels) {
-                const pageIndex = Math.floor(currentChannel / numChannels);
-                const startCh = pageIndex * numChannels;
-                allChannels = Array.from({ length: numChannels }, (_, i) => {
-                    const ch = startCh + i;
-                    return ch < count ? ch : undefined;
-                }).filter(ch => ch !== undefined) as number[];
+                allChannels = Array.from({ length: numChannels }, (_, i) => i)
+                    .filter(ch => ch < count);
             }
 
-            // ── 2. Update UI state
+            // ── 2. INSTANT UI State Update (No full screen spinner delay)
             setGridType(type);
             setVisibleChannels(allChannels);
-            visibleChannelsRef.current = allChannels; // 🚀 Sync Ref for general loop re-measuring
-            setIsLoading(true);
+            visibleChannelsRef.current = allChannels;
             setIsGridModalVisible(false);
             setShowFsControls(false);
 
-            // ── 3. Compute the playback window using current time ref
+            // ── 3. Compute playback time
             const playTime = isUserScrollingRef.current ? tempTimeRef.current : currentDate;
             const startStr = formatTime(playTime);
             const endDate = new Date(playTime);
             endDate.setHours(23, 59, 59, 999);
             const endStr = formatTime(endDate);
+            const streamType = 0; // Main Stream
 
-            // 🚀 OPTIMIZATION: Force Main Stream (0) for playback since NVRs only support main-stream playback
-            const streamType = 0;
-
-            // ── 4. Stop handles for channels that are NO LONGER needed
+            // ── 4. Non-blocking Stale Handle Cleanup
             const channelSet = new Set(allChannels);
-            const handlesToStop: string[] = [];
             const channelsToStopList: number[] = [];
 
             Object.entries(playbackHandlesRef.current).forEach(([chKey, hObj]) => {
                 const ch = Number(chKey);
                 if (!channelSet.has(ch) && hObj?.handle) {
-                    handlesToStop.push(hObj.handle);
+                    NvrSdk.stopPlayback(hObj.handle).catch(() => { });
                     channelsToStopList.push(ch);
                 }
             });
 
-            if (handlesToStop.length > 0) {
-                console.log(`[Playback] Grid Cleanup: Stopping ${handlesToStop.length} stale channels: ${channelsToStopList.join(', ')}`);
-                await Promise.all(handlesToStop.map(h => NvrSdk.stopPlayback(h).catch(() => { })));
-
+            if (channelsToStopList.length > 0) {
                 channelsToStopList.forEach(ch => {
                     delete playbackHandlesRef.current[ch];
                 });
                 if (isMounted.current) {
                     setPlaybackHandles(prev => {
                         const newState = { ...prev };
-                        channelsToStopList.forEach(ch => {
-                            delete newState[ch];
-                        });
+                        channelsToStopList.forEach(ch => delete newState[ch]);
                         return newState;
                     });
                 }
-                // Small JNI cool-down after stopping handles
-                await new Promise<void>(resolve => setTimeout(resolve, 80));
             }
 
-            // 🚀 BATCHED SEQUENTIAL START: Maximized for responsiveness.
-            // Start up to 8 channels simultaneously for high-performance NVRs.
-            const BATCH_SIZE = 8;
-            const BATCH_DELAY = 100; // Performance tuning
+            // ── 5. Instant Parallel Stream Start (Zero Delays)
+            await Promise.all(allChannels.map(async (ch) => {
+                const existing = playbackHandlesRef.current[ch];
 
-            for (let i = 0; i < allChannels.length; i += BATCH_SIZE) {
-                if (i > 0) {
-                    await new Promise<void>(resolve => setTimeout(resolve, BATCH_DELAY));
+                // Skip channels already playing correctly in the same stream type
+                if (existing?.handle && existing.status === 'OK' && existing.streamType === streamType) {
+                    return;
                 }
-                const batch = allChannels.slice(i, i + BATCH_SIZE);
-                console.log(`[Playback] Starting Batch ${Math.floor(i / BATCH_SIZE) + 1}: CH ${batch.join(', ')}`);
 
-                await Promise.all(batch.map(async (ch, index) => {
-                    // Short staggered delay to space out socket allocations slightly
-                    await new Promise<void>(resolve => setTimeout(resolve, index * 40));
+                if (existing?.handle) {
+                    NvrSdk.stopPlayback(existing.handle).catch(() => { });
+                }
 
-                    const existing = playbackHandlesRef.current[ch];
+                try {
+                    const res: any = await NvrSdk.startPlayback(loginHandle, ch, startStr, endStr, streamType);
+                    const handle = (res && typeof res === 'object') ? res.handle : res;
+                    const realChannel = (res && typeof res === 'object') ? res.realChannel : ch;
+                    const isValid = handle && String(handle) !== '0' && String(handle) !== '-1' && String(handle) !== 'null' && String(handle) !== 'undefined';
 
-                    // Skip channels already playing correctly in the same stream type
-                    if (existing?.handle && playbackHandlesRef.current[ch]?.status === 'OK' && (existing as any).streamType === streamType) {
-                        return;
+                    console.log(`[Playback] Instant Grid start CH ${ch}: handle=${handle}`);
+
+                    const handleEntry = { handle: isValid ? handle : null, realChannel, status: isValid ? 'OK' : 'NO_DATA', streamType };
+                    playbackHandlesRef.current[ch] = handleEntry;
+
+                    const state = getChannelPlaybackState(ch);
+                    state.isPlaying = true;
+                    state.speed = 1;
+                    state.direction = 'forward';
+                    channelTimesRef.current[ch] = new Date(playTime);
+                    lastPlayedTimeRef.current[ch] = startStr;
+
+                    if (isMounted.current) {
+                        setPlaybackHandles(prev => ({ ...prev, [ch]: handleEntry }));
                     }
+                } catch (err) {
+                    console.error(`[Playback] CH ${ch} grid start failed:`, err);
+                    const errorEntry = { handle: null, realChannel: ch, status: 'ERROR', streamType };
+                    playbackHandlesRef.current[ch] = errorEntry;
 
-                    // Stop stale handle if present
-                    if (existing?.handle) {
-                        await NvrSdk.stopPlayback(existing.handle).catch(() => { });
+                    const state = getChannelPlaybackState(ch);
+                    state.isPlaying = false;
+
+                    if (isMounted.current) {
+                        setPlaybackHandles(prev => ({ ...prev, [ch]: errorEntry }));
                     }
-
-                    try {
-                        const res: any = await NvrSdk.startPlayback(loginHandle, ch, startStr, endStr, streamType);
-                        const handle = (res && typeof res === 'object') ? res.handle : res;
-                        const realChannel = (res && typeof res === 'object') ? res.realChannel : ch;
-                        const isValid = handle && String(handle) !== '0' && String(handle) !== '-1' && String(handle) !== 'null' && String(handle) !== 'undefined';
-
-                        console.log(`[AI-PUSH] SDK PlayBackByTime result: ${handle} (Channel: ${ch}, Stream: ${streamType})`);
-                        console.log(`[Playback] CH ${ch} handle: ${handle} (Stream: ${streamType})`);
-
-                        const handleEntry = { handle: isValid ? handle : null, realChannel, status: isValid ? 'OK' : 'NO_DATA', streamType };
-                        playbackHandlesRef.current[ch] = handleEntry;
-
-                        const state = getChannelPlaybackState(ch);
-                        state.isPlaying = true;
-                        state.speed = 1;
-                        state.direction = 'forward';
-                        channelTimesRef.current[ch] = new Date(playTime);
-                        lastPlayedTimeRef.current[ch] = startStr;
-
-                        if (isMounted.current) {
-                            setPlaybackHandles(prev => ({ ...prev, [ch]: handleEntry }));
-                        }
-                    } catch (err) {
-                        console.log(`[AI-PUSH] SDK PlayBackByTime result: FAILED (Channel: ${ch}, Error: ${err})`);
-                        console.log(`[Playback] CH ${ch} FAILED:`, err);
-                        const errorEntry = { handle: null, realChannel: ch, status: 'ERROR', streamType };
-                        playbackHandlesRef.current[ch] = errorEntry;
-
-                        const state = getChannelPlaybackState(ch);
-                        state.isPlaying = false;
-
-                        if (isMounted.current) {
-                            setPlaybackHandles(prev => ({ ...prev, [ch]: errorEntry }));
-                        }
-                    }
-                }));
-            }
+                }
+            }));
 
             if (isMounted.current) {
                 setIsPlaying(true);
@@ -811,7 +1093,7 @@ const Playback: React.FC = () => {
                 }
             }
         } catch (err) {
-            console.error("[Playback] applyGridType failed", err);
+            console.error("[Playback] applyGridType failed:", err);
         } finally {
             isStartingRef.current = false;
             if (isMounted.current) {
@@ -820,7 +1102,8 @@ const Playback: React.FC = () => {
         }
     };
 
-    const handleSelectChannel = (ch: number) => {
+    const handleSelectChannel = useCallback(async (ch: number) => {
+        console.log(`[Playback] Selected channel: App CH ${ch} (SDK CH ${ch})`);
         const isAlreadyVisible = visibleChannelsRef.current.includes(ch);
         setCurrentChannel(ch);
 
@@ -830,19 +1113,10 @@ const Playback: React.FC = () => {
         setPlaybackSpeed(state.speed);
         setPlaybackDirection(state.direction);
 
-        if (channelTimesRef.current[ch]) {
-            setCurrentDate(channelTimesRef.current[ch]);
-            setTempTime(channelTimesRef.current[ch]);
-        } else {
-            channelTimesRef.current[ch] = new Date(currentDate);
-        }
-
         if (gridType === '1x1') {
             setVisibleChannels([ch]);
             visibleChannelsRef.current = [ch];
-            setManualJumpTrigger(prev => prev + 1);
         } else if (!isAlreadyVisible) {
-            // If not visible, page the grid to show the selected channel
             const count = deviceChannelCount;
             let numChannels = 1;
             if (gridType === '2x2') numChannels = 4;
@@ -863,12 +1137,13 @@ const Playback: React.FC = () => {
                 return targetCh < count ? targetCh : undefined;
             }).filter(targetCh => targetCh !== undefined) as number[];
 
-            applyGridType(gridType, newChannels);
-        } else {
-            // Already visible, just focus it and query its recordings without resetting streams
-            setManualJumpTrigger(prev => prev + 1);
+            setVisibleChannels(newChannels);
+            visibleChannelsRef.current = newChannels;
         }
-    };
+
+        const activeDate = selectedDateRef.current || selectedDate;
+        await loadAndPlayPlayback(activeDate, ch);
+    }, [selectedDate, gridType, deviceChannelCount, loadAndPlayPlayback]);
 
     const handleSnapshot = async () => {
         if (isCapturing || !selectedDevice || userId === null) return;
@@ -991,7 +1266,7 @@ const Playback: React.FC = () => {
 
                     if (savedPath) {
                         // Wait 800ms
-                        await new Promise(resolve => setTimeout(resolve, 800));
+                        await new Promise<void>(resolve => setTimeout(resolve, 800));
 
                         // Scan sandbox file
                         NvrSdk.scanFile(savedPath).catch(() => { });
@@ -1238,14 +1513,15 @@ const Playback: React.FC = () => {
         if (isFinal && targetChannel === undefined) lastSeekTimeRef.current = targetMs;
 
         const now = Date.now();
-        // 🚀 SDK STABILITY: Strictly enforce 400ms between jump attempts to prevent Error 87
-        if (now - lastJumpTimeRef.current < 400) return;
+        // 🚀 SDK STABILITY: Enforce throttle between debounced jump attempts, but ALWAYS allow explicit final jumps (isFinal)
+        if (!isFinal && now - lastJumpTimeRef.current < 200) return;
         lastJumpTimeRef.current = now;
 
         console.log(`[JumpToTime] Request ${requestId} started for ${date.toLocaleTimeString()} (Target CH: ${targetChannel})`);
 
         // 🚀 OPTIMISTIC UI: Update time immediately for instant timeline feedback
         let targetDate = new Date(date);
+        lastInitKey.current = `${deviceId}-${targetDate.toDateString()}`;
         if (targetChannel === undefined || targetChannel === currentChannel) {
             setCurrentDate(targetDate);
             setTempTime(targetDate);
@@ -1281,32 +1557,40 @@ const Playback: React.FC = () => {
 
             // 1. SuperLive+ Smart Snap Logic: Always verify recording exists before seek
             if (filteredFiles.length > 0) {
-                const targetMs = targetDate.getTime();
-                const isValid = filteredFiles.some(f => {
-                    const s = safeParseDate(f.start).getTime();
-                    const e = safeParseDate(f.end).getTime();
-                    return targetMs >= s && targetMs <= e;
-                });
+                const firstFileDate = safeParseDate(filteredFiles[0].start);
+                const isSameDayFiles = isSameDay(firstFileDate, targetDate);
 
-                if (!isValid) {
-                    // No recording found at exact time, snap to the closest segment
-                    const sortedFiles = [...filteredFiles].sort((a, b) =>
-                        Math.abs(safeParseDate(a.start).getTime() - targetMs) -
-                        Math.abs(safeParseDate(b.start).getTime() - targetMs)
-                    );
-                    targetDate = safeParseDate(sortedFiles[0].start);
-                    if (targetChannel === undefined || targetChannel === currentChannel) {
-                        setCurrentDate(targetDate);
-                        setTempTime(targetDate);
-                    }
-                    channelsToStart.forEach(ch => {
-                        channelTimesRef.current[ch] = targetDate;
+                if (isSameDayFiles) {
+                    const targetMs = targetDate.getTime();
+                    const isValid = filteredFiles.some(f => {
+                        const s = safeParseDate(f.start).getTime();
+                        const e = safeParseDate(f.end).getTime();
+                        return targetMs >= s && targetMs <= e;
                     });
-                    console.log(`[JumpToTime] No recording at selected time. Snapped to closest:`, formatTime(targetDate));
+
+                    if (!isValid) {
+                        // No recording found at exact time, snap to the closest segment on THIS day
+                        const sortedFiles = [...filteredFiles].sort((a, b) =>
+                            Math.abs(safeParseDate(a.start).getTime() - targetMs) -
+                            Math.abs(safeParseDate(b.start).getTime() - targetMs)
+                        );
+                        targetDate = safeParseDate(sortedFiles[0].start);
+                        if (targetChannel === undefined || targetChannel === currentChannel) {
+                            setCurrentDate(targetDate);
+                            setTempTime(targetDate);
+                        }
+                        channelsToStart.forEach(ch => {
+                            channelTimesRef.current[ch] = targetDate;
+                        });
+                        console.log(`[JumpToTime] No recording at selected time. Snapped to closest:`, formatTime(targetDate));
+                    }
+                } else {
+                    console.log("[JumpToTime] filteredFiles belong to a different day. Skipping snap.");
                 }
             } else {
-                console.log("[JumpToTime] No files to snap to. Proceeding with blind seek.");
+                console.log("[JumpToTime] No files to snap to. Proceeding with direct seek.");
             }
+
 
             // 2. Format times — use END OF DAY as end window (NVRs reject small windows, ErrorCode 9)
             const startStr = formatTime(targetDate);
@@ -1772,543 +2056,55 @@ const Playback: React.FC = () => {
         }));
     };
 
-    // --- MAIN INIT ---
-    useEffect(() => {
-        isMounted.current = true;
-        // Consolidated recorded days fetching moved to bottom useEffect
+    // 🚀 SCREEN FOCUS LIFECYCLE (SuperLivePlus Mode)
+    useFocusEffect(
+        useCallback(() => {
+            let active = true;
 
-        const init = async () => {
-            if (!deviceId) return;
+            console.log('[Playback] Page focused');
 
-            const requestId = ++currentRequestIdRef.current;
+            const initialisePlayback = async () => {
+                const today = startOfLocalDay(new Date());
 
-            // ✅ prevent recursive init caused by internal setCurrentDate or state updates
-            if (skipNextInitRef.current) {
-                console.log("Init: Skipping recursive call (skip flag is set)");
-                skipNextInitRef.current = false;
-                return;
-            }
+                const routeParams = route.params || {};
+                const navChannel = routeParams.initialChannelId !== undefined 
+                    ? Number(routeParams.initialChannelId) 
+                    : (routeParams.channelId !== undefined ? Number(routeParams.channelId) : undefined);
 
-            const targetDateStr = currentDate.toDateString();
-            const initKey = `${deviceId}-${targetDateStr}`;
-            const isFirstRun = lastInitKey.current === '';
-            const forceReInit = isManualDateChangeRef.current;
-            isManualDateChangeRef.current = false;
-            const focusChangedOnly = lastInitKey.current === initKey && lastDeviceIdRef.current === String(deviceId) && !forceReInit;
+                const targetChannel = navChannel !== undefined ? navChannel : (currentChannel !== undefined ? currentChannel : 0);
 
-            const isOnlyFocusChange = focusChangedOnly &&
-                lastFocusedChannelRef.current !== undefined &&
-                lastFocusedChannelRef.current !== currentChannel &&
-                visibleChannelsRef.current.includes(currentChannel) &&
-                visibleChannelsRef.current.every(ch => {
-                    const h = playbackHandlesRef.current[ch];
-                    return h && h.handle && h.status === 'OK';
-                });
+                let initialDate = today;
+                let initialTime: Date | undefined = undefined;
 
-            lastFocusedChannelRef.current = currentChannel;
-            lastInitKey.current = initKey;
-
-            try {
-                // 🚀 SMART LOADING: Don't show full-screen spinner if just adding channels on the same day
-                const isMajorChange = !focusChangedOnly || isFirstRun;
-                if (isMajorChange && isMounted.current) {
-                    setIsLoading(true);
-                }
-
-                isStartingRef.current = true;
-                // 🚀 KEY FIX: Always use the ref (never the stale closure) so session refresh doesn't confuse init
-                let loginHandle = userIdRef.current;
-
-                let devices = allDevices;
-                if (!devices || devices.length === 0) {
-                    devices = await deviceStorage.getDevices();
-                    if (isMounted.current) setAllDevices(devices);
-                }
-
-                let target = devices.find(d => 
-                    String(d.id) === String(deviceId) || 
-                    (d.deviceId && String(d.deviceId) === String(deviceId)) ||
-                    (d.sn && String(d.sn) === String(deviceId))
-                );
-
-                // Fallback: If deviceId is a sub-channel
-                if (!target && String(deviceId).includes('_ch')) {
-                    const parentId = String(deviceId).split('_ch')[0];
-                    target = devices.find(d => 
-                        String(d.id) === parentId ||
-                        (d.deviceId && String(d.deviceId) === parentId) ||
-                        (d.sn && String(d.sn) === parentId)
-                    );
-                }
-
-                if (!target) {
-                    if (requestId === currentRequestIdRef.current) {
-                        isStartingRef.current = false;
-                    }
-                    return;
-                }
-
-                setSelectedDevice(target);
-
-                // Check if device changed to reset grid, or if a new initial channel ID is requested
-                const isNewDevice = lastDeviceIdRef.current !== String(deviceId);
-                const isNewInitialChannel = initialChannelId !== undefined && String(initialChannelId) !== String(lastInitialChannelIdRef.current);
-                lastDeviceIdRef.current = String(deviceId);
-                lastInitialChannelIdRef.current = initialChannelId !== undefined ? Number(initialChannelId) : undefined;
-
-                let channelsToPlay: number[] = [];
-
-                if (isNewDevice || isNewInitialChannel) {
-                    // --- GRID INIT Logic (Always start with 1x1 for playback to save resources) ---
-                    let newGrid: GridType = '1x1';
-                    let newVisibleChannels: number[] = [];
-
-                    if (initialChannelId !== undefined) {
-                        newVisibleChannels = [Number(initialChannelId)];
-                        channelsToPlay = [Number(initialChannelId)];
-                    } else {
-                        newVisibleChannels = [0];
-                        channelsToPlay = [0];
-                    }
-
-                    // NEW: Populate channel names from device storage
-                    const cNames: { [key: number]: string } = {};
-                    if (target.channels && Array.isArray(target.channels)) {
-                        target.channels.forEach(ch => {
-                            cNames[ch.id] = ch.name || `CH ${ch.id + 1}`;
-                        });
-                    }
-
-                    visibleChannelsRef.current = newVisibleChannels;
-                    if (isMounted.current) {
-                        setGridType(newGrid);
-                        setVisibleChannels(newVisibleChannels);
-                        setChannelNames(cNames);
-                        if (initialChannelId !== undefined) setCurrentChannel(Number(initialChannelId));
-                        setIsLoading(true);
-                    }
-                } else {
-                    // StartTime Changed? (Notification Click on SAME device)
-                    if (initialChannelId !== undefined && startTime && String(startTime) !== String(lastStartTimeRef.current)) {
-                        const targetCh = Number(initialChannelId);
-                        console.log(`[Playback] Notification Switch to Ch ${targetCh}`);
-                        channelsToPlay = [targetCh];
-                        visibleChannelsRef.current = channelsToPlay;
-                        if (isMounted.current) {
-                            setGridType('1x1');
-                            setVisibleChannels(channelsToPlay);
-                            setCurrentChannel(targetCh);
-                        }
-                    } else {
-                        // Keep current view state — play ALL visible channels in the current grid
-                        const latestVisible = visibleChannelsRef.current;
-                        channelsToPlay = latestVisible.length > 0
-                            ? latestVisible
-                            : [currentChannel !== undefined ? currentChannel : 0];
+                const rawTime = routeParams.startTime || routeParams.eventTime;
+                if (rawTime) {
+                    const n = Number(rawTime);
+                    const d = !isNaN(n) ? new Date(n) : new Date(rawTime);
+                    if (!isNaN(d.getTime())) {
+                        initialTime = d;
+                        initialDate = startOfLocalDay(d);
                     }
                 }
 
-                // Update tracker
-                lastStartTimeRef.current = startTime;
+                if (!active) return;
 
-                // STEP 1: Login (if needed)
-                if (!loginHandle) {
-                    loginHandle = await deviceSessionManager.ensureSession(String(target.id));
-                    if (loginHandle === undefined || loginHandle < 0) {
-                        throw new Error("Login failed: Invalid UserID from DeviceSessionManager");
-                    }
-                    if (isMounted.current) setUserIdWithRef(loginHandle);
-                }
+                setCurrentChannel(targetChannel);
+                setVisibleChannels([targetChannel]);
+                visibleChannelsRef.current = [targetChannel];
 
-                if (requestId !== currentRequestIdRef.current) return;
+                await loadAndPlayPlayback(initialDate, targetChannel, initialTime);
+            };
 
-                const isNotificationMode = !!eventTime;
+            initialisePlayback();
 
-                let isMatchingDay = false;
-                let finalPlaybackTime = formatTime(currentDate);
-                if (isNotificationMode && parsedStartTime) {
-                    finalPlaybackTime = formatTime(parsedStartTime);
-                    if (Math.abs(parsedStartTime.getTime() - currentDate.getTime()) > 1000) {
-                        skipNextInitRef.current = true;
-                        if (isMounted.current) {
-                            setCurrentDate(parsedStartTime);
-                            setTempTime(parsedStartTime);
-                        }
-                    }
-                } else {
-                    isMatchingDay = !!(parsedStartTime && isSameDay(parsedStartTime, currentDate) && !skipNextSnapRef.current);
-                    if (isMatchingDay) {
-                        const alarmDate = new Date(parsedStartTime);
-                        alarmDate.setSeconds(alarmDate.getSeconds() - 2);
-                        if (Math.abs(alarmDate.getTime() - currentDate.getTime()) > 1000) {
-                            skipNextInitRef.current = true;
-                            if (isMounted.current) {
-                                setCurrentDate(alarmDate);
-                                setTempTime(alarmDate);
-                            }
-                        }
-                        finalPlaybackTime = formatTime(alarmDate);
-                    }
-                }
-
-                // Helper to start playback handles
-                const startVideoStreams = async (startTimeStr: string) => {
-                    // Force cleanup only for handles NOT in the new list
-                    const playSet = new Set(channelsToPlay);
-                    const currentHandles = Object.entries(playbackHandlesRef.current);
-
-                    const cleanupPromises = currentHandles.map(async ([chKey, hObj]) => {
-                        const ch = Number(chKey);
-                        if (!playSet.has(ch) && hObj?.handle) {
-                            console.log(`[Playback] Cleanup: Stopping stale CH ${ch}`);
-                            await NvrSdk.stopPlayback(hObj.handle).catch(() => { });
-                            delete playbackHandlesRef.current[ch];
-                            if (isMounted.current) {
-                                setPlaybackHandles(prev => {
-                                    const next = { ...prev };
-                                    delete next[ch];
-                                    return next;
-                                });
-                            }
-                        }
-                    });
-
-                    await Promise.all(cleanupPromises);
-
-                    const tDate = new Date(startTimeStr.includes(' ') ? startTimeStr.replace(' ', 'T') : startTimeStr);
-                    const endDate = new Date(tDate);
-                    // Optimized: Use 30-minute window for faster initial load
-                    endDate.setHours(23, 59, 59, 999);
-                    const windowEndStr = formatTime(endDate);
-
-                    console.log(`[Playback] init -> Starting ${channelsToPlay.length} streams at ${startTimeStr}`);
-
-                    const batchSize = 8; // Maximize parallel execution (was 2)
-                    const NEXT_BATCH_DELAY = 100; // Minimal inter-batch wait (was 300)
-
-                    for (let i = 0; i < channelsToPlay.length; i += batchSize) {
-                        const batch = channelsToPlay.slice(i, i + batchSize);
-                        console.log(`[Playback] init -> Starting batch ${Math.floor(i / batchSize) + 1}: CH ${batch.join(', ')}`);
-
-                        await Promise.all(batch.map(async (ch, index) => {
-                            // Short staggered delay to space out socket allocations slightly
-                            await new Promise<void>(resolve => setTimeout(resolve, index * 40));
-                            try {
-                                const oldH = playbackHandlesRef.current[ch];
-                                const streamType = 0; // Force Main Stream (0) since NVRs only support main-stream playback
-
-                                // 🚀 DIFFERENTIAL START: If already playing the EXACT same request, skip.
-                                // But we must NOT skip if the time (finalPlaybackTime) has changed.
-                                const lastPlayedTime = lastPlayedTimeRef.current[ch];
-                                if (!isNotificationMode && focusChangedOnly && oldH && oldH.handle && oldH.status === 'OK' && (oldH as any).streamType === streamType && lastPlayedTime === finalPlaybackTime) {
-                                    console.log(`[Playback] init -> Ch ${ch} already playing correct stream at ${finalPlaybackTime}, skipping.`);
-                                    return;
-                                }
-
-                                lastPlayedTimeRef.current[ch] = finalPlaybackTime;
-
-                                if (oldH && oldH.handle) {
-                                    await NvrSdk.stopPlayback(oldH.handle).catch(() => { });
-                                }
-
-                                const res: any = await NvrSdk.startPlayback(loginHandle, ch, startTimeStr, windowEndStr, streamType);
-                                const handle = typeof res === 'object' ? res.handle : res;
-                                const workedCh = typeof res === 'object' ? res.realChannel : ch;
-                                const isValid = handle && String(handle) !== '0' && String(handle) !== '-1' && String(handle) !== 'null' && String(handle) !== 'undefined';
-
-                                console.log(`[AI-PUSH] SDK PlayBackByTime result: ${handle} (Channel: ${ch}, Stream: ${streamType})`);
-
-                                if (isValid) {
-                                    const entry = { handle, realChannel: workedCh, status: 'OK', streamType };
-                                    playbackHandlesRef.current[ch] = entry as any;
-
-                                    const state = getChannelPlaybackState(ch);
-                                    state.isPlaying = true;
-                                    state.speed = 1;
-                                    state.direction = 'forward';
-                                    channelTimesRef.current[ch] = new Date(currentDate);
-
-                                    if (isMounted.current) setPlaybackHandles(prev => ({ ...prev, [ch]: entry }));
-                                } else {
-                                    const entry = { handle: null, realChannel: ch, status: 'NO_DATA', streamType };
-                                    playbackHandlesRef.current[ch] = entry as any;
-
-                                    const state = getChannelPlaybackState(ch);
-                                    state.isPlaying = false;
-
-                                    if (isMounted.current) setPlaybackHandles(prev => ({ ...prev, [ch]: entry }));
-                                }
-                            } catch (e: any) {
-                                console.log(`[AI-PUSH] SDK PlayBackByTime result: FAILED (Channel: ${ch}, Error: ${e})`);
-                                const entry = { handle: null, realChannel: ch, status: 'ERROR', streamType: (gridType === '1x1' ? 0 : 1) };
-                                playbackHandlesRef.current[ch] = entry as any;
-
-                                const state = getChannelPlaybackState(ch);
-                                state.isPlaying = false;
-
-                                if (isMounted.current) setPlaybackHandles(prev => ({ ...prev, [ch]: entry }));
-                            }
-                        }));
-                        // Actually wait between batches to prevent SDK/Bridge flooding
-                        if (i + batchSize < channelsToPlay.length) {
-                            await new Promise<void>(r => setTimeout(() => r(), NEXT_BATCH_DELAY));
-                        }
-                    }
-                    if (isMounted.current) {
-                        channelsToPlay.forEach(ch => {
-                            const state = getChannelPlaybackState(ch);
-                            state.isPlaying = true;
-                            state.speed = 1;
-                            state.direction = 'forward';
-                            channelTimesRef.current[ch] = new Date(currentDate);
-                        });
-                        setIsPlaying(true);
-
-                        // 🚀 Sync Audio after init (if forward)
-                        if (audioChannel !== null && playbackDirection === 'forward') {
-                            const h = playbackHandlesRef.current[audioChannel];
-                            if (h && h.handle) {
-                                NvrSdk.playbackControl(h.handle, NvrSdk.PLAYBACK_CMD.STARTAUDIO).catch(() => { });
-                            }
-                        }
-                    }
-                };
-
-                // 🚀 OPTIMIZED: Search recordings FIRST, then start video streams ONCE at the correct time.
-                // This prevents the flickering double-start race condition.
-                const startOfDay = new Date(currentDate);
-                startOfDay.setHours(0, 0, 0, 0);
-                const endOfDay = new Date(currentDate);
-                endOfDay.setHours(23, 59, 59, 999);
-
-                let recordingsResponse = null;
-                if (!focusChangedOnly || !lastInitKey.current) {
-                    try {
-                        const filterKey = `playback_filter_${deviceId}_${currentChannel}`;
-                        const stored = await AsyncStorage.getItem(filterKey);
-                        let activeUiTypes = selectedRecordingTypes;
-                        if (stored) {
-                            try {
-                                const userTypes = JSON.parse(stored);
-                                if (Array.isArray(userTypes)) {
-                                    const uiTypes = userTypes.map(t => USER_TO_UI_MAP[t]).filter(Boolean);
-                                    if (uiTypes.length > 0) {
-                                        activeUiTypes = uiTypes;
-                                        if (isMounted.current) {
-                                            setSelectedRecordingTypes(uiTypes);
-                                        }
-                                    }
-                                }
-                            } catch (e) {
-                                console.error("[Playback] Failed to parse saved filters in init:", e);
-                            }
-                        }
-                        const sdkIntTypes = activeUiTypes.map(t => RECORD_TYPE_MAP[UI_TO_USER_MAP[t]]).filter(v => v !== undefined);
-
-                        if (isNotificationMode) {
-                            // Under notification mode, query with ALL recording types to guarantee matching schedule/motion/AI footage
-                            const notificationRecordTypes = [0, 1, 2, 3, 4, 5, 6, 7, 9, 10];
-                            console.log(`[Playback] Notification Search: CH ${currentChannel} from ${formatTime(new Date(Number(startTime)))} to ${formatTime(new Date(Number(endTime)))}`);
-                            recordingsResponse = await NvrSdk.searchRecordings(
-                                loginHandle,
-                                currentChannel,
-                                formatTime(new Date(Number(startTime))),
-                                formatTime(new Date(Number(endTime))),
-                                notificationRecordTypes
-                            );
-                        } else {
-                            console.log(`[Playback] Search: CH ${currentChannel} from ${formatTime(startOfDay)} to ${formatTime(endOfDay)} with types:`, sdkIntTypes);
-                            recordingsResponse = await NvrSdk.searchRecordings(loginHandle, currentChannel, formatTime(startOfDay), formatTime(endOfDay), sdkIntTypes);
-                        }
-
-                        // 🚀 NEW: Check all channels for "available" status for the side panel grid
-                        // We do this in the background to avoid blocking the main stream start
-                        if (!isNotificationMode) {
-                            (async () => {
-                                const available: number[] = [];
-                                const totalChannels = deviceChannelCount;
-
-                                // Check in chunks of 4 to avoid overwhelming the NVR
-                                for (let i = 0; i < totalChannels; i += 8) {
-                                    const chunk = Array.from({ length: Math.min(8, totalChannels - i) }, (_, index) => i + index);
-                                    await Promise.all(chunk.map(async (ch) => {
-                                        try {
-                                            const res = await NvrSdk.searchRecordings(loginHandle, ch, formatTime(startOfDay), formatTime(endOfDay));
-                                            if (res && res.length > 0) {
-                                                available.push(ch);
-                                            }
-                                        } catch (e) { }
-                                    }));
-                                }
-                                if (isMounted.current) {
-                                    setRecordedChannels(available.sort((a, b) => a - b));
-                                }
-                            })();
-                        }
-
-                    } catch (e) {
-                        console.error("Recording search failed", e);
-                        recordingsResponse = [];
-                    }
-                }
-
-                if (requestId !== currentRequestIdRef.current) return;
-
-                if (recordingsResponse !== null) {
-                    const segments = Array.isArray(recordingsResponse) ? recordingsResponse : (recordingsResponse && (recordingsResponse as any).fileList) ? (recordingsResponse as any).fileList : [];
-
-                    if (isNotificationMode) {
-                        if (segments.length === 0) {
-                            console.log(`[Playback] Notification search empty. Falling back to entire day search for clock drift.`);
-                            try {
-                                const notificationRecordTypes = [0, 1, 2, 3, 4, 5, 6, 7, 9, 10];
-                                const fallbackRecs = await NvrSdk.searchRecordings(
-                                    loginHandle,
-                                    currentChannel,
-                                    formatTime(startOfDay),
-                                    formatTime(endOfDay),
-                                    notificationRecordTypes
-                                );
-                                const fallbackSegments = Array.isArray(fallbackRecs) ? fallbackRecs : (fallbackRecs?.fileList || []);
-                                if (fallbackSegments.length > 0) {
-                                    segments.push(...fallbackSegments);
-                                }
-                            } catch (fallbackErr) {
-                                console.error("[Playback] Fallback entire day search failed:", fallbackErr);
-                            }
-                        }
-
-                        if (segments.length === 0) {
-                            Alert.alert("No Recording", "No recording found for this event time");
-                            if (isMounted.current) {
-                                setIsLoading(false);
-                                setIsPlaying(false);
-                                setRecordingFiles([]);
-                                setSearchPerformed(true);
-                            }
-                            isStartingRef.current = false;
-                            return;
-                        }
-                        if (isMounted.current) {
-                            setRecordingFiles(segments);
-                            setSearchPerformed(true);
-                        }
-
-                        // Snap start time to closest segment if needed
-                        const targetMs = parsedStartTime ? parsedStartTime.getTime() : currentDate.getTime();
-                        const inSegment = segments.find((f: any) => {
-                            const st = new Date(f.start.includes(' ') ? f.start.replace(' ', 'T') : f.start).getTime();
-                            const et = new Date(f.end.includes(' ') ? f.end.replace(' ', 'T') : f.end).getTime();
-                            return st <= targetMs && et >= targetMs;
-                        });
-
-                        if (!inSegment) {
-                            const sorted = [...segments].sort((a: any, b: any) => {
-                                const stA = new Date(a.start.includes(' ') ? a.start.replace(' ', 'T') : a.start).getTime();
-                                const stB = new Date(b.start.includes(' ') ? b.start.replace(' ', 'T') : b.start).getTime();
-                                return Math.abs(stA - targetMs) - Math.abs(stB - targetMs);
-                            });
-                            const closest = sorted[0];
-                            console.log(`[Playback] No recording at event start time. Snapping to: ${closest.start}`);
-                            finalPlaybackTime = closest.start;
-                            const snapDate = new Date(finalPlaybackTime.includes(' ') ? finalPlaybackTime.replace(' ', 'T') : finalPlaybackTime);
-                            skipNextInitRef.current = true;
-                            if (isMounted.current) {
-                                setCurrentDate(snapDate);
-                                setTempTime(snapDate);
-                            }
-                        }
-
-                        // Background search the entire day to populate the timeline beautifully using active filters
-                        const activeFilterKey = `playback_filter_${deviceId}_${currentChannel}`;
-                        AsyncStorage.getItem(activeFilterKey).then(storedFilters => {
-                            let activeUiTypes = selectedRecordingTypes;
-                            if (storedFilters) {
-                                try {
-                                    const userTypes = JSON.parse(storedFilters);
-                                    if (Array.isArray(userTypes)) {
-                                        const uiTypes = userTypes.map(t => USER_TO_UI_MAP[t]).filter(Boolean);
-                                        if (uiTypes.length > 0) activeUiTypes = uiTypes;
-                                    }
-                                } catch (e) { }
-                            }
-                            const sdkIntTypes = activeUiTypes.map(t => RECORD_TYPE_MAP[UI_TO_USER_MAP[t]]).filter(v => v !== undefined);
-                            return NvrSdk.searchRecordings(loginHandle, currentChannel, formatTime(startOfDay), formatTime(endOfDay), sdkIntTypes);
-                        }).then(allDayRecs => {
-                            if (isMounted.current) {
-                                const allSegments = Array.isArray(allDayRecs) ? allDayRecs : (allDayRecs?.fileList || []);
-                                setRecordingFiles(allSegments);
-                            }
-                        }).catch(err => console.log("[Playback] Background day-search failed:", err));
-                    } else {
-                        if (isMounted.current) {
-                            setRecordingFiles(segments);
-                            setSearchPerformed(true);
-                        }
-
-                        // Snap logic: If we have segments, but the starting time has no footage, jump to first recording
-                        const needsSnap = segments.length > 0 && !isMatchingDay && !skipNextSnapRef.current && !focusChangedOnly;
-                        if (needsSnap) {
-                            const targetMs = safeParseDate(finalPlaybackTime).getTime();
-                            const specific = segments.filter((s: any) => (safeParseDate(s.end).getTime() - safeParseDate(s.start).getTime()) < 23 * 3600 * 1000);
-                            const pool = specific.length > 0 ? specific : segments;
-                            const inSegment = pool.find((f: any) => targetMs >= safeParseDate(f.start).getTime() && targetMs <= safeParseDate(f.end).getTime());
-
-                            if (!inSegment) {
-                                const sortedPool = [...pool].sort((a: any, b: any) => safeParseDate(a.start).getTime() - safeParseDate(b.start).getTime());
-                                const closest = sortedPool[0];
-                                console.log(`[Playback] Snapping start time to earliest recording: ${closest.start}`);
-                                finalPlaybackTime = closest.start;
-                                const snapDate = safeParseDate(finalPlaybackTime);
-                                skipNextInitRef.current = true;
-                                if (isMounted.current) {
-                                    setCurrentDate(snapDate);
-                                    setTempTime(snapDate);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // NOW start the video streams exactly once
-                if (!isOnlyFocusChange) {
-                    await startVideoStreams(finalPlaybackTime);
-                } else {
-                    console.log(`[Playback] init -> Only focus changed within visible grid. Skipping stream restart.`);
-                    if (isMounted.current) {
-                        setIsPlaying(true);
-                    }
-                }
-
-            } catch (e) {
-                console.error("Init failed", e);
-            } finally {
-                if (requestId === currentRequestIdRef.current) {
-                    isStartingRef.current = false;
-                    if (isMounted.current) setIsLoading(false);
-                    skipNextSnapRef.current = false; // Reset
-                }
-            }
-        };
-
-        const interactionTask = InteractionManager.runAfterInteractions(() => {
-            if (deviceId && isMounted.current) init();
-        });
-
-        return () => {
-            isMounted.current = false;
-            interactionTask.cancel();
-            const uid = userIdRef.current;
-            if (uid !== null && uid >= 0) {
-                console.log('[Playback] Cleanup: Preserving userId for background service', uid);
-            }
-        };
-        // NOTE: visibleChannels intentionally NOT in deps — applyGridType handles its own stream startup.
-        // Including it would cause a redundant double-stream-start after every grid change.
-        // 🚀 KEY FIX: userId is intentionally NOT in deps — session refresh (setUserId) must never
-        // trigger a full re-init, which would restart the stream at today's date.
-        // userIdRef.current is always read fresh inside the effect.
-    }, [deviceId, currentDate.toDateString(), currentChannel, syncKey, manualJumpTrigger, quality, startTime, initialChannelId, eventTime, endTime]);
+            return () => {
+                active = false;
+                playbackRequestIdRef.current += 1;
+                console.log('[Playback] Page blurred - stopping old session');
+                stopAllPlayback();
+            };
+        }, [deviceId, route.params?.initialChannelId, route.params?.channelId, route.params?.startTime, route.params?.eventTime, loadAndPlayPlayback])
+    );
 
     /* Debug: Removed for production responsiveness
     useEffect(() => {
@@ -2326,16 +2122,29 @@ const Playback: React.FC = () => {
                 const fetchKey = `${selectedDevice?.id}-${currentChannel}-${year}-${month}`;
 
                 if (lastFetchedKey.current === fetchKey) return;
+                if (calendarFetchInProgress.has(fetchKey)) return; // Guard against duplicate fetches
+
+                // 🚀 CHECK CACHE FIRST — update UI instantly
+                const cached = recordingDaysCache.get(fetchKey);
+                if (cached !== undefined) {
+                    console.log(`[Playback] Calendar Cache HIT for ${fetchKey} (${cached.length} days).`);
+                    setRecordedDays(cached);
+                    lastFetchedKey.current = fetchKey;
+                    return;
+                }
+
+                calendarFetchInProgress.add(fetchKey);
 
                 try {
-                    // Fetch for current month
-                    const currentResult: number[] = await NvrSdk.queryRecordingDays(userId, currentChannel, year, month);
-
-                    // Fetch for previous month to cover boundary transitions in DateSelector
+                    // Fetch current month and previous month in parallel
                     const prevMonthDate = new Date(year, month - 2, 1);
                     const prevYear = prevMonthDate.getFullYear();
                     const prevMonth = prevMonthDate.getMonth() + 1;
-                    const prevResult: number[] = await NvrSdk.queryRecordingDays(userId, currentChannel, prevYear, prevMonth);
+
+                    const [currentResult, prevResult]: [number[], number[]] = await Promise.all([
+                        NvrSdk.queryRecordingDays(userId, currentChannel, year, month),
+                        NvrSdk.queryRecordingDays(userId, currentChannel, prevYear, prevMonth),
+                    ]);
 
                     const allIsoDates: string[] = [];
 
@@ -2351,10 +2160,14 @@ const Playback: React.FC = () => {
                         });
                     }
 
+                    // Store in cache
+                    recordingDaysCache.set(fetchKey, allIsoDates);
                     setRecordedDays(allIsoDates);
                     lastFetchedKey.current = fetchKey;
                 } catch (e) {
                     console.error("Days fetch failed", e);
+                } finally {
+                    calendarFetchInProgress.delete(fetchKey);
                 }
             };
             fetchRecordedDays();
@@ -2375,6 +2188,25 @@ const Playback: React.FC = () => {
 
         return () => subscription.remove();
     }, []);
+
+    // 📱 LANDSCAPE HARDWARE BACK BUTTON HANDLER
+    useEffect(() => {
+        const onBackPress = () => {
+            if (isFullscreen) {
+                console.log('[Playback] Hardware Back pressed in Landscape -> Exiting Landscape mode');
+                setIsFullscreen(false);
+                if (Platform.OS === 'android') {
+                    StatusBar.setHidden(false, 'slide');
+                }
+                NvrSdk.setOrientation(1); // Portrait
+                return true; // Intercept back press
+            }
+            return false;
+        };
+
+        const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+        return () => subscription.remove();
+    }, [isFullscreen]);
 
     useEffect(() => {
         if (!isUserScrolling && !isUserScrollingRef.current) {
@@ -2471,13 +2303,26 @@ const Playback: React.FC = () => {
                         deviceName={deviceName || 'Playback'}
                         onBack={() => navigation.goBack()}
                     />
+                    {connState === 'RECONNECTING' && (
+                        <View style={styles.connectionBannerWarning}>
+                            <ActivityIndicator size="small" color="#FFF" style={{ marginRight: 8 }} />
+                            <Text style={styles.connectionBannerText}>Network Changed • Reconnecting playback...</Text>
+                        </View>
+                    )}
+                    {connState === 'OFFLINE' && (
+                        <TouchableOpacity style={styles.connectionBannerError} onPress={() => connectionManager.manualRetry()}>
+                            <Icon name="wifi-off" size={16} color="#FFF" style={{ marginRight: 8 }} />
+                            <Text style={styles.connectionBannerText}>Network Offline • Tap to Retry</Text>
+                        </TouchableOpacity>
+                    )}
+
                     <DateSelector
-                        currentDate={currentDate}
+                        currentDate={selectedDate}
                         dateRange={dateRange}
-                        onSelectDate={handleDateSelect}
+                        onSelectDate={handleRecordedDatePress}
                         onOpenCalendar={() => setIsPreciseModalVisible(true)}
                         onRefresh={() => {
-                            handleDateSelect(currentDate);
+                            handleRecordedDatePress(selectedDateRef.current || selectedDate);
                         }}
                         formatShortTime={formatShortTime}
                         getRelativeDateLabel={getRelativeDateLabel}
@@ -2485,28 +2330,27 @@ const Playback: React.FC = () => {
                         theme={{ recordingYellow: THEME.recordingYellow }}
                     />
 
-                    {/* Calendar Modal */}
-                    <CalendarModal
-                        visible={isCalendarVisible}
-                        onClose={() => setIsCalendarVisible(false)}
-                        isFullscreen={isFullscreen}
-                        initialDate={currentDate}
-                        onSelectDate={async (date: Date) => {
-                            const finalDate = new Date(date);
-                            setIsCalendarVisible(false);
-
-                            // Use handleDateSelect for clean day-init
-                            await handleDateSelect(finalDate);
-                        }}
-                        recordedDays={recordedDays}
-                        onMonthChange={setCalendarMonth}
-                        theme={{
-                            primary: THEME.primary,
-                            recordingYellow: THEME.recordingYellow
-                        }}
-                    />
                 </>
             )}
+
+            {/* Calendar Modal - Rendered in both portrait and landscape */}
+            <CalendarModal
+                visible={isCalendarVisible}
+                onClose={() => setIsCalendarVisible(false)}
+                isFullscreen={isFullscreen}
+                initialDate={selectedDate}
+                onSelectDate={async (date: Date) => {
+                    const finalDate = new Date(date);
+                    setIsCalendarVisible(false);
+                    await handleRecordedDatePress(finalDate);
+                }}
+                recordedDays={recordedDays}
+                onMonthChange={setCalendarMonth}
+                theme={{
+                    primary: THEME.primary,
+                    recordingYellow: THEME.recordingYellow
+                }}
+            />
 
             {/* Video Player Grid - Hoisted for Persistent Mounting */}
             <View style={{ width: '100%', backgroundColor: '#000', position: 'relative' }}>
@@ -2547,6 +2391,16 @@ const Playback: React.FC = () => {
                     playbackSpeed={playbackSpeed}
                     isFullscreen={isFullscreen}
                 />
+
+                {/* No Recording State Overlay */}
+                {playbackStatus === 'no-recording' && (
+                    <View style={styles.noRecordingOverlay}>
+                        <Icon name="video-off-outline" size={44} color="#FEB442" />
+                        <Text style={styles.noRecordingText}>
+                            No recording available for this channel on the selected date.
+                        </Text>
+                    </View>
+                )}
 
                 {/* Visual Flash Overlay */}
                 {showVisualFlash && (
@@ -2619,11 +2473,24 @@ const Playback: React.FC = () => {
                         onRewind={handleRewind}
                         onGridPress={() => setIsGridModalVisible(true)}
                         onDevicePress={() => setIsDeviceModalVisible(true)}
+                        onFullscreenPress={() => {
+                            if (currentChannel !== undefined) {
+                                setVisibleChannels([currentChannel]);
+                                setGridType('1x1');
+                            }
+                            if (Platform.OS === 'android') {
+                                StatusBar.setHidden(true, 'slide');
+                            }
+                            setIsFullscreen(true);
+                            setShowFsControls(false);
+                            NvrSdk.setOrientation(0); // Landscape
+                        }}
                         gridType={gridType}
                     />
 
                     {/* Playback & Filter (and Channel Select) */}
                     <ChannelFilterSection
+                        channels={selectedDevice?.channels}
                         channelCount={deviceChannelCount}
                         currentChannel={currentChannel}
                         channelNames={channelNames}
@@ -2970,6 +2837,43 @@ const styles = StyleSheet.create({
         zIndex: 9999,
         pointerEvents: 'none',
     },
+    noRecordingOverlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: '#000000',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 24,
+        zIndex: 20,
+    },
+    noRecordingText: {
+        color: '#FFFFFF',
+        fontSize: 14,
+        fontWeight: '600',
+        textAlign: 'center',
+        marginTop: 12,
+    },
+    connectionBannerWarning: {
+        backgroundColor: '#D97706',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+    },
+    connectionBannerError: {
+        backgroundColor: '#DC2626',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+    },
+    connectionBannerText: {
+        color: '#FFFFFF',
+        fontSize: 12,
+        fontWeight: '600',
+    },
 });
+
 
 export default Playback;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
     View,
     StyleSheet,
@@ -21,6 +21,8 @@ interface DateSelectorProps {
     theme?: { recordingYellow: string };
 }
 
+const ITEM_WIDTH = 60; // 45 width + 15 marginRight
+
 const DateSelector: React.FC<DateSelectorProps> = ({
     currentDate,
     dateRange,
@@ -32,12 +34,27 @@ const DateSelector: React.FC<DateSelectorProps> = ({
     recordedDays = [],
     theme
 }) => {
+    const flatListRef = useRef<FlatList>(null);
+
+    // Auto-center selected date when selection or date range updates
+    useEffect(() => {
+        if (!dateRange || dateRange.length === 0) return;
+        const selectedIndex = dateRange.findIndex(d => isSameDay(d, currentDate));
+        if (selectedIndex >= 0 && flatListRef.current) {
+            flatListRef.current.scrollToIndex({
+                index: selectedIndex,
+                animated: true,
+                viewPosition: 0.5,
+            });
+        }
+    }, [currentDate.toDateString(), dateRange.length]);
+
     const renderDateItem = (date: Date) => {
         const isSelected = isSameDay(date, currentDate);
         const dayLabel = date.toLocaleDateString('en-US', { weekday: 'short' });
         const dayNum = date.getDate();
         
-        // Check if this date (as ISO string) exists in recordedDays
+        // Check if this date (as YYYY-MM-DD string) exists in recordedDays
         const isoStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
         const hasFootage = recordedDays.includes(isoStr);
 
@@ -83,12 +100,23 @@ const DateSelector: React.FC<DateSelectorProps> = ({
             </View>
 
             <FlatList
+                ref={flatListRef}
                 horizontal
                 data={dateRange}
                 renderItem={({ item }) => renderDateItem(item)}
-                keyExtractor={(_, idx) => idx.toString()}
+                keyExtractor={(item) => `${item.getFullYear()}-${item.getMonth() + 1}-${item.getDate()}`}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 16 }}
+                getItemLayout={(_, index) => ({
+                    length: ITEM_WIDTH,
+                    offset: ITEM_WIDTH * index,
+                    index,
+                })}
+                onScrollToIndexFailed={(info) => {
+                    setTimeout(() => {
+                        flatListRef.current?.scrollToIndex({ index: info.index, animated: true, viewPosition: 0.5 });
+                    }, 100);
+                }}
             />
         </View>
     );

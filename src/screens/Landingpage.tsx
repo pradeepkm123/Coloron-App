@@ -93,14 +93,7 @@ const LandingPage: React.FC = () => {
                 <Text style={styles.mainText}>Seamlessly & Intuitively</Text>
 
                 <View style={styles.buttonContainer}>
-                    {/* Sign in with Google */}
-                    <TouchableOpacity style={styles.googleButton} onPress={handleGoogleLogin}>
-                        <Image
-                            source={GoogleIcon}
-                            style={{ width: 20, height: 20, resizeMode: 'contain', marginRight: 10 }}
-                        />
-                        <Text style={styles.googleButtonText}>Sign in with Google</Text>
-                    </TouchableOpacity>
+
 
                     {/* Create an account */}
                     <TouchableOpacity

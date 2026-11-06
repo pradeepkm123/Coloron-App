@@ -33,7 +33,8 @@ const THEME = {
 const TCPIPConfig: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<TCPIPConfigRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
