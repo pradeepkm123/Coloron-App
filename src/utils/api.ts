@@ -4,24 +4,29 @@ import { API_URL as DEFAULT_BASE_URL, BACKEND_IP as DEFAULT_BACKEND_IP } from '.
 
 export let BASE_URL = DEFAULT_BASE_URL;
 
-// Helper to initialize BASE_URL from AsyncStorage
+// Helper to initialize BASE_URL
 export const initBaseUrl = async () => {
     try {
-        const savedIp = await AsyncStorage.getItem('@vms_backend_ip');
-        if (savedIp) {
-            BASE_URL = `http://${savedIp}:5000/api`;
+        const savedUrl = await AsyncStorage.getItem('@vms_backend_ip');
+        if (savedUrl) {
+            if (savedUrl.startsWith('http://') || savedUrl.startsWith('https://')) {
+                BASE_URL = savedUrl.endsWith('/api') ? savedUrl : `${savedUrl}/api`;
+            } else if (savedUrl.startsWith('192.168.') || savedUrl.startsWith('10.0.') || savedUrl.startsWith('127.0.')) {
+                // Clear obsolete LAN IP so mobile devices on 5G/LTE smoothly connect to cloud
+                console.log(`[API] Clearing legacy LAN IP (${savedUrl}) to ensure cloud backend works on 5G/LTE.`);
+                await AsyncStorage.removeItem('@vms_backend_ip');
+                BASE_URL = DEFAULT_BASE_URL;
+            } else {
+                BASE_URL = `http://${savedUrl}:5000/api`;
+            }
             console.log(`[API] Initialized BASE_URL to: ${BASE_URL}`);
         } else {
-            console.log('[API] No saved IP, starting auto-detection of backend server...');
-            const detectedIp = await api.detectBackendIp();
-            if (detectedIp) {
-                console.log(`[API] Auto-detected and configured backend at: http://${detectedIp}:5000/api`);
-            } else {
-                console.log('[API] Using default local backend:', BASE_URL);
-            }
+            BASE_URL = DEFAULT_BASE_URL;
+            console.log('[API] Using production Render cloud backend:', BASE_URL);
         }
     } catch (e) {
-        console.warn('Error loading saved backend IP:', e);
+        console.warn('Error loading saved backend URL:', e);
+        BASE_URL = DEFAULT_BASE_URL;
     }
 };
 
@@ -423,8 +428,24 @@ export const api = {
 
     // Detect backend IP and store it
     detectBackendIp: async (customIp?: string): Promise<string | null> => {
+        if (!customIp) {
+            try {
+                const controller = new AbortController();
+                const id = setTimeout(() => controller.abort(), 3000);
+                const cloudResp = await fetch('https://coloron-app.onrender.com/health', { signal: controller.signal });
+                clearTimeout(id);
+                if (cloudResp.ok) {
+                    console.log('[IP Detection] ✅ Render cloud backend is live and healthy.');
+                    BASE_URL = DEFAULT_BASE_URL;
+                    return 'coloron-app.onrender.com';
+                }
+            } catch (e) {
+                console.log('[IP Detection] Cloud health check timed out, checking local network fallbacks...');
+            }
+        }
+
         const ipsToTest = customIp ? [customIp] : [
-            DEFAULT_BACKEND_IP,  // 192.168.1.12 from config
+            DEFAULT_BACKEND_IP,  // from config
             '10.0.2.2',          // Android Emulator host loopback
             '127.0.0.1',         // Localhost loopback
             '192.168.1.12',      // Current local machine LAN IP
