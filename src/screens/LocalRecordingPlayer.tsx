@@ -27,7 +27,8 @@ const formatTime = (sec: number) => {
 export default function LocalRecordingPlayer() {
     const navigation = useNavigation();
     const route = useRoute<RouteProp<RootStackParamList, 'LocalRecordingPlayer'>>();
-    const { filePath, title } = route.params;
+    const { filePath, title } = route.params || {};
+
 
     const videoRef = useRef<any>(null);
     const [paused, setPaused] = useState(false);

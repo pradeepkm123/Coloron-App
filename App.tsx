@@ -3,7 +3,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StatusBar } from 'react-native';
+import { StatusBar, LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs(true);
 
 // Import Navigation Types
 import { RootStackParamList } from './src/types/navigation';
@@ -95,7 +97,7 @@ import { authStorage } from './src/utils/authStorage';
 import NvrSdk from './src/native/NvrSdk';
 import messaging from '@react-native-firebase/messaging';
 import notifee, { AuthorizationStatus, AndroidImportance } from '@notifee/react-native';
-
+import ErrorBoundary from './src/components/ErrorBoundary';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -165,139 +167,141 @@ function App() {
   }, []);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-      <StatusBar barStyle="light-content" backgroundColor="#992828" translucent={false} />
-      <NavigationContainer 
-        ref={navigationRef} 
-        onReady={() => {
-          setNavigationRef(navigationRef);
-          notificationService.setNavigationRef(navigationRef);
-          tvtAlarmNotificationService.setNavigationRef(navigationRef);
-          
-          import('@notifee/react-native').then(({ default: notifee }) => {
-            notifee.getInitialNotification().then(initial => {
-              if (initial) {
-                console.log('[App] App launched by notification (onReady):', initial.notification.data);
-                const channelId = initial.notification.android?.channelId;
-                if (channelId === 'vms_alarms') {
-                  tvtAlarmNotificationService.handleNotificationTap(initial.notification.data);
-                } else {
-                  notificationService.handleNotificationTap(initial.notification.data);
+    <ErrorBoundary>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider>
+        <StatusBar barStyle="light-content" backgroundColor="#992828" translucent={false} />
+        <NavigationContainer 
+          ref={navigationRef} 
+          onReady={() => {
+            setNavigationRef(navigationRef);
+            notificationService.setNavigationRef(navigationRef);
+            tvtAlarmNotificationService.setNavigationRef(navigationRef);
+            
+            import('@notifee/react-native').then(({ default: notifee }) => {
+              notifee.getInitialNotification().then(initial => {
+                if (initial) {
+                  console.log('[App] App launched by notification (onReady):', initial.notification.data);
+                  const channelId = initial.notification.android?.channelId;
+                  if (channelId === 'vms_alarms') {
+                    tvtAlarmNotificationService.handleNotificationTap(initial.notification.data);
+                  } else {
+                    notificationService.handleNotificationTap(initial.notification.data);
+                  }
                 }
-              }
+              });
             });
-          });
-        }}
-      >
-        <Stack.Navigator
-          initialRouteName="Flash"
-          screenOptions={{
-            headerShown: false,
-            animation: 'slide_from_right',
-            screenOrientation: 'portrait'
           }}
         >
-          {/* Main App Flow */}
-          <Stack.Screen name="Flash" component={Flash} />
-          <Stack.Screen name="LandingPage" component={LandingPage} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="LiveView" component={LiveView} />
-          <Stack.Screen name="Playback" component={Playback} />
-          <Stack.Screen name="DeviceList" component={DeviceList} />
-          <Stack.Screen name="Gallery" component={Gallery} />
-          <Stack.Screen name="LocalRecordingPlayer" component={LocalRecordingPlayer} />
-          <Stack.Screen name="LanSearch" component={LanSearch} />
-          <Stack.Screen name="Events" component={Events} />
-          <Stack.Screen name="Notifications" component={Notifications} />
-          <Stack.Screen name="QRScanner" component={QRScanner} />
-          <Stack.Screen name="TestNativeBridge" component={TestNativeBridge} />
-          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Navigator
+            initialRouteName="Flash"
+            screenOptions={{
+              headerShown: false,
+              animation: 'slide_from_right',
+              screenOrientation: 'portrait'
+            }}
+          >
+            {/* Main App Flow */}
+            <Stack.Screen name="Flash" component={Flash} />
+            <Stack.Screen name="LandingPage" component={LandingPage} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="LiveView" component={LiveView} />
+            <Stack.Screen name="Playback" component={Playback} />
+            <Stack.Screen name="DeviceList" component={DeviceList} />
+            <Stack.Screen name="Gallery" component={Gallery} />
+            <Stack.Screen name="LocalRecordingPlayer" component={LocalRecordingPlayer} />
+            <Stack.Screen name="LanSearch" component={LanSearch} />
+            <Stack.Screen name="Events" component={Events} />
+            <Stack.Screen name="Notifications" component={Notifications} />
+            <Stack.Screen name="QRScanner" component={QRScanner} />
+            <Stack.Screen name="TestNativeBridge" component={TestNativeBridge} />
+            <Stack.Screen name="Profile" component={Profile} />
 
-          {/* User & Settings */}
-          <Stack.Screen name="PushSettings" component={PushSettings} />
-          <Stack.Screen name="EventChannelSelection" component={EventChannelSelection} /> 
-          <Stack.Screen name="PushConfig" component={PushConfig} />
-          <Stack.Screen name="Local" component={Local} />
-          <Stack.Screen name="About" component={About} />
-          <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-          <Stack.Screen name="HelpViewer" component={HelpViewer} />
+            {/* User & Settings */}
+            <Stack.Screen name="PushSettings" component={PushSettings} />
+            <Stack.Screen name="EventChannelSelection" component={EventChannelSelection} /> 
+            <Stack.Screen name="PushConfig" component={PushConfig} />
+            <Stack.Screen name="Local" component={Local} />
+            <Stack.Screen name="About" component={About} />
+            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+            <Stack.Screen name="HelpViewer" component={HelpViewer} />
 
-          {/* Intelligent Features */}
-          <Stack.Screen name="AddLicensePlate" component={AddLicensePlate} />
-          <Stack.Screen name="AddPerson" component={AddPerson} />
-          <Stack.Screen name="DatabaseList" component={DatabaseList} />
+            {/* Intelligent Features */}
+            <Stack.Screen name="AddLicensePlate" component={AddLicensePlate} />
+            <Stack.Screen name="AddPerson" component={AddPerson} />
+            <Stack.Screen name="DatabaseList" component={DatabaseList} />
 
-          {/* Remote Settings Hierarchy */}
-          <Stack.Screen name="RemoteDeviceList" component={RemoteDeviceList} />
-          <Stack.Screen name="RemoteFunctionPanel" component={RemoteFunctionPanel} />
+            {/* Remote Settings Hierarchy */}
+            <Stack.Screen name="RemoteDeviceList" component={RemoteDeviceList} />
+            <Stack.Screen name="RemoteFunctionPanel" component={RemoteFunctionPanel} />
 
-          {/* Camera Management */}
-          <Stack.Screen name="CameraManagement" component={CameraManagement} />
-          <Stack.Screen name="AddCameraOptions" component={AddCameraOptions} />
-          <Stack.Screen name="QuicklyAddCamera" component={QuicklyAddCamera} />
-          <Stack.Screen name="AddCameraManually" component={AddCameraManually} />
-          <Stack.Screen name="EditCamera" component={EditCamera} />
+            {/* Camera Management */}
+            <Stack.Screen name="CameraManagement" component={CameraManagement} />
+            <Stack.Screen name="AddCameraOptions" component={AddCameraOptions} />
+            <Stack.Screen name="QuicklyAddCamera" component={QuicklyAddCamera} />
+            <Stack.Screen name="AddCameraManually" component={AddCameraManually} />
+            <Stack.Screen name="EditCamera" component={EditCamera} />
 
-          {/* Record Settings */}
-          <Stack.Screen name="RecordMain" component={RecordMain} />
-          <Stack.Screen name="ModeSettings" component={ModeSettings} />
-          <Stack.Screen name="AdvancedRecordSettings" component={AdvancedRecordSettings} />
-          <Stack.Screen name="EventRecordingSettings" component={EventRecordingSettings} />
-          <Stack.Screen name="ScheduleRecordingSettings" component={ScheduleRecordingSettings} />
-          <Stack.Screen name="ViewRecordStatus" component={ViewRecordStatus} />
+            {/* Record Settings */}
+            <Stack.Screen name="RecordMain" component={RecordMain} />
+            <Stack.Screen name="ModeSettings" component={ModeSettings} />
+            <Stack.Screen name="AdvancedRecordSettings" component={AdvancedRecordSettings} />
+            <Stack.Screen name="EventRecordingSettings" component={EventRecordingSettings} />
+            <Stack.Screen name="ScheduleRecordingSettings" component={ScheduleRecordingSettings} />
+            <Stack.Screen name="ViewRecordStatus" component={ViewRecordStatus} />
 
-          {/* System Settings */}
-          <Stack.Screen name="SystemMain" component={SystemMain} />
-          <Stack.Screen name="GeneralSettings" component={GeneralSettings} />
-          <Stack.Screen name="DateTimeSettings" component={DateTimeSettings} />
-          <Stack.Screen name="ViewLog" component={ViewLog} />
-          <Stack.Screen name="Reboot" component={Reboot} />
+            {/* System Settings */}
+            <Stack.Screen name="SystemMain" component={SystemMain} />
+            <Stack.Screen name="GeneralSettings" component={GeneralSettings} />
+            <Stack.Screen name="DateTimeSettings" component={DateTimeSettings} />
+            <Stack.Screen name="ViewLog" component={ViewLog} />
+            <Stack.Screen name="Reboot" component={Reboot} />
 
-          {/* Alarm Configuration */}
-          <Stack.Screen name="AlarmMain" component={AlarmMain} />
-          <Stack.Screen name="AlarmOutList" component={AlarmOutList} />
-          <Stack.Screen name="AlarmOutConfig" component={AlarmOutConfig} />
-          <Stack.Screen name="AlarmDisplayConfig" component={AlarmDisplayConfig} />
-          <Stack.Screen name="AlarmBuzzerConfig" component={AlarmBuzzerConfig} />
-          <Stack.Screen name="AlarmPushConfig" component={AlarmPushConfig} />
-          <Stack.Screen name="MotionAlarmList" component={MotionAlarmList} />
-          <Stack.Screen name="MotionAlarmConfig" component={MotionAlarmConfig} />
-          <Stack.Screen name="SensorAlarmList" component={SensorAlarmList} />
-          <Stack.Screen name="SensorAlarmConfig" component={SensorAlarmConfig} />
-          <Stack.Screen name="IPCOfflineList" component={IPCOfflineList} />
-          <Stack.Screen name="IPCOfflineConfig" component={IPCOfflineConfig} />
-          <Stack.Screen name="ExceptionAlarmList" component={ExceptionAlarmList} />
-          <Stack.Screen name="ExceptionAlarmConfig" component={ExceptionAlarmConfig} />
+            {/* Alarm Configuration */}
+            <Stack.Screen name="AlarmMain" component={AlarmMain} />
+            <Stack.Screen name="AlarmOutList" component={AlarmOutList} />
+            <Stack.Screen name="AlarmOutConfig" component={AlarmOutConfig} />
+            <Stack.Screen name="AlarmDisplayConfig" component={AlarmDisplayConfig} />
+            <Stack.Screen name="AlarmBuzzerConfig" component={AlarmBuzzerConfig} />
+            <Stack.Screen name="AlarmPushConfig" component={AlarmPushConfig} />
+            <Stack.Screen name="MotionAlarmList" component={MotionAlarmList} />
+            <Stack.Screen name="MotionAlarmConfig" component={MotionAlarmConfig} />
+            <Stack.Screen name="SensorAlarmList" component={SensorAlarmList} />
+            <Stack.Screen name="SensorAlarmConfig" component={SensorAlarmConfig} />
+            <Stack.Screen name="IPCOfflineList" component={IPCOfflineList} />
+            <Stack.Screen name="IPCOfflineConfig" component={IPCOfflineConfig} />
+            <Stack.Screen name="ExceptionAlarmList" component={ExceptionAlarmList} />
+            <Stack.Screen name="ExceptionAlarmConfig" component={ExceptionAlarmConfig} />
 
-          {/* Disk & Storage */}
-          <Stack.Screen name="DiskMain" component={DiskMain} />
-          <Stack.Screen name="DiskManagement" component={DiskManagement} />
-          <Stack.Screen name="StorageModeSettings" component={StorageModeSettings} />
-          <Stack.Screen name="StorageGroupConfig" component={StorageGroupConfig} />
-          <Stack.Screen name="ViewDiskInfo" component={ViewDiskInfo} />
-          <Stack.Screen name="SMARTInfo" component={SMARTInfo} />
-          <Stack.Screen name="SMARTDetail" component={SMARTDetail} />
+            {/* Disk & Storage */}
+            <Stack.Screen name="DiskMain" component={DiskMain} />
+            <Stack.Screen name="DiskManagement" component={DiskManagement} />
+            <Stack.Screen name="StorageModeSettings" component={StorageModeSettings} />
+            <Stack.Screen name="StorageGroupConfig" component={StorageGroupConfig} />
+            <Stack.Screen name="ViewDiskInfo" component={ViewDiskInfo} />
+            <Stack.Screen name="SMARTInfo" component={SMARTInfo} />
+            <Stack.Screen name="SMARTDetail" component={SMARTDetail} />
 
-          {/* Network Configuration */}
-          <Stack.Screen name="NetworkMain" component={NetworkMain} />
-          <Stack.Screen name="TCPIPConfig" component={TCPIPConfig} />
-          <Stack.Screen name="PPPoEConfig" component={PPPoEConfig} />
-          <Stack.Screen name="EmailConfig" component={EmailConfig} />
-          <Stack.Screen name="SNMPConfig" component={SNMPConfig} />
-          <Stack.Screen name="NATConfig" component={NATConfig} />
-          <Stack.Screen name="UPnPConfig" component={UPnPConfig} />
-          <Stack.Screen name="SubStreamSettings" component={SubStreamSettings} />
-          <Stack.Screen name="ViewNetworkStatus" component={ViewNetworkStatus} />
-          <Stack.Screen name="EthernetPortDetails" component={EthernetPortDetails} />
-          <Stack.Screen name="LandscapeLiveView" component={LandscapeLiveView} options={{ screenOrientation: 'landscape' }} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
-    </GestureHandlerRootView>
+            {/* Network Configuration */}
+            <Stack.Screen name="NetworkMain" component={NetworkMain} />
+            <Stack.Screen name="TCPIPConfig" component={TCPIPConfig} />
+            <Stack.Screen name="PPPoEConfig" component={PPPoEConfig} />
+            <Stack.Screen name="EmailConfig" component={EmailConfig} />
+            <Stack.Screen name="SNMPConfig" component={SNMPConfig} />
+            <Stack.Screen name="NATConfig" component={NATConfig} />
+            <Stack.Screen name="UPnPConfig" component={UPnPConfig} />
+            <Stack.Screen name="SubStreamSettings" component={SubStreamSettings} />
+            <Stack.Screen name="ViewNetworkStatus" component={ViewNetworkStatus} />
+            <Stack.Screen name="EthernetPortDetails" component={EthernetPortDetails} />
+            <Stack.Screen name="LandscapeLiveView" component={LandscapeLiveView} options={{ screenOrientation: 'landscape' }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }
 

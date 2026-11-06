@@ -75,6 +75,15 @@ const DeviceList: React.FC = () => {
                         DeviceStatusManager.startMonitoring(d, (id, status) => {
                             setDeviceStatuses(prev => ({ ...prev, [id]: status }));
                         });
+                        
+                        // Silent channel sync in the background for NVR/DVR devices
+                        if (d.isNVR || d.type === 'NVR' || d.type === 'DVR') {
+                            deviceSessionManager.syncDeviceChannels(String(d.id)).then((updated) => {
+                                if (updated) {
+                                    setDevices(prev => prev.map(dev => String(dev.id) === String(updated.id) ? updated : dev));
+                                }
+                            }).catch(() => {});
+                        }
                     });
 
                     // 3. Sync from Cloud
@@ -604,7 +613,7 @@ const DeviceList: React.FC = () => {
                             )}
                             <View style={styles.verticalDivider} />
                             <Text style={styles.infoLabel}>Proto:</Text>
-                            <Text style={styles.infoValue}>{device.protocol || 'TVT'}</Text>
+                            <Text style={styles.infoValue}>{device.protocol === 'TVT' ? 'Secura' : device.protocol || 'Secura'}</Text>
                         </View>
                         <View style={styles.infoRow}>
                             <Text style={styles.infoLabel}>Model:</Text>
@@ -633,10 +642,16 @@ const DeviceList: React.FC = () => {
                     {isMultiChannel && (
                         <TouchableOpacity
                             style={styles.actionButton}
-                            onPress={() => {
-                                setSelectedDeviceForCamList(device);
-                                setCamListVisible(true);
-                            }}
+                             onPress={() => {
+                                 setSelectedDeviceForCamList(device);
+                                 setCamListVisible(true);
+                                 deviceSessionManager.syncDeviceChannels(String(device.id)).then((updated) => {
+                                     if (updated) {
+                                         setSelectedDeviceForCamList(updated);
+                                         setDevices(prev => prev.map(d => String(d.id) === String(updated.id) ? updated : d));
+                                     }
+                                 }).catch(() => {});
+                             }}
                         >
                             <Icon name="video-outline" size={20} color="#A83232" />
                             <Text style={[styles.actionText, { color: '#A83232' }]}>Channels</Text>

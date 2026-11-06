@@ -25,7 +25,8 @@ interface GroupItem {
 const StorageModeSettings: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<StorageModeSettingsRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [storageMode, setStorageMode] = useState('Group');
 

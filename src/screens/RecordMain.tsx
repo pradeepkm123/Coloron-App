@@ -19,7 +19,8 @@ type RecordMainRouteProp = RouteProp<RootStackParamList, 'RecordMain'>;
 const RecordMain: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<RecordMainRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const renderSectionHeader = (title: string) => (
         <View style={styles.sectionHeader}>

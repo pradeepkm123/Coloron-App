@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Dimensions, Text, ActivityIndicator } from 'react-native';
 import Video from 'react-native-video';
+import { BASE_URL } from '../config/api';
 
 const { width } = Dimensions.get('window');
 
@@ -42,7 +43,7 @@ const MultiPlaybackGridHLS: React.FC<MultiPlaybackGridHLSProps> = ({
                 if (!data) continue;
 
                 try {
-                    const url = `http://localhost:5000/tvt-nvr/${data.deviceId}/recordings/playback-stream?channelId=${channelId}&startTime=${encodeURIComponent(data.startTime)}&endTime=${encodeURIComponent(data.endTime)}&host=${data.host}`;
+                    const url = `${BASE_URL}/tvt-nvr/${data.deviceId}/recordings/playback-stream?channelId=${channelId}&startTime=${encodeURIComponent(data.startTime)}&endTime=${encodeURIComponent(data.endTime)}&host=${data.host}`;
 
                     console.log(`🎬 Starting HLS conversion for Ch ${channelId}:`, url);
 
@@ -75,7 +76,7 @@ const MultiPlaybackGridHLS: React.FC<MultiPlaybackGridHLSProps> = ({
         // Cleanup: Stop HLS sessions on unmount
         return () => {
             Object.entries(hlsSessions).forEach(([channelId, session]) => {
-                fetch(`http://localhost:5000/tvt-nvr/any/recordings/playback-stream/${session.sessionId}`, {
+                fetch(`${BASE_URL}/tvt-nvr/any/recordings/playback-stream/${session.sessionId}`, {
                     method: 'DELETE'
                 }).catch(() => { });
             });

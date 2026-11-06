@@ -23,7 +23,8 @@ type UPnPConfigRouteProp = RouteProp<RootStackParamList, 'UPnPConfig'>;
 const UPnPConfig: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<UPnPConfigRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [enabled, setEnabled] = useState(true);
     const [mapType, setMapType] = useState('Auto');

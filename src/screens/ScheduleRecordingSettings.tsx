@@ -37,7 +37,8 @@ interface CameraEncodeParams {
 const ScheduleRecordingSettings: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<ScheduleRecordingSettingsRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [cameras, setCameras] = useState<CameraEncodeParams[]>([
         { id: '1', index: 1, name: 'DATA ENTRY', streamType: 'Main Stream', encode: 'H.265', resolution: '1920x1080', fps: '25', gop: '50', bitrateType: 'VBR', quality: 'Higher', maxBitrate: '2048Kbps', audio: 'ON' },

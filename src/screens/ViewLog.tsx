@@ -34,7 +34,8 @@ interface LogEntry {
 const ViewLog: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<ViewLogRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [isSearching, setIsSearching] = useState(false);
     const [mainType, setMainType] = useState('All');

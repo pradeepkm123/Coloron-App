@@ -415,6 +415,11 @@ const Home: React.FC = () => {
                                         value={searchQuery}
                                         onChangeText={setSearchQuery}
                                     />
+                                    {searchQuery.length > 0 && (
+                                        <TouchableOpacity onPress={() => setSearchQuery('')} style={{ padding: 4 }}>
+                                            <Icon name="close-circle" size={18} color="#A0A0A0" />
+                                        </TouchableOpacity>
+                                    )}
                                 </View>
 
                                 <Text style={styles.sectionTitle}>Status Overview</Text>
@@ -485,88 +490,130 @@ const Home: React.FC = () => {
                                     </View>
                                 </View>
 
-                                {devices
-                                    .filter(device => {
-                                        const matchesSearch = device.name.toLowerCase().includes(searchQuery.toLowerCase()) || device.ip.includes(searchQuery);
+                                {(() => {
+                                    const q = searchQuery.trim().toLowerCase();
+                                    const filteredDevices = devices.filter(device => {
+                                        const matchesSearch = !q ||
+                                            (device.name && device.name.toLowerCase().includes(q)) ||
+                                            (device.ip && device.ip.toLowerCase().includes(q)) ||
+                                            (device.serial && device.serial.toLowerCase().includes(q)) ||
+                                            ((device as any).sn && (device as any).sn.toLowerCase().includes(q)) ||
+                                            (device.type && device.type.toLowerCase().includes(q));
                                         const matchesTab = activeTab === 'all' || (activeTab === 'favorites' && device.favorite);
                                         return matchesSearch && matchesTab;
-                                    })
-                                    .map((device, idx) => (
-                                        <View key={device.id} style={{ marginBottom: 16 }}>
-                                            {/* Parent Device Card */}
-                                            <View style={styles.premiumDeviceCard}>
-                                                <TouchableOpacity
-                                                    style={styles.thumbnailContainer}
-                                                    onPress={() => navigation.navigate('LiveView', {
-                                                        deviceId: device.id,
-                                                        deviceName: device.name,
-                                                        autoPlay: true
-                                                    })}
-                                                >
-                                                    <View style={styles.thumbnailBackground}>
-                                                        {device.thumbnail ? (
-                                                            <Image
-                                                                source={{ uri: device.thumbnail }}
-                                                                style={StyleSheet.absoluteFill}
-                                                                resizeMode="cover"
-                                                            />
-                                                        ) : (
-                                                            <Icon
-                                                                name={device.isNVR || device.type === 'NVR' ? "server-network" : "cctv"}
-                                                                size={40}
-                                                                color="#A83232"
-                                                            />
-                                                        )}
-                                                    </View>
-                                                </TouchableOpacity>
+                                    });
+
+                                    if (filteredDevices.length > 0) {
+                                        return filteredDevices.map((device) => (
+                                            <View key={device.id} style={{ marginBottom: 16 }}>
+                                                {/* Parent Device Card */}
+                                                <View style={styles.premiumDeviceCard}>
+                                                    <TouchableOpacity
+                                                        style={styles.thumbnailContainer}
+                                                        onPress={() => navigation.navigate('LiveView', {
+                                                            deviceId: device.id,
+                                                            deviceName: device.name,
+                                                            autoPlay: true
+                                                        })}
+                                                    >
+                                                        <View style={styles.thumbnailBackground}>
+                                                            {device.thumbnail ? (
+                                                                <Image
+                                                                    source={{ uri: device.thumbnail }}
+                                                                    style={StyleSheet.absoluteFill}
+                                                                    resizeMode="cover"
+                                                                />
+                                                            ) : (
+                                                                <Icon
+                                                                    name={device.isNVR || device.type === 'NVR' ? "server-network" : "cctv"}
+                                                                    size={40}
+                                                                    color="#A83232"
+                                                                />
+                                                            )}
+                                                        </View>
+                                                    </TouchableOpacity>
 
 
-                                                <View style={styles.deviceInfoContainer}>
-                                                    <View style={styles.deviceTitleRow}>
-                                                        <Text style={styles.premiumDeviceName} numberOfLines={1}>{device.name}</Text>
-                                                        <View style={[styles.statusIndicator, { backgroundColor: device.status === 'Online' ? '#1DB954' : '#FF5252' }]} />
-                                                        {device.status === 'Online' && (
-                                                            <View style={styles.miniLiveBadge}>
-                                                                <Text style={styles.liveBadgeText}>LIVE</Text>
-                                                            </View>
-                                                        )}
-                                                    </View>
-                                                    <Text style={styles.premiumDeviceSub}>
-                                                        {device.status === 'Online' ? '● Online' : '● Offline'} {device.isNVR ? `· ${device.channels?.length || 0} Channels` : ''}
-                                                    </Text>
+                                                    <View style={styles.deviceInfoContainer}>
+                                                        <View style={styles.deviceTitleRow}>
+                                                            <Text style={styles.premiumDeviceName} numberOfLines={1}>{device.name}</Text>
+                                                            <View style={[styles.statusIndicator, { backgroundColor: device.status === 'Online' ? '#1DB954' : '#FF5252' }]} />
+                                                            {device.status === 'Online' && (
+                                                                <View style={styles.miniLiveBadge}>
+                                                                    <Text style={styles.liveBadgeText}>LIVE</Text>
+                                                                </View>
+                                                            )}
+                                                        </View>
+                                                        <Text style={styles.premiumDeviceSub}>
+                                                            {device.status === 'Online' ? '● Online' : '● Offline'} {device.isNVR ? `· ${device.channels?.length || 0} Channels` : ''}
+                                                        </Text>
 
-                                                    <View style={styles.deviceActionRow}>
-                                                        <TouchableOpacity
-                                                            style={styles.smallActionBtn}
-
-                                                            onPress={async () => {
-                                                                const updatedDevices = devices.map(d => d.id === device.id ? { ...d, favorite: !d.favorite } : d);
-                                                                setDevices(updatedDevices);
-                                                                await deviceStorage.saveDevices(updatedDevices);
-                                                            }}
-                                                        >
-                                                            <Icon name={device.favorite ? "heart" : "heart-outline"} size={16} color={device.favorite ? "#A83232" : "#8E7D7D"} />
-                                                        </TouchableOpacity>
-                                                        {device.isNVR && (
+                                                        <View style={styles.deviceActionRow}>
                                                             <TouchableOpacity
                                                                 style={styles.smallActionBtn}
-                                                                onPress={() => {
-                                                                    setSelectedDeviceForCamList(device);
-                                                                    setCamListVisible(true);
+
+                                                                onPress={async () => {
+                                                                    const updatedDevices = devices.map(d => d.id === device.id ? { ...d, favorite: !d.favorite } : d);
+                                                                    setDevices(updatedDevices);
+                                                                    await deviceStorage.saveDevices(updatedDevices);
                                                                 }}
                                                             >
-                                                                <Icon name="video-outline" size={18} color="#A83232" />
+                                                                <Icon name={device.favorite ? "heart" : "heart-outline"} size={16} color={device.favorite ? "#A83232" : "#8E7D7D"} />
                                                             </TouchableOpacity>
-                                                        )}
+                                                            {device.isNVR && (
+                                                                <TouchableOpacity
+                                                                    style={styles.smallActionBtn}
+                                                                    onPress={() => {
+                                                                        setSelectedDeviceForCamList(device);
+                                                                        setCamListVisible(true);
+                                                                    }}
+                                                                >
+                                                                    <Icon name="video-outline" size={18} color="#A83232" />
+                                                                </TouchableOpacity>
+                                                            )}
+                                                        </View>
                                                     </View>
-                                                </View>
 
-                                                <TouchableOpacity style={styles.playBtnContainer} onPress={() => navigation.navigate('LiveView', { deviceId: device.id, deviceName: device.name, autoPlay: true })}>
-                                                    <Icon name="play-circle-outline" size={34} color="#A83232" />
+                                                    <TouchableOpacity style={styles.playBtnContainer} onPress={() => navigation.navigate('LiveView', { deviceId: device.id, deviceName: device.name, autoPlay: true })}>
+                                                        <Icon name="play-circle-outline" size={34} color="#A83232" />
+                                                    </TouchableOpacity>
+                                                </View>
+                                            </View>
+                                        ));
+                                    }
+
+                                    if (searchQuery.trim().length > 0) {
+                                        return (
+                                            <View style={styles.noSearchMatchContainer}>
+                                                <Icon name="magnify-remove-outline" size={56} color="#A83232" style={{ marginBottom: 12 }} />
+                                                <Text style={styles.noSearchMatchTitle}>No Device Found</Text>
+                                                <Text style={styles.noSearchMatchSub}>
+                                                    No devices match "{searchQuery}". Please check the device name, IP, or Serial Number.
+                                                </Text>
+                                                <TouchableOpacity
+                                                    style={styles.clearSearchButton}
+                                                    onPress={() => setSearchQuery('')}
+                                                >
+                                                    <Text style={styles.clearSearchButtonText}>Clear Search</Text>
                                                 </TouchableOpacity>
                                             </View>
-                                        </View>
-                                    ))}
+                                        );
+                                    }
+
+                                    if (activeTab === 'favorites') {
+                                        return (
+                                            <View style={styles.noSearchMatchContainer}>
+                                                <Icon name="heart-outline" size={56} color="#A83232" style={{ marginBottom: 12 }} />
+                                                <Text style={styles.noSearchMatchTitle}>No Favorites Yet</Text>
+                                                <Text style={styles.noSearchMatchSub}>
+                                                    Tap the heart icon on any device to add it to your favorites list.
+                                                </Text>
+                                            </View>
+                                        );
+                                    }
+
+                                    return null;
+                                })()}
 
                                 {/* Camera List Center Popup */}
                                 <Modal
@@ -1002,6 +1049,41 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#333',
         fontWeight: '500',
+    },
+    noSearchMatchContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 36,
+        paddingHorizontal: 20,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        marginVertical: 12,
+        borderWidth: 0.4,
+        borderColor: '#F0E0E0',
+    },
+    noSearchMatchTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#2C3E50',
+        marginBottom: 6,
+    },
+    noSearchMatchSub: {
+        fontSize: 13,
+        color: '#8E7D7D',
+        textAlign: 'center',
+        lineHeight: 18,
+        marginBottom: 18,
+    },
+    clearSearchButton: {
+        backgroundColor: '#FFE4E1',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 20,
+    },
+    clearSearchButtonText: {
+        color: '#A83232',
+        fontWeight: 'bold',
+        fontSize: 13,
     },
 });
 

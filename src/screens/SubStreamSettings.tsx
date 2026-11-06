@@ -47,7 +47,8 @@ const THEME = {
 const SubStreamSettings: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<SubStreamSettingsRouteProp>();
-    const { deviceId } = route.params;
+    const { deviceId } = route.params || {};
+
 
     const [loading, setLoading] = useState(true);
     const [userId, setUserId] = useState<number | null>(null);

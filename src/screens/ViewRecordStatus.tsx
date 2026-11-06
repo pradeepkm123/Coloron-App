@@ -33,7 +33,8 @@ interface CameraStatus {
 const ViewRecordStatus: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<ViewRecordStatusRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [cameras, setCameras] = useState<CameraStatus[]>([
         { id: '1', index: 1, name: 'DATA ENTRY', recordStatus: 'Record', fps: '25', bitrateType: 'VBR', quality: 'Higher', maxBitrate: '2048Kbps', resolution: '1920x1080', recordType: 'Schedule' },

@@ -19,7 +19,8 @@ type SMARTInfoRouteProp = RouteProp<RootStackParamList, 'SMARTInfo'>;
 const SMARTInfo: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<SMARTInfoRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [selectedDisk, setSelectedDisk] = useState('Disk1');
 

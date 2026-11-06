@@ -192,24 +192,7 @@ const Login: React.FC = () => {
                         )}
                     </TouchableOpacity>
 
-                    <View style={styles.orContainer}>
-                        <View style={styles.divider} />
-                        <Text style={styles.orText}>or</Text>
-                        <View style={styles.divider} />
-                    </View>
 
-                    {/* Login with Google */}
-                    <TouchableOpacity
-                        style={styles.googleButton}
-                        onPress={handleGoogleLogin}
-                        disabled={loading}
-                    >
-                        <Image
-                            source={GoogleIcon}
-                            style={styles.googleIcon}
-                        />
-                        <Text style={styles.googleButtonText}>Login with Google</Text>
-                    </TouchableOpacity>
 
                     {/* Create Account Link */}
                     <View style={styles.footerContainer}>

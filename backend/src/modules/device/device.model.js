@@ -9,7 +9,18 @@ const channelSchema = new mongoose.Schema({
     presets: [{
         id: { type: Number },
         name: { type: String }
-    }]
+    }],
+    channelNo: { type: Number },
+    channelName: { type: String },
+    isConfigured: { type: Boolean, default: false },
+    isOnline: { type: Boolean, default: false },
+    cameraId: { type: String },
+    ipAddress: { type: String },
+    model: { type: String },
+    ptz: { type: Boolean, default: false },
+    ptzSupport: { type: Boolean, default: false },
+    ptzSupported: { type: Boolean, default: false },
+    cameraType: { type: String, default: 'IPC' },
 });
 
 const deviceSchema = new mongoose.Schema({
@@ -24,6 +35,10 @@ const deviceSchema = new mongoose.Schema({
     username: { type: String },
     password: { type: String },
     channelCount: { type: Number },
+    maxChannelCount: { type: Number },
+    addedChannelCount: { type: Number },
+    onlineChannelCount: { type: Number },
+    lastChannelSyncAt: { type: Date },
     connectMode: { type: String, enum: ['LAN', 'P2P', 'IP', 'Domain'], default: 'LAN' },
     isNVR: { type: Boolean, default: true },
     protocol: { type: String, default: 'TVT' },

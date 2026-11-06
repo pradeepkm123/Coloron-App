@@ -1,4 +1,4 @@
-import { AppRegistry } from 'react-native';
+import { AppRegistry, LogBox } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import notifee, { AndroidImportance } from '@notifee/react-native';
 import App from './App';
@@ -7,8 +7,23 @@ import firebase from '@react-native-firebase/app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { enableScreens } from 'react-native-screens';
 
+// Ignore all LogBox error/warning banners across entire app
+LogBox.ignoreAllLogs(true);
+
 // Disable native screens to fix the "Cannot add new property 'scene'" crash
 enableScreens(false);
+
+// --- GLOBAL UNCAUGHT JS ERROR GUARD ---
+if (global.ErrorUtils) {
+  const originalHandler = global.ErrorUtils.getGlobalHandler();
+  global.ErrorUtils.setGlobalHandler((error, isFatal) => {
+    console.error('[GlobalErrorGuard] Caught unhandled JS error:', error, 'Fatal:', isFatal);
+    if (__DEV__ && originalHandler) {
+      originalHandler(error, isFatal);
+    }
+  });
+}
+
 
 // --- DEFENSIVE: Initialize Dummy Firebase if google-services.json is missing ---
 if (!firebase.apps.length) {

@@ -8,15 +8,7 @@ export let BASE_URL = DEFAULT_BASE_URL;
 export const initBaseUrl = async () => {
     try {
         const savedIp = await AsyncStorage.getItem('@vms_backend_ip');
-        const isPrivateIp = (ip: string) => {
-            return ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('127.') || ip.startsWith('172.');
-        };
-
-        if (savedIp && isPrivateIp(savedIp) && !isPrivateIp(DEFAULT_BACKEND_IP)) {
-            console.log(`[API] Overriding saved local IP (${savedIp}) with public default IP: ${DEFAULT_BACKEND_IP}`);
-            await AsyncStorage.removeItem('@vms_backend_ip');
-            BASE_URL = DEFAULT_BASE_URL;
-        } else if (savedIp) {
+        if (savedIp) {
             BASE_URL = `http://${savedIp}:5000/api`;
             console.log(`[API] Initialized BASE_URL to: ${BASE_URL}`);
         } else {
@@ -25,7 +17,7 @@ export const initBaseUrl = async () => {
             if (detectedIp) {
                 console.log(`[API] Auto-detected and configured backend at: http://${detectedIp}:5000/api`);
             } else {
-                console.log('[API] Auto-detection failed, falling back to default:', BASE_URL);
+                console.log('[API] Using default local backend:', BASE_URL);
             }
         }
     } catch (e) {
@@ -59,6 +51,34 @@ interface AuthResponse {
     profilePicture?: string;
     message: string;
 }
+
+// ─── Resilient Fetch with Retry ──────────────────────────────────────────────
+export const fetchWithRetry = async (
+    url: string,
+    options: RequestInit = {},
+    retries = 2,
+    backoff = 1000
+): Promise<Response> => {
+    try {
+        const headers = {
+            'Accept': 'application/json',
+            'Connection': 'keep-alive',
+            ...(options.headers || {}),
+        };
+        const response = await fetch(url, { ...options, headers });
+        if (!response.ok && response.status >= 500 && retries > 0) {
+            await new Promise<void>(res => setTimeout(() => res(), backoff));
+            return fetchWithRetry(url, options, retries - 1, backoff * 2);
+        }
+        return response;
+    } catch (err) {
+        if (retries > 0) {
+            await new Promise<void>(res => setTimeout(() => res(), backoff));
+            return fetchWithRetry(url, options, retries - 1, backoff * 2);
+        }
+        throw err;
+    }
+};
 
 export const api = {
     // Signup new user
@@ -110,7 +130,7 @@ export const api = {
             });
             return result;
         } catch (error: any) {
-            console.error('Login API error:', error);
+            console.log('Login API error:', error);
             throw new Error(error.message || 'Unable to connect to server');
         }
     },
@@ -137,7 +157,7 @@ export const api = {
             });
             return result;
         } catch (error: any) {
-            console.error('Google Login API error:', error);
+            console.log('Google Login API error:', error);
             throw new Error(error.message || 'Unable to connect to server');
         }
     },
@@ -350,6 +370,22 @@ export const api = {
         }
     },
 
+    syncDeviceChannels: async (deviceId: string, syncData: { maxChannelCount: number; channels: any[] }): Promise<any> => {
+        const token = await authStorage.getToken();
+        const response = await fetch(`${BASE_URL}/devices/${deviceId}/channels/sync`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(syncData),
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to sync channels to backend: ${response.statusText}`);
+        }
+        return await response.json();
+    },
+
     // -- Event reporting
     createEvent: async (event: any) => {
         const token = await authStorage.getToken();
@@ -388,14 +424,14 @@ export const api = {
     // Detect backend IP and store it
     detectBackendIp: async (customIp?: string): Promise<string | null> => {
         const ipsToTest = customIp ? [customIp] : [
-            '52.66.98.128',  // Public EC2 IP
-            '10.0.2.2',      // Emulator loopback
-            '192.168.1.15',  // Correct host IP
-            '192.168.1.20',  // Configured IP 1
-            '192.168.1.22',  // Configured IP 2
-            '192.168.1.13',  // Common LAN IP
-            '192.168.1.5',   // Common LAN IP
-            '127.0.0.1',     // Localhost
+            DEFAULT_BACKEND_IP,  // 192.168.1.12 from config
+            '10.0.2.2',          // Android Emulator host loopback
+            '127.0.0.1',         // Localhost loopback
+            '192.168.1.12',      // Current local machine LAN IP
+            '192.168.1.9',       // Alternative local IP
+            '192.168.1.15',      // Legacy LAN IP
+            '192.168.1.20',
+            '192.168.1.22',
         ];
 
         try {

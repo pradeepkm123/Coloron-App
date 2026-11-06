@@ -31,7 +31,8 @@ const THEME = {
 const ViewNetworkStatus: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<ViewNetworkStatusRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [loading, setLoading] = useState(true);
     const [statusData, setStatusData] = useState({

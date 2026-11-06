@@ -462,15 +462,27 @@ const FullscreenControls: React.FC<FullscreenControlsProps> = ({
                 <View style={styles.fsSideDevicePanel}>
                     {/* Header: Device Name Dropdown + Nav Arrows */}
                     <View style={styles.fsSideHeader}>
-                        <TouchableOpacity style={styles.fsSideDeviceTrigger}>
+                        <TouchableOpacity style={styles.fsSideDeviceTrigger} onPress={onOpenDeviceModal}>
                             <Text style={styles.fsSideDeviceName}>{selectedDevice?.name || 'Device'}</Text>
                             <Icon name="chevron-down" size={20} color="rgba(255,255,255,0.6)" />
                         </TouchableOpacity>
                         <View style={styles.fsSideNavRow}>
-                            <TouchableOpacity style={styles.fsSideNavCircle}>
+                            <TouchableOpacity style={styles.fsSideNavCircle} onPress={() => {
+                                const total = selectedDevice?.channelCount || (selectedDevice?.channels?.length) || 16;
+                                const allChannels = Array.from({ length: total }, (_, i) => i);
+                                const currentIndex = allChannels.indexOf(currentChannel);
+                                const prevIndex = currentIndex <= 0 ? total - 1 : currentIndex - 1;
+                                onSelectChannel(allChannels[prevIndex]);
+                            }}>
                                 <Icon name="arrow-left" size={16} color="#FFF" />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.fsSideNavCircle}>
+                            <TouchableOpacity style={styles.fsSideNavCircle} onPress={() => {
+                                const total = selectedDevice?.channelCount || (selectedDevice?.channels?.length) || 16;
+                                const allChannels = Array.from({ length: total }, (_, i) => i);
+                                const currentIndex = allChannels.indexOf(currentChannel);
+                                const nextIndex = (currentIndex === -1 || currentIndex >= total - 1) ? 0 : currentIndex + 1;
+                                onSelectChannel(allChannels[nextIndex]);
+                            }}>
                                 <Icon name="arrow-right" size={16} color="#FFF" />
                             </TouchableOpacity>
                         </View>
@@ -481,15 +493,20 @@ const FullscreenControls: React.FC<FullscreenControlsProps> = ({
                     {/* Channels Grid */}
                     <ScrollView contentContainerStyle={styles.fsSideGrid}>
                         {(() => {
-                            const total = selectedDevice?.channelCount || 16;
-                            const channelsToDisplay = recordedChannels.length > 0 ? recordedChannels : Array.from({ length: total }, (_, i) => i);
+                            const total = selectedDevice?.channelCount || (selectedDevice?.channels?.length) || 16;
+                            const channelsToDisplay = Array.from({ length: total }, (_, i) => i);
                             
                             return channelsToDisplay.map((i) => {
                                 const isSelected = i === currentChannel;
+                                const hasRecording = recordedChannels.length === 0 || recordedChannels.includes(i);
                                 return (
                                     <TouchableOpacity
                                         key={i}
-                                        style={[styles.fsSideChannelBox, isSelected && styles.fsSideChannelActive]}
+                                        style={[
+                                            styles.fsSideChannelBox,
+                                            isSelected && styles.fsSideChannelActive,
+                                            !hasRecording && { opacity: 0.6 }
+                                        ]}
                                         onPress={() => onSelectChannel(i)}
                                     >
                                         <Text style={[styles.fsSideChannelText, isSelected && styles.fsSideChannelActiveText]}>

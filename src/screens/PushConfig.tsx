@@ -26,13 +26,14 @@ import { API_URL } from '../config/api';
 const PushConfig: React.FC = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<any>();
-    const { deviceId, deviceName, channelCount: routeChannelCount, deviceChannels: routeChannels } = route.params;
+    const { deviceId, deviceName, channelCount: routeChannelCount, deviceChannels: routeChannels } = route.params || {};
+
 
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [globalPush, setGlobalPush] = useState(true);
     const [userSubscription, setUserSubscription] = useState(true);
-    
+
     const [activeModal, setActiveModal] = useState<string | null>(null);
     const [deviceChannels, setDeviceChannels] = useState<any[]>([]);
 
@@ -83,7 +84,7 @@ const PushConfig: React.FC = () => {
     const savePushSetting = async (eventId: string, enabled: boolean, channels: number[] = []) => {
         try {
             const key = `push_settings_${deviceId}`;
-            
+
             // 1. Save to local AsyncStorage with the flat structure
             const oldData = await AsyncStorage.getItem(key);
             const settings = oldData ? JSON.parse(oldData) : {};
@@ -124,8 +125,8 @@ const PushConfig: React.FC = () => {
     };
 
     const applyLocalPushSettings = async (
-        overrideGlobal?: boolean, 
-        overrideOffline?: boolean, 
+        overrideGlobal?: boolean,
+        overrideOffline?: boolean,
         overrideAccess?: boolean,
         overrideUserSub?: boolean
     ) => {
@@ -143,29 +144,29 @@ const PushConfig: React.FC = () => {
                 const chId = typeof ch.id === 'number' ? ch.id : Number(ch.id);
                 const checkId = chId + 1;
                 return {
-                    channelId:  chId,
-                    human:      (settings['HUMAN_DETECTION'] || []).includes(checkId),
-                    vehicle:    (settings['VEHICLE_DETECTION'] || []).includes(checkId),
-                    face_det:   (settings['FACE_DETECTION'] || []).includes(checkId),
-                    face_rec:   (settings['FACE_RECOGNITION'] || []).includes(checkId),
-                    intrusion:  (settings['INTRUSION'] || []).includes(checkId),
-                    line:       (settings['LINE_CROSSING'] || []).includes(checkId),
-                    loitering:  (settings['LOITERING'] || []).includes(checkId),
-                    crowd:      (settings['CROWD_DETECTION'] || []).includes(checkId),
-                    tampering:  (settings['TAMPERING'] || []).includes(checkId),
-                    motion:     (settings['MOTION'] || []).includes(checkId),
-                    sensor:     (settings['SENSOR'] || []).includes(checkId),
+                    channelId: chId,
+                    human: (settings['HUMAN_DETECTION'] || []).includes(checkId),
+                    vehicle: (settings['VEHICLE_DETECTION'] || []).includes(checkId),
+                    face_det: (settings['FACE_DETECTION'] || []).includes(checkId),
+                    face_rec: (settings['FACE_RECOGNITION'] || []).includes(checkId),
+                    intrusion: (settings['INTRUSION'] || []).includes(checkId),
+                    line: (settings['LINE_CROSSING'] || []).includes(checkId),
+                    loitering: (settings['LOITERING'] || []).includes(checkId),
+                    crowd: (settings['CROWD_DETECTION'] || []).includes(checkId),
+                    tampering: (settings['TAMPERING'] || []).includes(checkId),
+                    motion: (settings['MOTION'] || []).includes(checkId),
+                    sensor: (settings['SENSOR'] || []).includes(checkId),
                 };
             });
 
             const legacyPayload = {
-                global:   { 
+                global: {
                     enablePush: finalGlobal,
                     messageSubscription: finalUserSub
                 },
-                enabled:  finalGlobal,
+                enabled: finalGlobal,
                 channels: channelsPayload,
-                system:   {
+                system: {
                     ...systemAlarms,
                     offline: finalOffline,
                     access: finalAccess,
@@ -217,7 +218,7 @@ const PushConfig: React.FC = () => {
             // --- Phase 1: Fast Load Local/Cached Data ---
             const devices = await deviceStorage.getDevices();
             const dev = devices.find(d => String(d.id) === String(deviceId) || d.serialNumber === deviceId || d.deviceId === deviceId);
-            
+
             let loadedChannels: any[] = [];
 
             // 1. Check saved channels on the device object
@@ -326,7 +327,7 @@ const PushConfig: React.FC = () => {
                         }));
                         setDeviceChannels(freshChannels);
                         console.log('[PushConfig] Background: fresh channel names loaded');
-                        
+
                         if (dev) {
                             const updatedDev = { ...dev, channels: freshChannels };
                             await deviceStorage.updateDevice(updatedDev);
@@ -413,7 +414,7 @@ const PushConfig: React.FC = () => {
 
     const updateEventChannels = async (eventId: string, selectedIds: number[]) => {
         const numericIds = selectedIds.map(id => typeof id === 'number' ? id : parseInt(id, 10));
-        
+
         // 1. Immediately update React state for UI responsiveness
         setEventSettings((prev: any) => ({
             ...prev,
@@ -447,7 +448,7 @@ const PushConfig: React.FC = () => {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" />
-            
+
             {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -473,8 +474,8 @@ const PushConfig: React.FC = () => {
                             <Text style={styles.settingMainLabel}>Enable push message</Text>
                             <Text style={styles.settingSubtext}>Affects all users! Master switch for this device.</Text>
                         </View>
-                        <Switch 
-                            value={globalPush} 
+                        <Switch
+                            value={globalPush}
                             onValueChange={handleToggleGlobalPush}
                             trackColor={{ false: "#DDD", true: "#FFD7D7" }}
                             thumbColor={globalPush ? "#A83232" : "#FFF"}
@@ -486,8 +487,8 @@ const PushConfig: React.FC = () => {
                             <Text style={styles.settingMainLabel}>Message Subscription</Text>
                             <Text style={styles.settingSubtext}>Affects only you. Toggle to receive alerts.</Text>
                         </View>
-                        <Switch 
-                            value={userSubscription} 
+                        <Switch
+                            value={userSubscription}
                             onValueChange={handleToggleUserSubscription}
                             trackColor={{ false: "#DDD", true: "#FFD7D7" }}
                             thumbColor={userSubscription ? "#A83232" : "#FFF"}
@@ -498,9 +499,9 @@ const PushConfig: React.FC = () => {
                 <Text style={styles.sectionHeader}>AI DETECTION</Text>
                 <View style={styles.sectionCard}>
                     {aiEvents.map(event => (
-                        <TouchableOpacity 
-                            key={event.id} 
-                            style={styles.eventRow} 
+                        <TouchableOpacity
+                            key={event.id}
+                            style={styles.eventRow}
                             onPress={() => setActiveModal(event.id)}
                         >
                             <View style={styles.eventLabelGroup}>
@@ -518,8 +519,8 @@ const PushConfig: React.FC = () => {
                 <Text style={styles.sectionHeader}>BASIC ALARMS</Text>
                 <View style={styles.sectionCard}>
                     {basicAlarms.map(event => (
-                        <TouchableOpacity 
-                            key={event.id} 
+                        <TouchableOpacity
+                            key={event.id}
                             style={styles.eventRow}
                             onPress={() => setActiveModal(event.id)}
                         >

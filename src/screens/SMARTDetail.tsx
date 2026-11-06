@@ -30,7 +30,8 @@ interface SMARTAttribute {
 const SMARTDetail: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<SMARTDetailRouteProp>();
-    const { diskName } = route.params;
+    const { diskName } = route.params || {};
+
 
     const attributes: SMARTAttribute[] = [
         {

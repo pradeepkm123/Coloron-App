@@ -21,7 +21,8 @@ type ModeSettingsRouteProp = RouteProp<RootStackParamList, 'ModeSettings'>;
 const ModeSettings: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<ModeSettingsRouteProp>();
-    const { deviceId, deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
+
 
     const [mode, setMode] = useState('Auto');
     const [recordType, setRecordType] = useState('Always(24x7) Record+Motion Record+Sensor Record');

@@ -19,7 +19,8 @@ type StorageGroupConfigRouteProp = RouteProp<RootStackParamList, 'StorageGroupCo
 const StorageGroupConfig: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<StorageGroupConfigRouteProp>();
-    const { groupName } = route.params;
+    const { groupName } = route.params || {};
+
 
     const disks = ['Disk1', 'Disk2'];
     const cameras = [

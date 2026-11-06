@@ -25,7 +25,8 @@ const { width } = Dimensions.get('window');
 const SensorAlarmConfig: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<SensorAlarmConfigRouteProp>();
-    const { deviceId, deviceName, sensorName } = route.params;
+    const { deviceId, deviceName, sensorName } = route.params || {};
+
 
     const [schedule, setSchedule] = useState('24x7');
     const [type, setType] = useState('NO');

@@ -4,11 +4,11 @@ Write-Host "===================================================" -ForegroundColo
 Write-Host ""
 
 Write-Host "Setting parallel build limits to prevent compiler memory exhaustion..." -ForegroundColor Yellow
-$env:CMAKE_BUILD_PARALLEL_LEVEL=1
+$env:CMAKE_BUILD_PARALLEL_LEVEL = 1
 
 Write-Host "Running gradle build in the android folder..." -ForegroundColor Yellow
-cd android
-.\gradlew assembleRelease
+Set-Location "$PSScriptRoot\android"
+.\gradlew assembleRelease --no-daemon
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host ""
@@ -24,6 +24,6 @@ Write-Host "===================================================" -ForegroundColo
 Write-Host "  BUILD SUCCESSFUL!" -ForegroundColor Green
 Write-Host "===================================================" -ForegroundColor Green
 Write-Host "Output APK is located at:" -ForegroundColor White
-Write-Host "e:\prd\app\VMS\android\app\build\outputs\apk\release\app-release.apk" -ForegroundColor Green
+Write-Host "$PSScriptRoot\android\app\build\outputs\apk\release\app-release.apk" -ForegroundColor Green
 Write-Host ""
 Read-Host "Press Enter to exit..."

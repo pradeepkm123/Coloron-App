@@ -9,6 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface ChannelFilterSectionProps {
+    channels?: any[];
     channelCount: number;
     currentChannel: number;
     channelNames: { [key: number]: string };
@@ -20,6 +21,7 @@ interface ChannelFilterSectionProps {
 }
 
 const ChannelFilterSection: React.FC<ChannelFilterSectionProps> = ({
+    channels,
     channelCount,
     currentChannel,
     channelNames,
@@ -29,6 +31,11 @@ const ChannelFilterSection: React.FC<ChannelFilterSectionProps> = ({
     onOpenFilterModal,
     recordingYellow
 }) => {
+    // Render configured channels if available, otherwise generate sequential ones
+    const listToRender = channels && channels.length > 0
+        ? channels.filter((ch: any) => ch.isConfigured !== false)
+        : [...Array(channelCount)].map((_, i) => ({ id: i, channelNo: i + 1, name: channelNames[i] || `CH ${i + 1}` }));
+
     return (
         <View style={styles.filterSection}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -36,18 +43,22 @@ const ChannelFilterSection: React.FC<ChannelFilterSectionProps> = ({
                 <TouchableOpacity><Icon name="camera-outline" size={20} color="#A83232" /></TouchableOpacity>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 12 }}>
-                {[...Array(channelCount)].map((_, i) => (
-                    <TouchableOpacity
-                        key={i}
-                        style={[styles.filterChip, currentChannel === i && styles.activeFilterChip, { flexDirection: 'row', alignItems: 'center' }]}
-                        onPress={() => onSelectChannel(i)}
-                    >
-                        <View style={[styles.channelDot, { backgroundColor: currentChannel === i ? '#FFF' : recordingYellow }]} />
-                        <Text style={[styles.filterText, currentChannel === i && { color: '#FFF' }]}>
-                            {channelNames[i] ? channelNames[i] : `CH ${i + 1}`}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
+                {listToRender.map((ch: any) => {
+                    const isSelected = currentChannel === ch.id;
+                    const chName = ch.name || ch.channelName || `CH ${ch.channelNo}`;
+                    return (
+                        <TouchableOpacity
+                            key={ch.id}
+                            style={[styles.filterChip, isSelected && styles.activeFilterChip, { flexDirection: 'row', alignItems: 'center' }]}
+                            onPress={() => onSelectChannel(ch.id)}
+                        >
+                            <View style={[styles.channelDot, { backgroundColor: isSelected ? '#FFF' : recordingYellow }]} />
+                            <Text style={[styles.filterText, isSelected && { color: '#FFF' }]}>
+                                {chName}
+                            </Text>
+                        </TouchableOpacity>
+                    );
+                })}
             </ScrollView>
         </View>
     );

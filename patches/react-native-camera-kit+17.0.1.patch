@@ -1,0 +1,157 @@
+diff --git a/node_modules/react-native-camera-kit/dist/Camera.android.js b/node_modules/react-native-camera-kit/dist/Camera.android.js
+index dda3087..17db817 100644
+--- a/node_modules/react-native-camera-kit/dist/Camera.android.js
++++ b/node_modules/react-native-camera-kit/dist/Camera.android.js
+@@ -5,10 +5,16 @@ import NativeCamera from './specs/CameraNativeComponent';
+ import NativeCameraKitModule from './specs/NativeCameraKitModule';
+ const Camera = React.forwardRef((props, ref) => {
+     const nativeRef = React.useRef(null);
+-    props.zoom = props.zoom ?? -1;
+-    props.maxZoom = props.maxZoom ?? -1;
+-    props.scanThrottleDelay = props.scanThrottleDelay ?? -1;
+-    props.allowedBarcodeTypes = props.allowedBarcodeTypes ?? supportedCodeFormats;
++    const transformedProps = {
++        ...props,
++        zoom: props.zoom ?? -1,
++        maxZoom: props.maxZoom ?? -1,
++        scanThrottleDelay: props.scanThrottleDelay ?? -1,
++        allowedBarcodeTypes: props.allowedBarcodeTypes ?? supportedCodeFormats,
++        ratioOverlayColor: processColor(props.ratioOverlayColor),
++        frameColor: processColor(props.frameColor),
++        laserColor: processColor(props.laserColor),
++    };
+     React.useImperativeHandle(ref, () => ({
+         capture: async (options = {}) => {
+             return await NativeCameraKitModule.capture(options, findNodeHandle(nativeRef.current) ?? undefined);
+@@ -20,10 +26,6 @@ const Camera = React.forwardRef((props, ref) => {
+             throw new Error('Not implemented');
+         },
+     }));
+-    const transformedProps = { ...props };
+-    transformedProps.ratioOverlayColor = processColor(props.ratioOverlayColor);
+-    transformedProps.frameColor = processColor(props.frameColor);
+-    transformedProps.laserColor = processColor(props.laserColor);
+     return <NativeCamera style={{ minWidth: 100, minHeight: 100 }} ref={nativeRef} {...transformedProps}/>;
+ });
+ export default Camera;
+diff --git a/node_modules/react-native-camera-kit/dist/Camera.ios.js b/node_modules/react-native-camera-kit/dist/Camera.ios.js
+index 7d7dabe..4b468ea 100644
+--- a/node_modules/react-native-camera-kit/dist/Camera.ios.js
++++ b/node_modules/react-native-camera-kit/dist/Camera.ios.js
+@@ -5,13 +5,16 @@ import NativeCamera from './specs/CameraNativeComponent';
+ import NativeCameraKitModule from './specs/NativeCameraKitModule';
+ const Camera = React.forwardRef((props, ref) => {
+     const nativeRef = React.useRef(null);
+-    props.zoom = props.zoom ?? -1;
+-    props.maxZoom = props.maxZoom ?? -1;
+-    props.scanThrottleDelay = props.scanThrottleDelay ?? -1;
+-    props.iOsDeferredStart = props.iOsDeferredStart ?? true;
+-    props.allowedBarcodeTypes = props.allowedBarcodeTypes ?? supportedCodeFormats;
+-    props.resetFocusTimeout = props.resetFocusTimeout ?? 0;
+-    props.resetFocusWhenMotionDetected = props.resetFocusWhenMotionDetected ?? true;
++    const transformedProps = {
++        ...props,
++        zoom: props.zoom ?? -1,
++        maxZoom: props.maxZoom ?? -1,
++        scanThrottleDelay: props.scanThrottleDelay ?? -1,
++        iOsDeferredStart: props.iOsDeferredStart ?? true,
++        allowedBarcodeTypes: props.allowedBarcodeTypes ?? supportedCodeFormats,
++        resetFocusTimeout: props.resetFocusTimeout ?? 0,
++        resetFocusWhenMotionDetected: props.resetFocusWhenMotionDetected ?? true,
++    };
+     React.useImperativeHandle(ref, () => ({
+         capture: async () => {
+             return await NativeCameraKitModule.capture({}, findNodeHandle(nativeRef.current) ?? undefined);
+@@ -23,7 +26,7 @@ const Camera = React.forwardRef((props, ref) => {
+             return await NativeCameraKitModule.checkDeviceCameraAuthorizationStatus();
+         },
+     }));
+-    return <NativeCamera style={{ minWidth: 100, minHeight: 100 }} ref={nativeRef} {...props}/>;
++    return <NativeCamera style={{ minWidth: 100, minHeight: 100 }} ref={nativeRef} {...transformedProps}/>;
+ });
+ export default Camera;
+ //# sourceMappingURL=Camera.ios.js.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-camera-kit/src/Camera.android.tsx b/node_modules/react-native-camera-kit/src/Camera.android.tsx
+index 56cddbc..cca4937 100644
+--- a/node_modules/react-native-camera-kit/src/Camera.android.tsx
++++ b/node_modules/react-native-camera-kit/src/Camera.android.tsx
+@@ -8,14 +8,16 @@ import NativeCameraKitModule from './specs/NativeCameraKitModule';
+ const Camera = React.forwardRef<CameraApi, CameraProps>((props, ref) => {
+   const nativeRef = React.useRef(null);
+ 
+-  // RN doesn't support optional view props yet (sigh)
+-  // so we have to use -1 to indicate 'undefined'
+-  // All int/float/double props from src/specs/CameraNativeComponent.ts need be mentioned here
+-  props.zoom = props.zoom ?? -1;
+-  props.maxZoom = props.maxZoom ?? -1;
+-  props.scanThrottleDelay = props.scanThrottleDelay ?? -1;
+-
+-  props.allowedBarcodeTypes = props.allowedBarcodeTypes ?? supportedCodeFormats;
++  const transformedProps: CameraProps = {
++    ...props,
++    zoom: props.zoom ?? -1,
++    maxZoom: props.maxZoom ?? -1,
++    scanThrottleDelay: props.scanThrottleDelay ?? -1,
++    allowedBarcodeTypes: props.allowedBarcodeTypes ?? supportedCodeFormats,
++    ratioOverlayColor: processColor(props.ratioOverlayColor) as any,
++    frameColor: processColor(props.frameColor) as any,
++    laserColor: processColor(props.laserColor) as any,
++  };
+ 
+   React.useImperativeHandle(ref, () => ({
+     capture: async (options = {}) => {
+@@ -29,11 +31,6 @@ const Camera = React.forwardRef<CameraApi, CameraProps>((props, ref) => {
+     },
+   }));
+ 
+-  const transformedProps: CameraProps = { ...props };
+-  transformedProps.ratioOverlayColor = processColor(props.ratioOverlayColor) as any;
+-  transformedProps.frameColor = processColor(props.frameColor) as any;
+-  transformedProps.laserColor = processColor(props.laserColor) as any;
+-
+   // @ts-expect-error props for codegen differ a bit from the user-facing ones
+   return <NativeCamera style={{ minWidth: 100, minHeight: 100 }} ref={nativeRef} {...transformedProps} />;
+ });
+diff --git a/node_modules/react-native-camera-kit/src/Camera.ios.tsx b/node_modules/react-native-camera-kit/src/Camera.ios.tsx
+index 0845d6d..a077264 100644
+--- a/node_modules/react-native-camera-kit/src/Camera.ios.tsx
++++ b/node_modules/react-native-camera-kit/src/Camera.ios.tsx
+@@ -8,18 +8,16 @@ import NativeCameraKitModule from './specs/NativeCameraKitModule';
+ const Camera = React.forwardRef<CameraApi, CameraProps>((props, ref) => {
+   const nativeRef = React.useRef(null);
+ 
+-  // RN doesn't support optional view props yet (sigh)
+-  // so we have to use -1 to indicate 'undefined'
+-  // All int/float/double props from src/specs/CameraNativeComponent.ts need be mentioned here
+-  props.zoom = props.zoom ?? -1;
+-  props.maxZoom = props.maxZoom ?? -1;
+-  props.scanThrottleDelay = props.scanThrottleDelay ?? -1;
+-  props.iOsDeferredStart = props.iOsDeferredStart ?? true;
+-
+-  props.allowedBarcodeTypes = props.allowedBarcodeTypes ?? supportedCodeFormats;
+-
+-  props.resetFocusTimeout = props.resetFocusTimeout ?? 0;
+-  props.resetFocusWhenMotionDetected = props.resetFocusWhenMotionDetected ?? true;
++  const transformedProps: CameraProps = {
++    ...props,
++    zoom: props.zoom ?? -1,
++    maxZoom: props.maxZoom ?? -1,
++    scanThrottleDelay: props.scanThrottleDelay ?? -1,
++    iOsDeferredStart: props.iOsDeferredStart ?? true,
++    allowedBarcodeTypes: props.allowedBarcodeTypes ?? supportedCodeFormats,
++    resetFocusTimeout: props.resetFocusTimeout ?? 0,
++    resetFocusWhenMotionDetected: props.resetFocusWhenMotionDetected ?? true,
++  };
+ 
+   React.useImperativeHandle(ref, () => ({
+     capture: async () => {
+@@ -34,7 +32,7 @@ const Camera = React.forwardRef<CameraApi, CameraProps>((props, ref) => {
+   }));
+ 
+   // @ts-expect-error props for codegen differ a bit from the user-facing ones
+-  return <NativeCamera style={{ minWidth: 100, minHeight: 100 }} ref={nativeRef} {...props} />;
++  return <NativeCamera style={{ minWidth: 100, minHeight: 100 }} ref={nativeRef} {...transformedProps} />;
+ });
+ 
+ export default Camera;

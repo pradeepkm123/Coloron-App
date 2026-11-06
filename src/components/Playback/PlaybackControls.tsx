@@ -20,6 +20,7 @@ interface PlaybackControlsProps {
     onRewind: () => void;
     onGridPress: () => void;
     onDevicePress: () => void;
+    onFullscreenPress?: () => void;
     gridType?: string;
 }
 
@@ -35,6 +36,7 @@ const PlaybackControls: React.FC<PlaybackControlsProps> = ({
     onRewind,
     onGridPress,
     onDevicePress,
+    onFullscreenPress,
     gridType = '1x1'
 }) => {
     const isMultiGrid = gridType !== '1x1';
@@ -96,6 +98,15 @@ const PlaybackControls: React.FC<PlaybackControlsProps> = ({
                         {isMultiGrid ? gridType : 'Grid'}
                     </Text>
                 </TouchableOpacity>
+
+                {onFullscreenPress && (
+                    <TouchableOpacity style={styles.actionBtnWrapper} onPress={onFullscreenPress}>
+                        <View style={styles.actionBtn}>
+                            <Icon name="fullscreen" size={22} color="#A83232" />
+                        </View>
+                        <Text style={styles.actionLabel}>Landscape</Text>
+                    </TouchableOpacity>
+                )}
 
                 <TouchableOpacity style={styles.actionBtnWrapper} onPress={onDevicePress}>
                     <View style={styles.actionBtn}>

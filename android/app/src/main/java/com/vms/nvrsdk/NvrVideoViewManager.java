@@ -376,12 +376,7 @@ public class NvrVideoViewManager extends SimpleViewManager<View> implements Vide
                             vp.playVideoDataFormatHead(finalHandle, iEncodeType);
                             vp.play(); // Ensure decoder is running
 
-                            // Show Toast to confirm header application (only for live view, not for playback)
-                            if (vp.getContext() != null && !NvrSdkModule.isPlaybackHandle(finalHandle) && !NvrSdkModule.isPlaybackHandle(liveHandle)) {
-                                android.widget.Toast.makeText(vp.getContext(),
-                                        " DECODER INIT: Ch " + vp.GetChannelID(),
-                                        android.widget.Toast.LENGTH_SHORT).show();
-                            }
+
                         }
                     });
                     break;

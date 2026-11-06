@@ -20,7 +20,7 @@ type RemoteFunctionPanelRouteProp = RouteProp<RootStackParamList, 'RemoteFunctio
 const RemoteFunctionPanel: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<RemoteFunctionPanelRouteProp>();
-    const { deviceName } = route.params;
+    const { deviceId, deviceName } = route.params || {};
 
     const renderMenuItem = (icon: string, label: string, onPress: () => void) => (
         <TouchableOpacity style={styles.menuItem} onPress={onPress}>
@@ -36,21 +36,22 @@ const RemoteFunctionPanel: React.FC = () => {
 
     const handleFeature = (feature: string) => {
         if (feature === 'Camera') {
-            navigation.navigate('CameraManagement', { deviceId: route.params.deviceId, deviceName: route.params.deviceName });
+            navigation.navigate('CameraManagement', { deviceId: deviceId || '', deviceName: deviceName || '' });
         } else if (feature === 'Record') {
-            navigation.navigate('RecordMain', { deviceId: route.params.deviceId, deviceName: route.params.deviceName });
+            navigation.navigate('RecordMain', { deviceId: deviceId || '', deviceName: deviceName || '' });
         } else if (feature === 'System') {
-            navigation.navigate('SystemMain', { deviceId: route.params.deviceId, deviceName: route.params.deviceName });
+            navigation.navigate('SystemMain', { deviceId: deviceId || '', deviceName: deviceName || '' });
         } else if (feature === 'Alarm') {
-            navigation.navigate('AlarmMain', { deviceId: route.params.deviceId, deviceName: route.params.deviceName });
+            navigation.navigate('AlarmMain', { deviceId: deviceId || '', deviceName: deviceName || '' });
         } else if (feature === 'Disk') {
-            navigation.navigate('DiskMain', { deviceId: route.params.deviceId, deviceName: route.params.deviceName });
+            navigation.navigate('DiskMain', { deviceId: deviceId || '', deviceName: deviceName || '' });
         } else if (feature === 'Network') {
-            navigation.navigate('NetworkMain', { deviceId: route.params.deviceId, deviceName: route.params.deviceName });
+            navigation.navigate('NetworkMain', { deviceId: deviceId || '', deviceName: deviceName || '' });
         } else {
-            Alert.alert(feature, `Configuration for ${deviceName} - ${feature} coming soon.`);
+            Alert.alert(feature, `Configuration for ${deviceName || 'Device'} - ${feature} coming soon.`);
         }
     };
+
 
     return (
         <View style={styles.container}>

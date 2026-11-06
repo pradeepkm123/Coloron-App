@@ -67,7 +67,7 @@ const EditCamera: React.FC = () => {
                 <Text style={[styles.cell, { width: 80, textAlign: 'center', color: isOnline ? '#4CAF50' : '#FF3B30', fontWeight: 'bold' }]}>
                     {deviceStatuses[item.id] || 'Offline'}
                 </Text>
-                <Text style={[styles.cell, { width: 100, textAlign: 'center' }]}>{item.protocol || 'TVT'}</Text>
+                <Text style={[styles.cell, { width: 100, textAlign: 'center' }]}>{item.protocol === 'TVT' ? 'Secura' : item.protocol || 'Secura'}</Text>
                 <Text style={[styles.cell, { width: 120, textAlign: 'center' }]} numberOfLines={1}>{item.model || '-'}</Text>
 
             </View>

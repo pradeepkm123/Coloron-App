@@ -122,7 +122,7 @@ export const getDeviceBasicInfo = async (userId: number): Promise<DeviceBasicInf
   return {
     deviceName:      xmlGet(xml, 'DeviceName', 'NVR Device'),
     serialNumber:    xmlGet(xml, 'SerialNumber', ''),
-    model:           xmlGet(xml, 'DeviceModel', xmlGet(xml, 'Model', 'TVT Device')),
+    model:           xmlGet(xml, 'DeviceModel', xmlGet(xml, 'Model', 'Secura Device')),
     firmwareVersion: xmlGet(xml, 'SoftVersion', xmlGet(xml, 'FirmwareVersion', '-')),
     hardwareVersion: xmlGet(xml, 'HardVersion', '-'),
     deviceType:      xmlGet(xml, 'DeviceType', '-'),
